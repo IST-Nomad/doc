@@ -22,7 +22,7 @@
 #22 Установить KMS сервер
 23 Backup DB (oracle, postgresql, ms sql)
 !!24 Устанвить DC на ESXi
-25 
+25 Backup боевой MSSql 10.129.135.177
 26 Заменить rasbery на nettop (курсы валют)
 #27 запустить helpdesk
 #28 настроить VeeamBackup
@@ -42,10 +42,10 @@
 #42 Восстановить корпус ноутбука
 #43 Подготовить сервер под финист бой
 44 Letsencrypt свои сертификаты 
-45 Накатить alt linux для КБР
+#45 Накатить alt linux для КБР
 46 Тунели с IDECO до cisco
 #47 Обновление Operrisk
-48 
+48 Настроить свой weeambackup
 49
 50
 51

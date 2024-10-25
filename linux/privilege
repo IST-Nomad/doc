@@ -5,6 +5,11 @@ su - sammy
 sudo deluser newuser
 deluser --remove-home newuser
 
+//Добавить пользователя в группу можно командой usermod:
+#sudo usermod -a -G имя_группы имя_пользователя
+//Добавить пользователя
+#sudo useradd -G kbroper -p Kbroper kbroper
+
 
 Работа с правами доступа файлов и директорий в Linux
 
