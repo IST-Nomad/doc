@@ -1,53 +1,78 @@
 crypto ikev2 proposal ikev2proposal
-    encryption aes-cbc-256
-    integrity sha256
-    group 19
-
+encryption aes-cbc-256
+integrity sha256
+group 19
+!
 crypto ikev2 policy ikev2policy
-    match fvrf any
-    proposal ikev2proposal
-
+match fvrf any
+proposal ikev2proposal
+!
 crypto ikev2 keyring key
-    peer strongswan
-    address 195.206.62.2
-    identity key-id 1
-    pre-shared-key local `~6s@i_b[ZuFq%C5-fA:9%LV
-    pre-shared-key remote `~6s@i_b[ZuFq%C5-fA:9%LV
-
+peer strongswan
+address 195.206.62.2
+identity 62.141.98.154
+pre-shared-key local `~6s@i_b[ZuFq%C5-fA:9%LV
+pre-shared-key remote `~6s@i_b[ZuFq%C5-fA:9%LV
+!
 crypto ikev2 profile ikev2profile
-    match identity remote address 195.206.62.2 255.255.255.255
-    authentication remote pre-share
-    authentication local pre-share
-    keyring local key
-
+match identity remote address 195.206.62.2 255.255.255.255
+authentication remote pre-share
+authentication local pre-share
+keyring local key
+!
 crypto ipsec transform-set TS esp-gcm 256
-    mode tunnel
-
+mode tunnel
+!
+crypto ipsec profile IDECO
+set ikev2 profile ikev2profile
+!
 crypto map cmap 10 ipsec-isakmp
-    set peer 195.206.62.2
-    set transform-set TS
-    set ikev2-profile ikev2profile
-    match address cryptoacl
-
-interface GigabitEthernet1
-    ip address 62.141.98.154 255.255.255.0
-    ip nat outside
-    negotiation auto
-    no mop enabled
-    no mop sysid
-    crypto map cmap
-
-interface GigabitEthernet2
-    ip address 10.129.139.252 255.255.255.0
-    ip nat inside
-    negotiation auto
-    no mop enabled
-    no mop sysid
-
-ip nat inside source list NAT interface GigabitEthernet1 overload
-
-ip access-list extended NAT
-    deny   ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
-    permit ip 10.129.139.0 0.0.0.255 any
-ip access-list extended cryptoacl
-    permit ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
+set peer 195.206.62.2
+set transform-set TS
+set ikev2-profile ikev2profile
+match address cryptoacl
+!
+interface FastEthernet4
+description Outside-Inet
+ip address 62.141.98.154 255.255.255.252
+ip access-group Outside-IN in
+no ip redirects
+no ip unreachables
+no ip proxy-arp
+ip nat outside
+ip inspect fw-outside out
+ip virtual-reassembly in
+duplex auto
+speed auto
+no cdp enable
+!
+interface Vlan1
+ description Inside-LAN
+ ip address 10.129.139.252 255.255.255.0
+ no ip redirects
+ ip nat inside
+ no ip virtual-reassembly in
+ standby mac-refresh 60
+ standby version 2
+ standby 139 ip 10.129.139.254
+ standby 139 timers msec 100 msec 500
+ standby 139 preempt delay minimum 10 reload 10 sync 10
+ standby 139 authentication md5 key-chain FHRP-Auth
+ standby 139 name HA139
+ standby 139 track 1 decrement 15
+ ip tcp adjust-mss 1360
+ ip policy route-map PBR-LAN139
+ !
+interface Tunnel3
+description IDECO
+bandwidth 10000
+ip address 172.16.139.18 255.255.255.252
+ip mtu 1400
+delay 10000
+keepalive 5 3
+tunnel source FastEthernet4
+tunnel mode ipsec ipv4
+tunnel destination 195.206.62.2
+tunnel path-mtu-discovery
+tunnel protection ipsec profile IDECO
+!
