@@ -1,7 +1,7 @@
 
 !
-! Last configuration change at 11:24:30 IRK Wed Jul 17 2024 by krona
-! NVRAM config last updated at 11:24:33 IRK Wed Jul 17 2024 by krona
+! Last configuration change at 21:09:12 IRK Sun Oct 27 2024 by krona
+! NVRAM config last updated at 13:37:25 IRK Tue Oct 29 2024 by krona
 !
 version 15.4
 service timestamps debug datetime msec localtime year
@@ -17,7 +17,6 @@ boot-end-marker
 !
 aqm-register-fnf
 !
-enable secret 5 $1$J3Dq$CSAD40c4X/O1CDXYaoQTg.
 !
 aaa new-model
 !
@@ -411,6 +410,7 @@ snmp-server contact Batr <poplavkovsemen@gmail.com>
 !
 tftp-server flash:c890-universalk9-mz.154-3.M4.bin alias c890-universalk9-mz.154-3.M4.bin
 tftp-server flash:c890-universalk9-mz.154-3.M6a.bin
+tftp-server flash:IRK-MOLOKO-EDGE-R2Oct-15-07-53-43.358-1
 access-list 1 permit 10.129.139.0 0.0.0.255
 access-list 101 permit icmp any any
 access-list 111 permit ip object-group GOROD-OUT object-group GOROD-IN
@@ -454,7 +454,7 @@ line vty 0 4
  logging synchronous
  no domain-lookup
  transport input ssh
- transport output ssh
+ transport output telnet
 !
 scheduler max-task-time 5000
 ntp server 194.190.168.1 source Dialer0

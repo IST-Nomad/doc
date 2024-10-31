@@ -1,7 +1,7 @@
 
 !
-! Last configuration change at 11:29:06 IRK Sun Oct 20 2024 by krona
-! NVRAM config last updated at 11:46:54 IRK Sun Oct 20 2024 by krona
+! Last configuration change at 13:33:06 IRK Tue Oct 29 2024 by krona
+! NVRAM config last updated at 13:42:25 IRK Tue Oct 29 2024 by krona
 !
 version 15.4
 service timestamps debug datetime msec
@@ -78,6 +78,32 @@ archive
   hidekeys
  path tftp://10.129.135.110/MOLOKO-EDGE-R2/$h
  write-memory
+object-group network GOROD-IN 
+ 91.229.154.0 255.255.255.0
+ 46.28.18.0 255.255.255.0
+ 82.202.189.0 255.255.255.0
+ 185.129.103.0 255.255.255.0
+!
+object-group network GOROD-OUT 
+ host 10.129.139.5
+ host 10.129.139.4
+!
+object-group network RFC6890 
+ 0.0.0.0 255.0.0.0
+ 10.0.0.0 255.0.0.0
+ 100.64.0.0 255.192.0.0
+ 127.0.0.0 255.0.0.0
+ 169.254.0.0 255.255.0.0
+ 172.16.0.0 255.240.0.0
+ 192.0.0.0 255.255.255.0
+ 192.0.2.0 255.255.255.0
+ 192.88.99.0 255.255.255.0
+ 192.168.0.0 255.255.0.0
+ 198.18.0.0 255.254.0.0
+ 198.51.100.0 255.255.255.0
+ 203.0.113.0 255.255.255.0
+ 240.0.0.0 240.0.0.0
+!
 username krona privilege 15 secret 5 $1$zs25$js2Cf/VeVb2iPgFqrWJ9i.
 !
 !
@@ -90,6 +116,11 @@ ip ssh rsa keypair-name IRK-MOLOKO-EDGE-R2
 ip ssh version 2
 ip scp server enable
 ! 
+track 1 ip sla 1
+delay down 35 up 35
+!
+track 2 ip sla 2
+delay down 35 up 35
 !
 crypto isakmp policy 100
  encr aes 256
@@ -175,15 +206,15 @@ interface Vlan1
  no ip redirects
  ip nat inside
  no ip virtual-reassembly in
- standby mac-refresh 60
- standby version 2
- standby 139 ip 10.129.139.254
- standby 139 timers msec 100 msec 500
- standby 139 preempt delay minimum 10 reload 10 sync 10
- standby 139 authentication md5 key-chain FHRP-Auth
- standby 139 name HA139
- standby 139 track 1 decrement 15
  ip tcp adjust-mss 1360
+ ip policy route-map PBR-LAN139
+ glbp 139 ip 10.129.139.254
+ glbp 139 preempt
+ glbp 139 load-balancing host-dependent
+ glbp 139 name HA139
+ glbp 139 weighting track 1 decrement 100
+ glbp 139 weighting track 2 decrement 200
+ glbp 139 forwarder preempt delay minimum 60
 !
 !
 router eigrp 65000
@@ -213,28 +244,68 @@ ip route 10.0.0.0 255.0.0.0 Null0
 ip route 172.16.0.0 255.240.0.0 Null0
 ip route 192.168.0.0 255.255.0.0 Null0
 !
+ip access-list extended NAT
+ permit ip 10.129.139.0 0.0.0.255 any
+ permit ip 10.129.135.0 0.0.0.255 any
 ip access-list extended Outside-IN
  permit tcp any any established
- permit ip 91.229.154.0 0.0.0.255 any
- permit ip host 176.215.254.185 any
+ permit ip 81.9.123.32 0.0.0.7 any
+ permit ip host 109.194.27.178 any
+ permit ip host 78.109.34.84 any
+ permit ip host 176.215.238.70 any
+ permit ip host 176.215.238.68 any
  permit ip 195.206.62.0 0.0.0.7 any
- permit ip host 176.215.252.102 any
- permit ip host 176.215.252.103 any
+ permit ip 185.242.116.72 0.0.0.7 any
  deny   ip any any
+ip access-list extended PBR-ANY2RFC6890
+ permit ip any object-group RFC6890
+ip access-list extended PBR-LAN139
+ permit ip 10.129.139.0 0.0.0.255 any
 ip access-list extended inside
- permit tcp 10.129.136.0 0.0.0.255 any
- permit udp 10.129.136.0 0.0.0.255 any
- permit gre 10.129.136.0 0.0.0.255 any
- permit icmp 10.129.136.0 0.0.0.255 any
- permit igmp 10.129.136.0 0.0.0.255 any
+ permit tcp any any established
+ permit tcp 10.129.139.0 0.0.0.255 any
+ permit udp 10.129.139.0 0.0.0.255 any
+ permit icmp 10.129.139.0 0.0.0.255 any
+ permit igmp 10.129.139.0 0.0.0.255 any
+ permit gre 10.129.139.0 0.0.0.255 any
  deny   ip any any log
 ip access-list extended outside
- permit tcp any host 91.185.48.3 eq 22
- permit tcp any host 91.185.48.3 eq domain
- permit icmp any host 91.185.48.3
+ permit tcp any host 109.194.20.26 eq 22
+ permit tcp any host 109.194.20.26 eq domain
+ permit icmp any host 109.194.20.26
  deny   ip any any log
 !
+ip sla auto discovery
+ip sla 1
+icmp-echo 172.16.139.9
+request-data-size 1000
+threshold 50
+timeout 100
+frequency 10
 !
+ip sla schedule 1 life forever start-time now
+ip sla 2
+icmp-echo 172.16.139.5
+request-data-size 1000
+threshold 50
+timeout 100
+frequency 10
+ip sla schedule 2 life forever start-time now
+!
+route-map PBR-LAN139 deny 10
+ match ip address PBR-ANY2RFC6890
+!
+route-map PBR-LAN139 permit 20
+ match ip address PBR-LAN139
+ set ip next-hop recursive 10.129.135.112
+!
+route-map nonat permit 10
+ match ip address 111
+!
+access-list 1 permit 10.129.139.0 0.0.0.255
+access-list 101 permit icmp any any
+access-list 111 permit ip object-group GOROD-OUT object-group GOROD-IN
+access-list 2035 permit ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
 !
 !
 !
@@ -259,19 +330,12 @@ line con 0
  no modem enable
 line aux 0
 line vty 0 4
- exec-timeout 0 0
  privilege level 15
  logging synchronous
- no domain-lookup
  transport input telnet ssh
  transport output telnet ssh
-line vty 5 15
- exec-timeout 0 0
- privilege level 15
- logging synchronous
- no domain-lookup
- transport input ssh
- transport output ssh
+line vty 5
+ transport input none
 !
 scheduler allocate 20000 1000
 ntp server 10.129.135.110

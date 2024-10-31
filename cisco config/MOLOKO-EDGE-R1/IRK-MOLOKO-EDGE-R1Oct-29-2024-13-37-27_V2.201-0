@@ -1,7 +1,7 @@
 
 !
-! Last configuration change at 09:43:22 IRK Thu Apr 18 2024 by krona
-! NVRAM config last updated at 09:43:25 IRK Thu Apr 18 2024 by krona
+! Last configuration change at 21:09:12 IRK Sun Oct 27 2024 by krona
+! NVRAM config last updated at 13:37:25 IRK Tue Oct 29 2024 by krona
 !
 version 15.4
 service timestamps debug datetime msec localtime year
@@ -17,7 +17,6 @@ boot-end-marker
 !
 aqm-register-fnf
 !
-enable secret 5 $1$J3Dq$CSAD40c4X/O1CDXYaoQTg.
 !
 aaa new-model
 !
@@ -104,6 +103,8 @@ archive
  log config
   logging enable
   hidekeys
+ path tftp://10.129.135.110/MOLOKO-EDGE-R1/$h
+ write-memory
 object-group network GOROD-IN 
  91.229.154.0 255.255.255.0
  46.28.18.0 255.255.255.0
@@ -244,22 +245,33 @@ interface Vlan1
  description Inside-LAN
  ip address 10.129.139.251 255.255.255.0
  no ip redirects
- standby 139 preempt
+ ip nat inside
  ip tcp adjust-mss 1360
  ip policy route-map PBR-LAN139
  glbp 139 ip 10.129.139.254
- glbp 139 timers 5 15
- glbp 139 timers redirect 1800 14500
- glbp 139 priority 254
- glbp 139 preempt delay minimum 60
- glbp 139 weighting 254 lower 235 upper 243
- glbp 139 client-cache maximum 100 timeout 600
+ glbp 139 priority 110
+ glbp 139 preempt
  glbp 139 load-balancing host-dependent
  glbp 139 name HA139
- glbp 139 weighting track 1 decrement 10
- glbp 139 weighting track 2 decrement 10
+ glbp 139 weighting track 1 decrement 100
+ glbp 139 weighting track 2 decrement 200
  glbp 139 forwarder preempt delay minimum 60
 !
+
+no glbp 139 ip 10.129.139.254
+no glbp 139 timers 5 15
+no glbp 139 timers redirect 1800 14500
+no glbp 139 priority 254
+no glbp 139 preempt delay minimum 60
+no glbp 139 weighting 254 lower 235 upper 243
+no glbp 139 client-cache maximum 100 timeout 600
+no glbp 139 load-balancing host-dependent
+no glbp 139 name HA139
+no glbp 139 weighting track 1 decrement 10
+no glbp 139 weighting track 2 decrement 10
+no glbp 139 forwarder preempt delay minimum 60
+
+
 interface Async1
  no ip address
  encapsulation slip
@@ -408,6 +420,8 @@ snmp-server community public RO
 snmp-server contact Batr <poplavkovsemen@gmail.com>
 !
 tftp-server flash:c890-universalk9-mz.154-3.M4.bin alias c890-universalk9-mz.154-3.M4.bin
+tftp-server flash:c890-universalk9-mz.154-3.M6a.bin
+tftp-server flash:IRK-MOLOKO-EDGE-R2Oct-15-07-53-43.358-1
 access-list 1 permit 10.129.139.0 0.0.0.255
 access-list 101 permit icmp any any
 access-list 111 permit ip object-group GOROD-OUT object-group GOROD-IN
@@ -433,23 +447,30 @@ mgcp profile default
 !
 !
 line con 0
- password 7 0023070E1058050E05305E484A485C4E43
 line 1
  modem InOut
  speed 115200
  flowcontrol hardware
 line aux 0
+ exec-timeout 30 0
+ no activation-character
+ no editing
+ transport input telnet
+ transport output telnet
+ escape-character BREAK
+ stopbits 1
 line vty 0 4
- exec-timeout 0 0
+ exec-timeout 30 0
  privilege level 15
  logging synchronous
  no domain-lookup
  transport input ssh
- transport output ssh
+ transport output telnet
 !
 scheduler max-task-time 5000
 ntp server 194.190.168.1 source Dialer0
 ntp server 46.254.241.75 source Dialer0
 ntp server 89.109.251.22 prefer source Dialer0
+ntp server 10.129.135.110
 !
 end

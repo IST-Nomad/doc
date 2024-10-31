@@ -1,0 +1,10 @@
+
+
+interface vlan 1
+name Inside-LAN
+ip address 192.168.100.2
+glbp 100 ip 192.168.100.1
+glbp 100 priority 105
+glbp 100 preempt
+glbp 100 authentication md5 key-string MYGLBPPASS
+glbp 100 load-balancing host-dependent
