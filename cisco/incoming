@@ -1,7 +1,3 @@
-
-IRK-MOLOKO-EDGE-R2
-
-
 crypto ikev2 proposal ikev2proposal
 encryption aes-cbc-256
 integrity sha256
