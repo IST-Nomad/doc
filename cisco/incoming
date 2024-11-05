@@ -1,5 +1,6 @@
 crypto ikev2 proposal ikev2proposal
-encryption aes-cbc-256
+#encryption aes-cbc-256
+encryption aes-gcm-256
 integrity sha256
 group 19
 !

@@ -1,0 +1,54 @@
+crypto ikev2 proposal ikev2proposal
+    encryption aes-cbc-256
+    integrity sha256
+    group 19
+
+crypto ikev2 policy ikev2policy
+    match fvrf any
+    proposal ikev2proposal
+
+crypto ikev2 keyring key
+    peer strongswan
+    address 195.206.62.2
+    pre-shared-key local `~6s@i_b[ZuFq%C5-fA:9%LV
+    pre-shared-key remote `~6s@i_b[ZuFq%C5-fA:9%LV
+
+crypto ikev2 profile ikev2profile
+    match identity remote key-id 1
+    authentication remote pre-share
+    authentication local pre-share
+    keyring local key
+
+crypto ipsec transform-set TS esp-gcm 256
+    mode tunnel
+
+crypto map cmap 10 ipsec-isakmp
+    set peer 195.206.62.2
+    set transform-set TS
+    set ikev2-profile ikev2profile
+    match address cryptoacl
+
+interface GigabitEthernet1
+! внешний интерфейс
+    ip address 62.141.98.154 255.255.255.0
+    ip nat outside
+    negotiation auto
+    no mop enabled
+    no mop sysid
+    crypto map cmap
+
+interface GigabitEthernet2
+! локальный интерфейс
+    ip address 10.129.139.252 255.255.255.0
+    ip nat inside
+    negotiation auto
+    no mop enabled
+    no mop sysid
+
+ip nat inside source list NAT interface GigabitEthernet1 overload
+
+ip access-list extended NAT
+    deny   ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
+    permit ip 10.129.139.0 0.0.0.255 any
+ip access-list extended cryptoacl
+    permit ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
