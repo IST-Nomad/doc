@@ -1,8 +1,9 @@
 crypto ikev2 proposal ikev2proposal
 #encryption aes-cbc-256
-encryption aes-gcm-256
-integrity sha256
+>encryption aes-gcm-256
+i#ntegrity sha256
 group 19
+>prf sha256
 !
 crypto ikev2 policy ikev2policy
 match fvrf any
@@ -22,18 +23,20 @@ identity local address 62.141.98.154
 authentication remote pre-share
 authentication local pre-share
 keyring local key
+>lifetime 3600
 !
 crypto ipsec profile IDECO
 set ikev2-profile ikev2profile
+#set transform-set TS
 !
 crypto ipsec transform-set TS esp-gcm 256
 mode tunnel
 !
-crypto map cmap 10 ipsec-isakmp
-set peer 195.206.62.2
-set transform-set TS
-set ikev2-profile ikev2profile
-match address cryptoacl
+#crypto map cmap 10 ipsec-isakmp
+#set peer 195.206.62.2
+#set transform-set TS
+#set ikev2-profile ikev2profile
+#match address cryptoacl
 !
 interface FastEthernet4
 description Outside-Inet
@@ -52,7 +55,7 @@ crypto map cmap
 !
 interface Tunnel3
 description IDECO
-bandwidth 10000
+#bandwidth 10000
 ip address 172.16.139.18 255.255.255.252
 ip mtu 1400
 delay 10000
