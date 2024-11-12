@@ -1,0 +1,72 @@
+<div id="some_id">
+    <?php echo file_get_contents('myfile.txt') ?>
+</div>
+
+<?php
+$file='myfile.txt';
+include($file);
+?>
+
+<script>
+$(document).ready(function(){
+  $('#txtfile').load('http://mysite/myfile.txt');
+});
+<script>
+<div id="txtfile"></div>
+
+
+function XmlHttpRequest(url,request_functn,data) { // url - строка для выполнения запроса,
+// request_functn - функция которая получит http_request.responseText,
+//должна иметь вид function function_name(responseText);
+	var http_request = false;
+	if (window.XMLHttpRequest) { // Mozilla, Safari, ...
+		http_request = new XMLHttpRequest();
+		if (http_request.overrideMimeType) {
+			http_request.overrideMimeType('text/xml');
+		}
+	} else if (window.ActiveXObject) { // IE
+		try {
+			http_request = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try {
+				http_request = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {}
+		}
+	}
+	if (!http_request) {
+		alert('Не вышло, Невозможно создать экземпляр класса XMLHTTP ');
+		return false;
+	}
+	http_request.open('POST', url, true);
+	//Send the proper header information along with the request
+	http_request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	http_request.setRequestHeader("Content-length", data.length);
+	http_request.setRequestHeader("Connection", "close");
+	http_request.onreadystatechange = function() { XMLHTTP_readyState(http_request,request_functn); };
+	http_request.send(data);
+}
+
+function XMLHTTP_readyState(http_request,request_functn) {
+	if (http_request.readyState == 4) {
+		if (http_request.status == 200) {
+			request_functn(http_request);//.responseText);
+		} else {
+			alert('С запросом возникла проблема');
+		}
+	}
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251" />
+<title>Untitled Document</title>
+</head>
+<body>
+<div id="my_text">
+<?php include 'text.txt' ?>
+</div>
+</body>
+</html>
+
+<?php @print file_get_contents('myfile.txt') ?>
