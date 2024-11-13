@@ -1,4 +1,4 @@
-echo off
+@echo off
 
 Set f_Date=%Date%
 Set f_Time=%Time%
@@ -11,6 +11,4 @@ Set f_Month=%f_Month: =%
 Set f_Day=%f_Day: =%
 
 cd C:\Users\oit_10\Documents\Doc
-git add . | git commit -m "%f_Month%.%f_Day%.%f_Hour%" | git push origin work
-
-pause
+git add . & git commit -m "Work_%f_Hour% %f_Day%.%f_Month%" & git push origin work

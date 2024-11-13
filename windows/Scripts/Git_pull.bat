@@ -1,4 +1,4 @@
-echo off
+@echo off
 
 Set f_Date=%Date%
 Set f_Time=%Time%
@@ -10,5 +10,5 @@ Set f_Hour=%Time:~0,5%
 Set f_Month=%f_Month: =%
 Set f_Day=%f_Day: =%
 
-cd C:\Users\batr\Documents\Doc
+cd C:\Users\oit_10\Documents\Doc
 git pull origin work
