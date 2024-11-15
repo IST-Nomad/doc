@@ -1,3 +1,3 @@
-@echo off
+echo %date% %time% monitor off >> c:\Scripts\log.txt
 
-nircmd.exe monitor off
+c:\Scripts\nircmd.exe monitor off
