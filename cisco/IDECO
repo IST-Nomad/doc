@@ -1,89 +1,45 @@
 Настройка IKEv2+IPsec на Cisco
-1. Создание proposal (подробную информацию можно прочитать в статье):
-
-Copy
+1. Создание proposal 
 conf t
 crypto ikev2 proposal ikev2proposal
 encryption aes-cbc-256
 integrity sha256
 group 19
-exit
-
-2. Создание policy (подробную информацию можно прочитать в статье):
-
-Copy
+2. Создание policy 
 crypto ikev2 policy ikev2policy
 match fvrf any
 proposal ikev2proposal
-exit
-
-3. Создание peer (key_id - идентификатор удаленной стороны, т. е. Ideco NGFW). Подробную информацию можно прочитать в статье:
-
-Copy
+3. Создание peer 
 crypto ikev2 keyring key
 peer strongswan
 address <внешний IP NGFW>
 identity key-id 1
 pre-shared-key local `~6s@i_b[ZuFq%C5-fA:9%LV
 pre-shared-key remote `~6s@i_b[ZuFq%C5-fA:9%LV
-exit
-exit
-
-4. Создание IKEv2 profile (подробную информацию можно прочитать в статье):
-
-Copy
+4. Создание IKEv2 profile
 crypto ikev2 profile ikev2profile
 match identity remote address <внешний IP NGFW> 255.255.255.255
 authentication remote pre-share
 authentication local pre-share
 keyring local key
-exit
-
-5. Настройка шифрования в esp:
-
-Copy
+5. Настройка шифрования в esp
 crypto ipsec transform-set TS esp-gcm 256
 mode tunnel
-exit
-
-6. Создание ipsec-isakmp:
-
-Copy
+6. Создание ipsec-isakmp
 crypto map cmap 10 ipsec-isakmp
 set peer <внешний IP NGFW>
 set transform-set TS
 set ikev2-profile ikev2profile
 match address cryptoacl
-exit
-
-7. Настройка crypto map на внешнем интерфейсе:
-
-Copy
+7. Настройка crypto map на внешнем интерфейсе
 interface GigabitEthernet1
 crypto map cmap
-exit
-
-8. Создание access-list для трафика между локальными сетями Cisco и NGFW:
-
-Copy
+8. Создание access-list для трафика между локальными сетями Cisco и NGFW
 ip access-list extended cryptoacl
 permit ip <локальная подсеть Cisco> <обратная маска подсети> <локальная подсеть NGFW> <обратная маска подсети>
-exit
-
-9. Добавление в access-list NAT исключения трафика между локальными сетями Cisco и NGFW (правило deny должно оказаться выше чем permit):
-
-Copy
+9. Добавление в access-list NAT исключения трафика между локальными сетями Cisco и NGFW (правило deny должно оказаться выше чем permit)
 ip access-list extended NAT
 no permit ip <локальная подсеть Cisco> <обратная маска подсети> any
 deny ip <локальная подсеть Cisco> <обратная маска подсети> <локальная подсеть NGFW> <обратная маска подсети>
 permit ip <локальная подсеть Cisco> <обратная маска подсети> any
-exit
-
-end
-10. Сохранение настроек конфигурации:
-
-write memory
-
-
-
 crypto isakmp aggressive-mode disable
