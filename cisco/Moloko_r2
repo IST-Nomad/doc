@@ -53,6 +53,9 @@ exit
 ip access-list extended cryptoacl
 permit ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
 exit
+
+
+
 ip access-list extended NAT
 no permit ip 10.129.139.0 0.0.0.255 any
 deny ip 10.129.139.0 0.0.0.255 10.129.135.0 0.0.0.255
