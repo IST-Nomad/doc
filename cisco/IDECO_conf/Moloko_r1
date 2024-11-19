@@ -34,7 +34,7 @@ set transform-set TS
 set ikev2-profile ikev2profile
 match address cryptoacl
 exit
-interface FastEthernet4
+interface Dialer0
 crypto map cmap
 exit
 interface Tunnel3
@@ -44,7 +44,7 @@ ip address 172.16.139.18 255.255.255.252
 ip mtu 1400
 delay 10000
 keepalive 5 3
-tunnel source FastEthernet4
+tunnel source Dialer0
 tunnel mode ipsec ipv4
 tunnel destination 185.242.116.78
 tunnel path-mtu-discovery

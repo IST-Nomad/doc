@@ -1,10 +1,56 @@
+AMUR-EDGE-R1
+conf t
+interface FastEthernet0/0
+no glbp 138 timers 5 15
+no glbp 138 timers redirect 1800 14500
+no glbp 138 priority 254
+no glbp 138 preempt delay minimum 60
+no glbp 138 weighting 254 lower 235 upper 243
+no glbp 138 client-cache maximum 100 timeout 600
+no glbp 138 load-balancing host-dependent
+no glbp 138 name HA138
+no glbp 138 weighting track 1 decrement 10
+no glbp 138 weighting track 2 decrement 10
+no glbp 138 forwarder preempt delay minimum 60
+exit
+interface FastEthernet0/0
+glbp 138 priority 110
+glbp 138 preempt
+glbp 138 load-balancing host-dependent
+glbp 138 name HA138
+glbp 138 weighting track 1 decrement 100
+glbp 138 weighting track 2 decrement 200
+glbp 138 forwarder preempt delay minimum 60
+exit
 
 
-interface vlan 1
-name Inside-LAN
-ip address 192.168.100.2
-glbp 100 ip 192.168.100.1
-glbp 100 priority 105
-glbp 100 preempt
-glbp 100 authentication md5 key-string MYGLBPPASS
-glbp 100 load-balancing host-dependent
+
+
+
+
+
+
+AMUR-EDGE-R2
+interface FastEthernet0/0
+no glbp 138 timers 5 15
+no glbp 138 timers redirect 1800 14500
+no glbp 138 priority 240
+no glbp 138 preempt delay minimum 60
+no glbp 138 weighting 254 lower 235 upper 243
+no glbp 138 client-cache maximum 100 timeout 600
+no glbp 138 load-balancing host-dependent
+no glbp 138 name HA138
+no glbp 138 weighting track 1 decrement 10
+no glbp 138 weighting track 2 decrement 10
+no glbp 138 forwarder preempt delay minimum 60
+exit
+interface FastEthernet0/0
+glbp 138 preempt
+glbp 138 load-balancing host-dependent
+glbp 138 name HA138
+glbp 138 weighting track 1 decrement 100
+glbp 138 weighting track 2 decrement 200
+glbp 138 forwarder preempt delay minimum 60
+exit
+
+

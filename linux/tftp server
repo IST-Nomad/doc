@@ -5,6 +5,7 @@ $ sudo apt update
 $ sudo apt install tftpd-hpa
 sudo systemctl status tftpd-hpa
 sudo nano /etc/default/tftpd-hpa
+
 {
 # /etc/default/tftpd-hpa
 TFTP_USERNAME="zabbix" #учетка из под которой будет работать сервер
@@ -15,3 +16,7 @@ TFTP_OPTIONS="--secure --create" # только с такими параметр
 sudo mkdir /tftp #создаем рабочую директорию
 sudo chown zabbix:zabbix /tftp #делаем владельцем рабочую учетку
 sudo systemctl restart tftpd-hpa #рестарт демона
+
+
+//Скопировать с tftp конфиги на локальный ПК (папки должны быть)
+scp.exe -r zabbix@10.129.135.110:/tftp/* D:\Backup\cisco_config

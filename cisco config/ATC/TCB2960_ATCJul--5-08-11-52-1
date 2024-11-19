@@ -1,7 +1,7 @@
 
 !
-! Last configuration change at 11:45:45 IRK Mon Jun 17 2024 by krona
-! NVRAM config last updated at 11:47:10 IRK Mon Jun 17 2024 by krona
+! Last configuration change at 16:11:47 IRK Fri Jul 5 2024 by krona
+! NVRAM config last updated at 16:11:50 IRK Fri Jul 5 2024 by krona
 !
 version 15.2
 no service pad
@@ -45,7 +45,8 @@ crypto pki certificate chain TP-self-signed-2012765824
 archive
  path tftp://10.129.135.110/ATC/$h
  write-memory
-spanning-tree mode pvst
+!
+spanning-tree mode rapid-pvst
 no spanning-tree optimize bpdu transmission
 spanning-tree extend system-id
 !
@@ -450,7 +451,6 @@ snmp-server contact Batr <poplavkovsemen@gmail.com>
 line con 0
  login local
 line vty 0 4
- password P@ssw0rd
  login local
  transport input ssh
 line vty 5

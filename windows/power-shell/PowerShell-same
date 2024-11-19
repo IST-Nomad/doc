@@ -29,10 +29,10 @@ New-NetFirewallRule -DisplayName 'Zabbix agent_out' -Profile 'Any' -Direction Ou
 Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False
 
 //Проверки домена
-
 dcdiag /s:DC1.TCBDomen.trustcombank.ru
 netdiag /fix
 dcdiag /fix
+dcdiag /test:DNS
 
 //доменное имя (запись dns)
 nslookup 10.129.135.205

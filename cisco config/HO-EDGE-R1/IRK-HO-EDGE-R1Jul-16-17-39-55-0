@@ -1,7 +1,7 @@
 
 !
-! Last configuration change at 11:55:14 IRK Mon Jun 17 2024 by krona
-! NVRAM config last updated at 11:55:24 IRK Mon Jun 17 2024 by krona
+! Last configuration change at 16:58:08 IRK Tue Jul 16 2024 by krona
+! NVRAM config last updated at 17:39:51 IRK Tue Jul 16 2024 by krona
 !
 version 15.4
 no service pad
@@ -1036,7 +1036,7 @@ interface Tunnel100
  ip address 10.0.2.1 255.255.255.252
  ip access-group Tun100-IN in
  ip tcp adjust-mss 1360
- tunnel source GigabitEthernet0/1.101
+ tunnel source GigabitEthernet0/1.103
  tunnel destination 46.191.227.77
  tunnel path-mtu-discovery
  tunnel protection ipsec profile Finist
@@ -1322,7 +1322,7 @@ ip route 1.1.1.1 255.255.255.255 185.242.116.73
 ip route 8.8.4.4 255.255.255.255 195.206.62.1
 ip route 9.9.9.9 255.255.255.255 185.242.116.73
 ip route 10.0.0.0 255.0.0.0 Null0 254
-ip route 46.191.227.77 255.255.255.255 195.206.62.1
+ip route 46.191.227.77 255.255.255.255 185.242.116.73
 ip route 62.141.98.154 255.255.255.255 185.242.116.73
 ip route 77.88.8.8 255.255.255.255 185.242.116.73
 ip route 78.109.46.179 255.255.255.255 Null0 2

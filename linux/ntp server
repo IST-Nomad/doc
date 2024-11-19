@@ -1,13 +1,27 @@
 sudo apt-get update
 sudo apt-get install ntp
 sntp --version
+
+//server
 sudo nano /etc/ntp.conf
+
 /*
 pool 0.ru.pool.ntp.org iburst
 pool 1.ru.pool.ntp.org iburst
 pool 2.ru.pool.ntp.org iburst
 pool 3.ru.pool.ntp.org iburst
 */
+
 sudo service ntp restart
 sudo service ntp status
 sudo ufw allow from any to any port 123 proto udp
+
+//client
+
+server ntp-host prefer iburst
+//где ntp-host — адрес нашего NTP-сервера
+sudo service ntp restart
+
+//Проверяем, правильно ли сервер отдает время:
+ntpdate ntp-host
+//где ntp-host — адрес нашего NTP-сервера
