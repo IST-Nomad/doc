@@ -164,23 +164,3 @@ foreach ($computer in $computers) {
         Write-Host "Ошибка при копировании на $computer: $_"
     }
 }
-
-# Записываем обновлённый список компьютеров обратно в файл
-$computers | Set-Content -Path $computersFile
-
-Write-Host "Обновлённый список компьютеров записан в $computersFile"
-
-
-
-# Установка пути к файлу, куда будет записан список компьютеров
-$outputFile = "C:\Scripts\computers_list.txt"  # Укажите свой путь
-
-# Получаем список всех компьютеров в домене
-$computers = Get-ADComputer -Filter * | Select-Object -ExpandProperty Name
-
-# Записываем список в файл
-$computers | Set-Content -Path $outputFile
-
-Write-Host "Список всех компьютеров в домене записан в файл $outputFile"
-
-
