@@ -1,27 +1,33 @@
 
 !
-! Last configuration change at 15:16:20 UTC+10 Mon Apr 22 2024 by krona
-! NVRAM config last updated at 15:16:22 UTC+10 Mon Apr 22 2024 by krona
-! NVRAM config last updated at 15:16:22 UTC+10 Mon Apr 22 2024 by krona
+! No configuration change since last restart
+! NVRAM config last updated at 12:12:56 YAKT Tue Nov 19 2024 by krona
+! NVRAM config last updated at 12:12:56 YAKT Tue Nov 19 2024 by krona
 version 15.1
+no service pad
 service tcp-keepalives-in
 service tcp-keepalives-out
 service timestamps debug datetime msec localtime year
 service timestamps log datetime msec localtime year
-no service password-encryption
+service password-encryption
+service sequence-numbers
 !
-hostname AMUR-EDGE-R2
+hostname AMUR-EDGE-R1
 !
 boot-start-marker
 boot system flash:IOS/c2800nm-advipservicesk9-mz.151-4.M12a.bin
 boot-end-marker
 !
 !
+logging buffered 1048576
+enable secret 5 $1$8pZS$vB2t9iLDgcdXLqucvAzJG0
 !
 aaa new-model
 !
 !
 aaa authentication login default local
+aaa authentication login sdm_vpn_xauth_ml_1 local
+aaa authorization network sdm_vpn_group_ml_1 local 
 !
 !
 !
@@ -29,8 +35,7 @@ aaa authentication login default local
 !
 aaa session-id common
 !
-memory-size iomem 5
-clock timezone UTC+10 10 0
+clock timezone YAKT 9 0
 !
 dot11 syslog
 ip source-route
@@ -47,6 +52,7 @@ ip inspect name fw-outside dns timeout 5
 ip inspect name fw-outside tcp router-traffic timeout 600
 ip inspect name fw-outside udp router-traffic timeout 270
 ip inspect name fw-outside icmp timeout 25
+login block-for 120 attempts 3 within 120
 no ipv6 cef
 !
 multilink bundle-name authenticated
@@ -58,15 +64,15 @@ multilink bundle-name authenticated
 !
 key chain FHRP-Auth
  key 1
-  key-string }hr8NLRjGEkz
+  key-string 7 00191B145C7527340506694513
  key 2
-  key-string LR0qyPUxODdE
+  key-string 7 153E395C15331B11301C112636
  key 3
-  key-string kQ*z6%@vqqiE
+  key-string 7 104538531F41572B1A153B2201
  key 4
-  key-string Rw*}My%4vgm
+  key-string 7 122B125D0F2615417E3D2325
  key 5
-  key-string RlDqnRV*kiZV
+  key-string 7 107C053D1419203D460F231112
 !
 !
 !
@@ -77,10 +83,21 @@ voice-card 0
 !
 crypto pki token default removal timeout 0
 !
+crypto pki trustpoint TP-self-signed-713532581
+ enrollment selfsigned
+ subject-name cn=IOS-Self-Signed-Certificate-713532581
+ revocation-check none
+ rsakeypair TP-self-signed-713532581
 !
 !
+crypto pki certificate chain TP-self-signed-713532581
+ certificate self-signed 01 nvram:IOS-Self-Sig#1.cer
 !
-license udi pid CISCO2811 sn FTX1219A07R
+!
+license udi pid CISCO2811 sn FCZ122171BE
+archive
+ path tftp://10.129.135.110/AMUR-EDGE-R1/$h
+ write-memory
 object-group network NAT-2GISUPDATE-OUTSIDE-GLOBAL 
  host 91.236.50.61
  host 91.236.51.77
@@ -110,6 +127,7 @@ object-group network NAT-BUH-INSIDE-LOCAL
  host 10.129.138.15
  host 10.129.138.42
  host 10.129.138.11
+ host 10.129.138.29
  host 10.129.138.24
 !
 object-group network NAT-BUH-OUTSIDE-LOCAL 
@@ -136,9 +154,11 @@ object-group network NAT-BUH-OUTSIDE-LOCAL
  host 104.16.239.184
  host 37.29.19.82
  host 37.29.19.83
+ host 104.16.238.184
  host 93.184.220.29
  host 66.225.197.197
  host 46.17.206.15
+ host 91.215.42.251
 !
 object-group network NAT-DNS-OUTSIDE-GLOBAL 
  host 91.142.144.76
@@ -183,6 +203,7 @@ object-group network NAT-FOR_ALL_USERS-OUTSIDE-GLOBAL
  host 85.235.57.130
  host 80.78.116.210
  host 178.238.112.83
+ host 91.215.42.251
  host 82.202.189.126
  194.85.18.0 255.255.255.0
  94.100.176.0 255.255.240.0
@@ -261,6 +282,7 @@ object-group network NAT-OIT-OUTSIDE-LOCAL
 object-group network NAT-OPER-INSIDE-LOCAL 
  host 10.129.138.31
  host 10.129.138.32
+ host 10.129.138.11
  host 10.129.138.15
  host 10.129.138.16
 !
@@ -311,6 +333,12 @@ object-group network NAT-YANDEXDISK-OUTSIDE-GLOBAL
  141.8.179.0 255.255.255.0
  37.9.125.0 255.255.255.0
  95.108.245.0 255.255.255.0
+ host 2.19.181.18
+ host 95.100.140.82
+ host 5.188.28.172
+ host 5.255.255.77
+ host 65.55.252.93
+ host 178.154.131.215
 !
 object-group network RFC6890 
  0.0.0.0 255.0.0.0
@@ -328,16 +356,21 @@ object-group network RFC6890
  203.0.113.0 255.255.255.0
  240.0.0.0 240.0.0.0
 !
-username ciscoadm privilege 15 secret 5 $1$tCB1$HfBNlDfZDkDCncZtdP73E1
-username kronadm privilege 15 secret 5 $1$aXn1$DTjQSa3B4Nph6w.btr5bA1
-username krona privilege 15 password 0 Rhjyf1993
+username ciscoadm privilege 15 secret 5 $1$EvW4$5MYsS8BCwX6KwDxUpZ9QK/
+username kronadm privilege 15 secret 5 $1$z54A$8c6m6t/i/6BOrrjkNYRfL1
+username krona privilege 15 password 7 113B110F0E145A555D79
 !
 redundancy
 !
 !
+no ip ftp passive
 ip tftp min-timeout 10
 ip tftp source-interface FastEthernet0/1
-ip ssh rsa keypair-name AMUR-EDGE-R2
+ip ssh maxstartups 3
+ip ssh time-out 60
+ip ssh source-interface FastEthernet0/1
+ip ssh rsa keypair-name AMUR-EDGE-R1
+ip ssh logging events
 ip ssh version 2
 ip ssh dh min size 2048
 !
@@ -354,10 +387,11 @@ crypto isakmp policy 100
  authentication pre-share
  group 20
  lifetime 7200
-crypto isakmp key nwx*vPS4U6-3=Y68wta2!KYt address 195.206.62.4 no-xauth
-crypto isakmp key nwx*vPS4U6-3=Y68wta2!KYt address 185.242.116.74 no-xauth
+crypto isakmp key -rmSeg2Kp#yStDwMJWZjWAqS address 195.206.62.5 no-xauth
+crypto isakmp key -rmSeg2Kp#yStDwMJWZjWAqS address 185.242.116.75 no-xauth
 crypto isakmp aggressive-mode disable
 !
+crypto ipsec security-association lifetime seconds 86400
 !
 crypto ipsec transform-set AES256-SHA512-TUNN esp-aes 256 esp-sha512-hmac 
 !
@@ -373,40 +407,42 @@ crypto ipsec profile HO-VPN
 !
 !
 interface Tunnel1
- description HO-EDGE-R2 active VTI
+ description HO-EDGE-R1 active VTI
  bandwidth 10000
- ip address 172.16.138.10 255.255.255.252
+ ip address 172.16.138.2 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
  delay 1000
+ keepalive 5 3
  tunnel source FastEthernet0/1
  tunnel mode ipsec ipv4
- tunnel destination 195.206.62.4
+ tunnel destination 195.206.62.5
  tunnel path-mtu-discovery
  tunnel protection ipsec profile HO-VPN
 !
 interface Tunnel2
- description HO-EDGE-R1 standby VTI
- bandwidth 1000
- ip address 172.16.138.6 255.255.255.252
+ description HO-EDGE-R2 active VTI
+ bandwidth 10000
+ ip address 172.16.138.14 255.255.255.252
  ip mtu 1400
  ip tcp adjust-mss 1360
- delay 10000
+ delay 1000
+ keepalive 5 3
  tunnel source FastEthernet0/1
  tunnel mode ipsec ipv4
- tunnel destination 185.242.116.74
+ tunnel destination 185.242.116.75
  tunnel path-mtu-discovery
  tunnel protection ipsec profile HO-VPN
 !
 interface FastEthernet0/0
  description Inside-LAN
- ip address 10.129.138.252 255.255.255.0
+ ip address 10.129.138.251 255.255.255.0
  ip tcp adjust-mss 1360
  ip policy route-map PBR-LAN138
  glbp 138 ip 10.129.138.254
  glbp 138 timers 5 15
  glbp 138 timers redirect 1800 14500
- glbp 138 priority 240
+ glbp 138 priority 254
  glbp 138 preempt delay minimum 60
  glbp 138 weighting 254 lower 235 upper 243
  glbp 138 client-cache maximum 100 timeout 600
@@ -420,7 +456,7 @@ interface FastEthernet0/0
 !
 interface FastEthernet0/1
  description Outside-Inet
- ip address 78.109.46.179 255.255.255.0
+ ip address 91.142.149.82 255.255.255.248
  ip access-group Outside-IN in
  no ip unreachables
  ip nat outside
@@ -433,31 +469,32 @@ interface FastEthernet0/1
 !
 router eigrp 65000
  network 0.0.0.0
- neighbor 172.16.138.5 Tunnel2
- neighbor 172.16.138.9 Tunnel1
+ neighbor 172.16.138.1 Tunnel1
+ neighbor 172.16.138.13 Tunnel2
  passive-interface default
- no passive-interface Tunnel2
  no passive-interface Tunnel1
- eigrp router-id 10.0.138.2
+ no passive-interface Tunnel2
+ eigrp router-id 10.0.138.1
  eigrp stub connected
 !
 ip forward-protocol nd
 no ip http server
+ip http authentication local
 no ip http secure-server
+ip http timeout-policy idle 60 life 86400 requests 10000
 !
 !
 ip nat translation timeout 3600
 ip nat translation tcp-timeout 3600
-ip nat translation udp-timeout 120
 ip nat translation dns-timeout 10
 ip nat translation icmp-timeout 30
+ip nat translation port-timeout tcp 2891 36000
 ip nat inside source list 111 interface FastEthernet0/1 overload
-ip route 0.0.0.0 0.0.0.0 78.109.46.1
+ip route 0.0.0.0 0.0.0.0 91.142.149.81
 ip route 10.0.0.0 255.0.0.0 Null0 254
 ip route 172.16.0.0 255.240.0.0 Null0 254
 ip route 192.168.0.0 255.255.0.0 Null0 254
 !
-ip access-list extended Otuside-IN
 ip access-list extended Outside-IN
  permit tcp any any established
  permit ip 81.9.123.32 0.0.0.7 any
@@ -474,19 +511,20 @@ ip access-list extended PBR-LAN138
  permit ip 10.129.138.0 0.0.0.255 any
 !
 ip sla 1
- icmp-echo 172.16.138.9
+ icmp-echo 172.16.138.1
  request-data-size 1000
  threshold 150
  timeout 250
  frequency 10
 ip sla schedule 1 life forever start-time now
 ip sla 2
- icmp-echo 172.16.138.5
+ icmp-echo 172.16.138.13
  request-data-size 1000
  threshold 150
  timeout 250
  frequency 10
 ip sla schedule 2 life forever start-time now
+logging history size 500
 access-list 111 permit ip object-group NAT-ALL_USERS-INSIDE-LOCAL object-group NAT-FOR_ALL_USERS-OUTSIDE-GLOBAL
 access-list 111 permit ip object-group NAT-KRED-INSIDE-LOCAL host 217.74.36.137
 access-list 111 permit ip object-group NAT-OPER-INSIDE-LOCAL object-group NAT-FAKTURA-OUTSIDE-LOCAL
@@ -503,6 +541,8 @@ access-list 111 permit ip object-group NAT-DRWEB_ACTIVATION-INSIDE-LOCAL object-
 access-list 111 permit ip object-group NAT-INSIDE-LOCAL any
 access-list 111 deny   ip any any log
 access-list 111 permit ip 10.129.138.0 0.0.0.255 any
+access-list 2035 permit ip 10.129.138.0 0.0.0.255 10.129.135.0 0.0.0.255
+access-list 2035 permit ip 10.129.138.0 0.0.0.255 10.1.0.0 0.0.255.255
 !
 !
 !
@@ -534,16 +574,25 @@ mgcp profile default
 configuration mode exclusive
 !
 line con 0
+ password 7 106D1D1101031A595C5479
 line aux 0
 line vty 0 4
- exec-timeout 30 0
+ exec-timeout 0 0
  privilege level 15
  logging synchronous
  exec prompt timestamp
  transport input telnet ssh
+ transport output telnet ssh
+line vty 5 15
+ privilege level 15
+ transport input ssh
+ transport output telnet ssh
 !
 scheduler allocate 20000 1000
-ntp server 194.190.168.1
-ntp server 89.109.251.22 prefer
-ntp server 46.254.241.75
+ntp logging
+ntp source FastEthernet0/1
+ntp server 194.190.168.1 source FastEthernet0/1
+ntp server 89.109.251.22 prefer source FastEthernet0/1
+ntp server 46.254.241.75 source FastEthernet0/1
+ntp server 10.129.135.110
 end

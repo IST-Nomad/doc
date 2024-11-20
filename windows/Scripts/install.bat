@@ -1,0 +1,1 @@
+Invoke-Command -ScriptBlock {\\10.129.135.200\netlogon\Scripts\DC.bat} -ComputerName(Get-Content c:\Scripts\pc.txt)
