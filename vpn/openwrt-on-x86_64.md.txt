@@ -1,0 +1,300 @@
+# OpenWRT on x86_64
+
+This is a very brief tutorial on getting OpenWRT installed on a regular computer, it assumes you know your way around Linux.  If you find this and need additional details, please like, subscribe, and comm... oh wait this isn't youtube, just comment.
+
+**Updated**: Current version is 22.03.5, this was originally written for 18.6.x in 2019.
+
+## What You'll Need
+
+* 1 USB Stick
+* Linux Live ISO
+
+Use `dd` or Rufus and create your live Linux ISO.
+
+## Installation
+
+Boot off your live Linux USB.
+
+Open terminal and download the latest OpenWRT, I'm using the `generic-ext4-combined-efi` image.
+
+    cd ~/Desktop
+    wget https://archive.openwrt.org/releases/22.03.5/targets/x86/64/openwrt-22.03.5-x86-64-generic-ext4-combined-efi.img.gz
+    gunzip openwrt-22.03.5-x86-64-generic-ext4-combined-efi.img.gz
+    # May throw this, it can be ignored.
+    gzip: openwrt-22.03.5-x86-64-generic-ext4-combined-efi.img.gz: decompression OK, trailing garbage ignored
+
+Find your hard drive.
+
+    fdisk -l
+
+Should show your hard drive and USB stick.
+
+    Disk /dev/loop0: 2.34 GiB, 2515390464 bytes, 4912872 sectors
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 512 bytes
+    I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+    Disk /dev/sda: 223.57 GiB, 240057409536 bytes, 468862128 sectors
+    Disk model: Patriot Burst El
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 512 bytes
+    I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+    Disk /dev/sdb: 14.32 GiB, 15376000000 bytes, 30031250 sectors
+    Disk model: Ultra
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 512 bytes
+    I/O size (minimum/optimal): 512 bytes / 512 bytes
+    Disklabel type: gpt
+    Disk identifier: 07896644-3E61-4841-B41A-CA3F44823CCE
+
+    Device       Start      End  Sectors  Size Type
+    /dev/sdb1       64  5228883  5228820  2.5G Microsoft basic data
+    /dev/sdb2  5228884  5237379     8496  4.1M EFI System
+    /dev/sdb3  5238784 30031186 24792403 11.8G Linux filesystem
+
+This shows `/dev/sda` which is my SSD, a `/dev/loop0` which is a mount image file, and `/dev/sdb` which is my USB stick.
+
+Write your image to your drive:
+
+    sudo dd if=./openwrt-22.03.5-x86-64-generic-ext4-combined-efi.img of=/dev/sda bs=256 status=progress
+
+    88248576 bytes (88 MB, 84 MiB) copied, 2 s, 44.1 MB/s
+    492670+0 records in
+    492670+0 records out
+    126123520 bytes (126 MB, 120 MiB) copied, 3.25015 s, 38.8 MB/s
+
+### Fix & Sort & Resize Partitions
+
+    sudo fdisk /dev/sda
+    
+    GPT PMBR size mismatch (246303 != 468862127) will be corrected by write.
+    The backup GPT table is corrupt, but the primary appears OK, so that will be used.
+    The backup GPT table is not on the end of the device. This problem will be corrected by write.
+    
+    Command (m for help): w
+    The partition table has been altered.
+    Calling ioctl() to re-read partition table.
+    Syncing disks.
+    
+    sudo fdisk /dev/sda
+    
+    Command (m for help): p
+    Disk /dev/sda: 223.57 GiB, 240057409536 bytes, 468862128 sectors
+    Disk model: Patriot Burst El
+    Units: sectors of 1 * 512 = 512 bytes
+    Sector size (logical/physical): 512 bytes / 512 bytes
+    I/O size (minimum/optimal): 512 bytes / 512 bytes
+    Disklabel type: gpt
+    Disk identifier: BF7A017B-4794-7EEB-750B-7774328FBD00
+
+    Device      Start    End Sectors  Size Type
+    /dev/sda1     512  33279   32768   16M Linux filesystem
+    /dev/sda2   33280 246271  212992  104M Linux filesystem
+    /dev/sda128    34    511     478  239K BIOS boot
+
+    Partition table entries are not in disk order.
+    
+    Command (m for help): x
+    Expert command (m for help): f
+    Partitions order fixed.
+    Expert command (m for help): r
+    Command (m for help): w
+    The partition table has been altered.
+    Calling ioctl() to re-read partition table.
+    Syncing disks.
+    
+From here I resize using `gparted` as I constantly mess this up in `fdisk`.
+
+    sudo gparted /dev/sda
+
+Select the last partition which is your root file system.  Select Partition and Resize/Move.  
+
+Drag the partition, so it takes up the entire space.  Then set the **Free space following (MiB)** to **4096**.  If you skip this, it probably will not boot for some reason.
+
+Click the **Resize/Move** button, then close out of gparted.
+
+### Reboot
+
+This should take about a second or two, then reboot.
+
+    sudo reboot
+
+## First Boot
+
+Grub should automatically boot to OpenWRT.
+
+You may have to hit enter a couple of times if the boot seems to hang, it'll drop you to the command prompt and complain that there's no password.
+
+Edit your `/etc/config/network` file with `vi`.
+
+You'll want to modify your `lan` interface giving it a static IP within your network.
+
+Here's mine for example, if you use `192.168.x.x` instead of `10.10.x.x` you'll want to change this here.
+
+    config interface 'loopback'
+      option device 'lo'
+      option proto 'static'
+      option ipaddr '127.0.0.1'
+      option netmask '255.0.0.0'
+
+    config globals 'globals'
+      option ula_prefix 'fd4d:4e18:f1a2::/48'
+
+    config device
+      option name 'br-lan'
+      option type 'bridge'
+      list ports 'eth0'
+
+    config interface 'lan'
+      option device 'br-lan'
+      option proto 'static'
+      option netmask '255.255.255.0'
+      option ip6assign '60'
+
+    config interface 'wan'
+      option device 'eth1'
+      option proto 'dhcp'
+
+    config interface 'wan6'
+      option device 'eth1'
+      option proto 'dhcpv6'
+
+Then do `service network reload` and you should be able to ping your gateway and outside the network.  If you have more than one NIC you may need to adjust your ethernet cable as needed.
+
+From here you can use `ifconfig` to determine your DHCP address.
+
+    br-lan    Link encap:Ethernet  HWaddr 00:01:2E:80:09:70
+              inet6 addr: fd77:e6c7:809b:4::1/62 Scope:Global
+              inet6 addr: fd4d:4e18:f1a2::1/60 Scope:Global
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    eth0      Link encap:Ethernet  HWaddr 00:01:2E:80:09:70
+              UP BROADCAST MULTICAST  MTU:1500  Metric:1
+              RX packets:0 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:0 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:0 (0.0 B)  TX bytes:0 (0.0 B)
+
+    eth1      Link encap:Ethernet  HWaddr 00:01:2E:80:09:71
+              inet addr:10.10.10.169  Bcast:10.10.10.255  Mask:255.255.255.0
+              inet6 addr: fe80::201:2eff:fe80:971/64 Scope:Link
+              inet6 addr: fd77:e6c7:809b::68e/128 Scope:Global
+              inet6 addr: fd77:e6c7:809b:0:201:2eff:fe80:971/64 Scope:Global
+              UP BROADCAST RUNNING MULTICAST  MTU:1500  Metric:1
+              RX packets:5494 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:2866 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:1545729 (1.4 MiB)  TX bytes:1001285 (977.8 KiB)
+
+    lo        Link encap:Local Loopback
+              inet addr:127.0.0.1  Mask:255.0.0.0
+              inet6 addr: ::1/128 Scope:Host
+              UP LOOPBACK RUNNING  MTU:65536  Metric:1
+              RX packets:1483 errors:0 dropped:0 overruns:0 frame:0
+              TX packets:1483 errors:0 dropped:0 overruns:0 carrier:0
+              collisions:0 txqueuelen:1000
+              RX bytes:142201 (138.8 KiB)  TX bytes:142201 (138.8 KiB)
+
+Now you'll want to open your firewall a bit to allow WAN connections.  Open `/etc/config/firewall` with `vi`.  
+
+If you use this as a router, you should not keep these rules permanently.
+
+    config rule
+      option name 'Allow-LuCI-http-on-WAN'
+      option src 'wan'
+      option proto 'tcp'
+      option dest_port '80'
+      option target 'ACCEPT'
+
+    config rule
+      option name 'Allow-LuCI-https-on-WAN'
+      option src 'wan'
+      option proto 'tcp'
+      option dest_port '443'
+      option target 'ACCEPT'
+
+    config rule
+      option name 'Allow-SSH-on-WAN'
+      option src 'wan'
+      option proto 'tcp'
+      option dest_port '22'
+      option target 'ACCEPT'
+
+To restart the firewall execute:
+
+    fw4 reload
+
+You should now be able to get into the gui from any computer in the same subnet.
+
+## Configuration
+
+### Update Packages
+
+    opkg update
+
+### Packages I Use
+
+    opkg install vim-full nano usbutils pciutils
+
+### Use Bash Instead of Ash
+
+    opkg install bash
+    sed -i 's/ash/bash/' /etc/passwd
+
+#### bash completion
+
+    opkg install ca-bundle ca-certificates openssl-util
+    mkdir ~/bin && cd ~/bin
+    wget https://raw.githubusercontent.com/pjobson/bash-completion/master/bash_completion
+    chmod +x ~/bin/bash_completion
+    echo ". ~/bin/bash_completion" >> ~/.profile
+
+### Adblocking
+
+    opkg install adblock luci-app-adblock
+
+Reload luci and you should find Adblock under Services.
+
+### Setting Up Git
+
+    opkg install git git-http ca-bundle wget
+
+Generate your ssh keys.
+
+    mkdir -p ~/.ssh
+    dropbearkey -t rsa -f ~/.ssh/id_rsa
+    dropbearkey -y -f ~/.ssh/id_rsa | sed -n 2p > ~/.ssh/id_rsa.pub
+    
+Add your ssh key to github.
+
+    cat ~/.ssh/id_rsa.pub
+    
+Add to: [https://github.com/settings/keys](https://github.com/settings/keys)
+
+Git will not work correctly with ssh from the server, this is the workaround.
+
+    mkdir ~/bin && cd ~/bin
+    wget https://raw.githubusercontent.com/pjobson/onion_omega2p_experiments/master/bin/ssh-git
+    chmod +x ssh-git
+
+Edit your `.profile` and add:
+
+    export GIT_SSH=~/bin/ssh-git
+    export GIT_AUTHOR_NAME="USER NAME"
+    export GIT_AUTHOR_EMAIL="user@email.address"
+    export GIT_COMMITTER_NAME=$GIT_AUTHOR_NAME
+    export GIT_COMMITTER_EMAIL=$GIT_AUTHOR_EMAIL
+    export PATH=~/bin:$PATH
+
+Then source your `.profile`.
+
+Now you should be able to connect to github.
+
+## Intel
+
+opkg install kmod-iwlwifi iwlwifi-firmware-iwl6000g2

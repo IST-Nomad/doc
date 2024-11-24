@@ -2,11 +2,11 @@
 //Обнулить Cisco 
 //подключиться через telnet и на старте загрузки нажать ctrl + Break должен выпать в rommon режим.
 //запуск до конфигурации
-#confreg 0x2142 
+confreg 0x2142 
 //перезагрузка
-#reset 
-#enable
-#copy running-config startup-config
+reset 
+enable
+copy running-config startup-config
 //устройство обнулено
 
 //После изменения конфигурации необходимо вернуть обратно 
@@ -15,51 +15,29 @@ config-register 0x2102
 end
 reload
 
-//Первичная настройка
-#conf t
-//Пароль на вход
-#enable password {PASSWORD}
-//Скрываем пароль в конфиге
-#service password-encryption
-//задаем secret пароль (приоритет выше чем обычный)
-#enable secret {PASSWORD}
-//создаем пользователя {USERNAME} уровень привелегий 15 (самый высокий) пароль {PASSWORD}
-#username {USERNAME} privilege 15 password {PASSWORD}
 
-//настройка терминальных линий (0 - console)
-#line console 0
-// использовать локальную базу учетных записей
-#login local
 
-//Настройка времени
-#clock set 10:30:00 17 june 2024
-//Настройка ntp сервера
-#conf t
-#ntp server 10.129.135.110
-//тайм зона
-#clock timezone IRK 8
-#clock timezone YAKT 9
 
 //загрузка конфигурации на tftp сервер
-#copy startup-config tftp:
+copy startup-config tftp:
 {10.129.135.110}
 
 //настройка snmp на cisco
-#conf t
-#snmp-server community public ro
-#snmp-server contact Batr <poplavkovsemen@gmail.com>
+conf t
+snmp-server community public ro
+snmp-server contact Batr <poplavkovsemen@gmail.com>
 
 //настройка порта для скачивания/загрузки ПО/конфигурации cisco
-#conf t
-#ip tftp source-interface {fastEthernet0/1}
-#ip tftp min-timeout 10
+conf t
+ip tftp source-interface {fastEthernet0/1}
+ip tftp min-timeout 10
 
-#conf t
-#archive
+conf t
+archive
 //путь до tftp сервера, кладет в папку ATC (папка должна быть изначально создана) имя файла начинается с hostname ($h) и заканчивается временем создания
-#path tftp://10.129.135.110/ATC/$h 
+path tftp://10.129.135.110/ATC/$h 
 //автоматическое архивирование при сохраниении конфигурации
-#write-memory
+write-memory
 
 //настройка в режиме rommon для загрузки ПО c tftp сервера, нет истории команд и автозаполнения, лучше использовать терминальный клиент для копирования команд
 IP_ADDRESS=10.129.139.249
@@ -79,52 +57,54 @@ boot flash:c890-universalk9-mz.154-3.M6a.bin
 
 xmodem -y flash/c890-universalk9-mz.154-3.M6a.bin
 
-#reload in 1 //перезагрузка через минуту
+reload in 1 //перезагрузка через минуту
 
 //показывает список всех МАС адресов активных устройств, которые подключены к коммутатору
-#show mac address-table
+show mac address-table
 
 //узнаем IP-адрес по каждому MAC-адресу
-#sh ip arp | i 88f0.77f8.5e84
+sh ip arp | i 88f0.77f8.5e84
 
 //Для поиска MAC используется команда sh arp | inc x.x.x.x, где х.х.х.х – ip адрес интересующего хоста
-#sh arp | inc {192.168.10.100}
+sh arp | inc {192.168.10.100}
 
 //фильтр по нужному МАС адресу, причем достаточно последних 4х символов
-#sh mac address-table | inc {74f2}
+sh mac address-table | inc {74f2}
 
 //Если в сети офиса их несколько, то определить имя и адрес управления нужного нам соседнего коммутатора помогут команды 
-#sh cdp neighbors - покажется имена и связанные порты всех коммутаторов Cisco, подключенных к текущему и 
-#sh cdp neighbors detail - в выводе которой дополнительно указаны ip адреса для управления соседними коммутаторами
+/*<!--Если cdp конечно включено--!>*/
+sh cdp neighbors - покажется имена и связанные порты всех коммутаторов Cisco, подключенных к текущему и 
+sh cdp neighbors detail - в выводе которой дополнительно указаны ip адреса для управления соседними коммутаторами
 
 
 //Подключение AUX > console
+
 //Настройка управляющего роутера
-#enable
-#conf t
-#line aux 0
-#speed 9600
-#databits 8
-#parity none
-#stopbits 1
-#exec-timeout 0 0
-#no activation-character
-#no editing
-#transport input telnet
-#transport output none
+enable
+conf t
+line aux 0
+speed 9600
+databits 8
+parity none
+stopbits 1
+exec-timeout 0 0
+no activation-character
+no editing
+transport input telnet
+transport output none
 
 //Подключение 
 //Узнать номер порта AUX
-#show line
+show line
 //Если AUX висит на линии 1, тогда порт подключения: 2000 + 1 = 2001
-#telnet 10.5.0.1 2001
+telnet 10.5.0.1 2001
 //где 10.5.0.1 - адрес внутреннего интерфейса роутера с которого идет подключение (управляющего)
 //разорвать подключение
-#ctrl + shift + 6 и сразу нажимаем x
+ctrl + shift + 6 и сразу нажимаем x
 //смотрим активные подключения 
-#show session
+show session
 //закрываем нужную
-#disconnect 1
+disconnect 1
 
 // после удачной проверки можно сохранить подключение telnet 10.5.0.1 2001 | Это соедиеннеие не нужно разрывать, просто закрыть терминал
 
@@ -135,24 +115,20 @@ copy (откуда) xmodem: (куда) flash:
 
 <<<<<<< Updated upstream
 //Настройка интерфейса роутера
-На маршрутизаторе настраивается логический интерфейс [int vlan 1]
-Router>enable
-Router#conf t
-Enter configuration commands, one per line.  End with CNTL/Z.
-Router(config)#int fa 0
-Router(config-if)#switchport access vlan 1
-Router(config-if)#no shutdown
-Router(config-if)#exit
-Router(config)#int vlan 1
-Router(config-if)#ip add 172.16.1.133 255.255.255.0
-Router(config-if)#no shutdown
-Router(config-if)#exit
-Router(config)#^Z
-Router#
+conf t
+int fa 0/0
+switchport access vlan 1
+no shutdown
+exit
+int vlan 1
+ip add 172.16.1.133 255.255.255.0
+no shutdown
+exit
+
 
 
 //Посмотреть изменения в конфигурации 
-#show archive config differences
+show archive config differences
 //Показывает разницу между стартовой и текущей конфигурацией и кто и когда сделал изменение
 
 
@@ -166,99 +142,55 @@ show crypto engine connections active
 sh crypto session
 
 
-Как настроить SSH на Cisco
+//Как настроить SSH на Cisco
 Заходим в привилегированный режим;
-cisco>enable
-Устанавливаем дату и время (нужны для генерации ключа);
-cisco#clock set 17:05:00 15 Jul 2024
-Входим в режим конфигурирования;
-cisco#conf t
-Указываем домен и имя устройства (для генерации ключа);
-cisco(config)#ip domain-name batr.local
-cisco(config)#hostname cisco-ssh
-Генерируем ключ для SSH;
-cisco-ssh(config)#crypto key generate rsa
-Храним пароли в зашифрованном виде;
-cisco-ssh(config)#service password-encryption
-Создаем пользователя admin с паролем Pa$$w0rd и максимальными привилегиями;
-cisco-ssh(config)#username admin privilege 15 secret Pa$$w0rd
-Задаем пароль для привилегированного режима;
-cisco-ssh(config)#enable secret Pa$$w0rd
-Активируем протокол ААА;
-cisco-ssh(config)#aaa new-model
-Разрешаем компьютерам внутренней сети заходить на Cisco по SSH;
-cisco-ssh(config)#access-list 23 permit 192.168.0.0 0.0.0.255
-Входим в режим конфигурирования терминальный линий;
-cisco-ssh(config)#line vty 0 4
-Запрещаем все, кроме SSH;
-cisco-ssh(config-line)#transport input ssh
-Активируем автоматическое поднятие строки после ответа системы на проделанные изменения;
-cisco-ssh(config-line)#logging synchronous
-Позволяем входить сразу в привилигированный режим;
-cisco-ssh(config-line)#privilege level 15
-Настраиваем автоматическое закрытие SSH сессии через 60 минут;
-cisco-ssh(config-line)#exec-timeout 60 0
-Привязываем группу доступа, созданную на шаге 10, к терминальной линии;
-cisco-ssh(config-line)#access-class 23 in
-Выходим из настроек и сохраняем конфигурацию.
-cisco(config-line)exit
-cisco(config)exit
-cisco#copy run start
-
-
-Cisco. Базовая настройка
-
-Заливаем последнюю прошивку(для SSH необходим минимум Advanced Security), избавляемся от преднастроенного мусора и перегружаемся
-erase startup-config
-
-Включаем шифрование паролей
-service password-encryption
-
-Используем новую модель ААА и локальную базу пользователей
-aaa new-model
-aaa authentication login default local
-
-Заводим пользователя с максимальными правами
-username user privilege 15 secret password
-
-Назначаем имя роутеру
-hostname R1
-ip domain-name R1.domain
-
-//Генерируем ключ для SSH
-crypto key generate rsa
-//генерим ключ 1024 даем имя IRK-MOLOKO-EDGE-R2
+enable
+//Задаем время
+clock set 17:05:00 15 Jul 2024
+//Основные настройки делаются из режима конфигурирования терминала
+conf t
+//Задаем часовой пояс
+clock timezone IRK 8
+clock timezone YAKT 9
+//Задаем часовой пояс
+ntp server 146.0.32.144
+ip domain-name batr.local
+hostname cisco-ssh
 crypto key generate rsa general-keys label IRK-MOLOKO-EDGE-R2 modulus 1024
-//привязываем ключ к ssh (на некоторых версиях cisco без этого ssh не поднимается)
-ip ssh rsa keypair-name IRK-MOLOKO-EDGE-R2
-
-//Настраиваем SSH
 ip ssh authentication-retries 5
 ip ssh version 2
 ip ssh time-out 60
-
-Разрешаем telnet и ssh на удаленной консоли и делаем доступ сразу в привилегированный режим 15го уровня 
-line vty 0 4
-transport input telnet ssh
-privilege level 15
-
-Отключаем доступ по http и https
 no ip http server
 no ip http secure-server
+service password-encryption
+username admin privilege 15 secret Pa$$w0rd
+enable secret Pa$$w0rd
+aaa new-model
+access-list 23 permit 192.168.0.0 0.0.0.255
+line vty 0 4
+transport input ssh
+logging synchronous
+privilege level 15
+exec-timeout 60 0
+access-class 23 in
+exit
+exit
+copy run start
 
-Настройка временной зоны и ntp
-clock timezone MSK 3
-ntp server 146.0.32.144
 
-Настраиваем DNS
-ip domain name domain
-ip name-server 8.8.8.8
 
-Блокируем доступ при определённом количестве неправильных попыток
-login block-for 600 attempts 5 within 30
+enable
+configure terminal
+logging X.X.X.X
+logging trap debug
+//выбирая уровень включаются все снизу вверх начиная с выбранного
 
-Отключаем ошибку резолва при неправильном наборе чего-либо в консоли
-no ip domain-lookup
+0 - emerg
+1 - alert
+2 - crit
+3 - error
+4 - warning
+5 - notice
+6 - informational
+7 - debug
 
-Задаём timeout неактивности telnet сессии
-exec-timeout 15 0
