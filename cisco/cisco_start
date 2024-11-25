@@ -180,7 +180,7 @@ copy run start
 
 enable
 configure terminal
-logging X.X.X.X
+logging 10.129.135.165
 logging trap debug
 //выбирая уровень включаются все снизу вверх начиная с выбранного
 

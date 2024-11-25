@@ -3,21 +3,21 @@
 -- Условие для выборки, '%' - все базы данных 
 DECLARE @namelike varchar(100) = 'Work%'
 -- Каталог для резервной копии
-DECLARE @Path as nvarchar(400) = 'E:\Backup_SQL'
+DECLARE @Path as nvarchar(400) = 'C:\krona_backup'
 -- Тип резервного копирования:
 --		0 - Полная резервная копия с флагом "Только резервное копирование"
 --		1 - Полная резервная копия
 --		2 - Разностная резервная копия
 --		3 - Копия журнала транзакций
-DECLARE @Type as int = 0
+DECLARE @Type as int = 1
 -- Сжимать резервные копии:
 --		0 - Не сжимать или по умолчанию
 --		1 - Сжимать
-DECLARE @Compression as int = 0
+DECLARE @Compression as int = 1
 -- Имя почтового профиля, для отправки электонной почты									
-DECLARE @profilename as nvarchar(100) = 'ОсновнойПрофиль'
+DECLARE @profilename as nvarchar(100) = 'Профиль для отправки отчетов'
 -- Получатели сообщений электронной почты, разделенные знаком ";"				
-DECLARE @recipients as nvarchar(500) = 'admin@mydomen.com'
+DECLARE @recipients as nvarchar(500) = 'poplavkovsemen@gmail.com'
 
 -------------------------------------------
 -- СЛУЖЕБНЫЕ ПЕРЕМЕННЫЕ
