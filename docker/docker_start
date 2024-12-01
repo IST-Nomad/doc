@@ -21,3 +21,32 @@ docker-compose --version
 
 nano docker-compose-server-amd64.yaml
 
+sudo -i
+apt update -y && apt upgrade -y
+apt install apt-transport-https ca-certificates curl software-properties-common -y
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+docker-ce:
+    Installed: (none)
+    Candidate: 5:19.03.9~3-0~ubuntu-focal
+    Version table:
+       5:19.03.9~3-0~ubuntu-focal 500
+          500 https://download.docker.com/linux/ubuntu focal/stable amd64 Packages
+apt install docker-ce
+systemctl status docker
+usermod -aG docker ${USER}
+
+// docker-compose
+sudo curl -L "https://github.com/docker/compose/releases/download/v2.15.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+docker run --name rundeck -v data:/home/rundeck/server/data rundeck/rundeck:5.0.1 -e RUNDECK_GRAILS_URL=http://10.129.135.117:4440
+RUNDECK_GRAILS_URL=http://127.0.0.1:4440
+
+sudo docker run -p 4440:4440 -e EXTERNAL_SERVER_URL=http://localhost:4440 --name rundeck -t jordan/rundeck:latest
+
+
+docker run --name rundeck -v data:/home/rundeck/server/data rundeck/rundeck
+sudo docker run -p 4443:4443 -e EXTERNAL_SERVER_URL=https://krona.rundeck.com:4443 -e RUNDECK_WITH_SSL=true --name rundeck -t jordan/rundeck:latest
+
+

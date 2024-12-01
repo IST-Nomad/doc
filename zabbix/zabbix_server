@@ -104,6 +104,6 @@ services:
       timeout: 5s
       retries: 5
 #
-// старт
+#старт
 #sudo docker-compose -f docker-compose-server-amd64.yaml up -d
 
