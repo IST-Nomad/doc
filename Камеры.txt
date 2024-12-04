@@ -1,0 +1,35 @@
+
+
+
+
+10.10.100.119 admin tlJwpbo6    rtsp://10.10.100.119:554/user=admin_password=tlJwpbo6_channel=1_stream=1.sdp?real_stream      
+10.10.100.10  admin tlJwpbo6    rtsp://10.10.100.108:554/user=admin_password=tlJwpbo6_channel=1_stream=1.sdp?real_stream
+10.10.100.109 admin admin       rtsp://admin:admin@10.10.100.109:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.107 admin admin       rtsp://admin:admin@10.10.100.107:554/ch01_sub.264
+10.10.100.106 admin admin       rtsp://admin:admin@10.10.100.106:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.29  admin Adm12345    rtsp://admin:Adm12345@10.10.100.29:554/0
+10.10.100.126 admin             rtsp://admin:admin@10.10.100.126:554/0
+10.10.100.110 admin             rtsp://10.10.100.110:554/ch01_sub.264?ptype=tcp
+10.10.100.118 admin admin       rtsp://admin:admin@10.10.100.118:554/11
+10.10.100.105 admin             rtsp://admin:admin@10.10.100.105:554/12
+10.10.100.114                   rtsp://10.10.100.114:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.120                   rtsp://10.10.100.120:554/MainStream
+10.10.100.116 admin admin       rtsp://admin:admin@10.10.100.116:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.115 admin admin       rtsp://admin:admin@10.10.100.115:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.128 admin admin       rtsp://admin:admin@10.10.100.128:554/0
+10.10.100.127 admin admin       rtsp://admin:admin@10.10.100.127:554/0
+10.10.100.131 admin admin       rtsp://admin:admin@10.10.100.131:554/user=admin&password=&channel=1&stream=0.sdp
+10.10.100.124 admin admin       rtsp://admin:admin@10.10.100.124:554/11
+10.10.100.121 admin admin       rtsp://admin:admin@10.10.100.121:554/ch01.264?ptype=tcp
+10.10.100.122 admin admin       rtsp://admin:admin@10.10.100.122:554/11
+10.10.100.123 admin admin       rtsp://admin:admin@10.10.100.123:80/0
+10.10.100.113 admin admin       rtsp://10.10.100.113:554/ch01_sub.264
+10.10.100.125 admin admin       rtsp://admin:admin@10.10.100.125:554/11
+10.10.100.111 admin             rtsp://admin:@10.10.100.111/user=admin&password=&channel=1&stream=1.sdp
+10.10.100.129 admin Cthdth$2003 rtsp://admin:Cthdth2003@10.10.100.129/Streaming/Channels/101?transportmode=unicast&profile=Profile_1
+10.10.100.130 admin Cthdth$2003 rtsp://admin:Cthdth2003@10.10.100.130/Streaming/Channels/101?transportmode=unicast&profile=Profile_1
+10.10.100.132 admin admin123456 rtsp://admin:admin123456@10.10.100.132:8554/profile0
+10.10.100.133 admin admin123456 rtsp://admin:admin123456@10.10.100.133:8554/profile0
+10.10.100.134 admin admin123456 rtsp://admin:admin123456@10.10.100.134:8554/profile0
+10.10.100.135 admin admin123456 rtsp://admin:admin123456@10.10.100.135:8554/profile0
+10.10.100.136 admin admin123456 rtsp://admin:admin123456@10.10.100.136:8554/profile0
