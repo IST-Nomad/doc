@@ -1,0 +1,42 @@
+
+- hostname: zabbix
+  username: zabbix
+  osFamily: linux
+  tags: webserver
+  attributes:
+    ssh-keyfile: /home/rundeck/.ssh/  # Путь к приватному ключу для SSH
+    ssh-port: 22
+  node-executor: ssh-exec
+  file-copier: scp
+
+- hostname: wiki
+  username: wiki
+  osFamily: linux
+  tags: dbserver
+  attributes:
+    ssh-keyfile: /home/rundeck/.ssh/
+    ssh-port: 22
+  node-executor: ssh-exec
+  file-copier: scp
+
+- hostname: finist-trans
+  username: admin
+  osFamily: windows
+  tags: windows
+  attributes:
+    winrm-port: 5985
+    winrm-transport: plaintext
+    password: Cthdth$2003  # Пароль для подключения по WinRM
+  node-executor: winrm
+  file-copier: winrm
+
+- hostname: oit_10  
+  username: admin
+  osFamily: windows
+  tags: windows
+  attributes:
+    winrm-port: 5985
+    winrm-transport: plaintext
+    password: Cthdth$2003  # Пароль для подключения по WinRM
+  node-executor: winrm
+  file-copier: winrm
