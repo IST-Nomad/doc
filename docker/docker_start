@@ -50,3 +50,4 @@ docker run --name rundeck -v data:/home/rundeck/server/data rundeck/rundeck
 sudo docker run -p 4443:4443 -e EXTERNAL_SERVER_URL=https://krona.rundeck.com:4443 -e RUNDECK_WITH_SSL=true --name rundeck -t jordan/rundeck:latest
 
 
+docker exec -it b03e54a4e05e bash
