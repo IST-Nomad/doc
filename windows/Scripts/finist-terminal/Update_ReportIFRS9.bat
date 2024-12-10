@@ -1,25 +1,26 @@
 @echo off
-rem Таймауты проставил на всякий случай
+set "name=FinistReportIFRS9"
+set "logFile=\\FINIST\c$\Scripts\log\update_app.txt"
+set "source=\\FINIST\c$\Finist\%name%\FinistReport.Client"
+set "destination=\\FINIST-TERMINAL\c$\Finist\%name%\FinistReport.Client"
+set "config_file1=FinistReport.UserArm.exe.config"
+
+set "config_dir=\\FINIST-TERMINAL\c$\Finist\config_%name%"
 color 2
-rem Выключаем новые подключения
+:: Выключаем новые подключения
 change logon /disable
+:: Гасим службу у всех пользователей
+powershell -file C:\Scripts\killproc_%name%.ps1
+TIMEOUT 5
+:: Копируем конфиг
+copy "%destination%\%config_file1%" %config_dir%
 
-rem Отключаем всех пользователей кроме тех что указаны в скрипте (админы)
-powershell -file C:\Scripts\killproc_FinistReport.UserArm.ps1
+:: Удаляем папки со всем содержимым
+RMDIR %destination% /S /Q 
+:: Копируем с боевого сервера в тестовые папки всё кроме конфигов
+robocopy %source% %destination% /E /R:1 /W:0 
+copy "%config_dir%\%config_file1%" %destination%
 
-rem Копируем конфиг
-copy "C:\Finist\FinistReportIFRS9\FinistReport.Client\FinistReport.UserArm.exe.config" C:\Finist\config_FinistReport
-
-rem Удаляем папки со всем содержимым
-RMDIR \\FINIST-TERMINAL\c$\Finist\FinistReportIFRS9\FinistReport.Client /S /Q 
-
-
-rem Копируем с боевого сервера в тестовые папки всё кроме конфигов
-
-robocopy \\finist\c$\Finist\FinistReportIFRS9\FinistReport.Client C:\Finist\FinistReportIFRS9\FinistReport.Client /E /R:1 /W:0 
-copy "C:\Finist\config_FinistReport\FinistReport.UserArm.exe.config" C:\Finist\FinistReportIFRS9\FinistReport.Client\
-
-
-
-rem Включаем новые подключения
+echo %date% %time% Update_%name%_success to FINIST-TERMINAL >> "%logFile%"
+:: Включаем новые подключения
 change logon /enable

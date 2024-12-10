@@ -1,7 +1,16 @@
 echo off 
 COLOR 2
-chcp 65001
-setlocal
+
+Set f_Date=%Date% 
+Set f_Time=%Time%
+Set f_Day=%f_Date:~0,2% 
+Set f_Month=%f_Date:~3,2% 
+Set f_Year=%f_Date:~6,4%
+Set f_Month=%f_Month: =%
+Set f_Day=%f_Day: =%
+Set m_Date=%Date:.=%
+Set m_Year=%f_Date:~8,2%
+
 
 Set f_Date=%Date% 
 Set f_Time=%Time%
@@ -13,16 +22,12 @@ Set f_Day=%f_Day: =%
 Set m_Date=%Date:.=%
 Set m_Year=%f_Date:~8,4%
 
+set dir_in=F:\input\foiv-mz\request
+set dir_out=H:\no_440\in
+rem set dir_work=c:\FOIV_temp\FNS_440p\In
+set dir_arch=L:\arhiv_obmen\nalog\440P\%f_Year%\%f_Month%\%f_Day%%f_Month%%m_Year%
+set dir_arch2=y:\F365\archive\in\%f_Day%%f_Month%%f_Year%
 
-\\FREEBSD\data\Отчетность для отправки в ЦБ\PTKPSD\F365\archive\in
-
-
-
-set dir_in=\\DELTAKRONA\Delta\backend\plugins\delta-foiv\input\foiv-mz\request
-set dir_out=\\FINIST\IBSDataFolder\440\IN
-set dir_arch=\\FREEBSD\data\arhiv_obmen\nalog\440P\%f_Year%\%f_Month%\%f_Day%%f_Month%%m_Year%
-set dir_arch2=\\FREEBSD\data\Отчетность для отправки в ЦБ\PTKPSD\F365\archive\in\%f_Day%%f_Month%%f_Year%
-set dir_print=\\RSAppServ1\TxtFile\Print365
 
 md %dir_arch%
 md %dir_arch2%
@@ -49,26 +54,23 @@ COPY %dir_in%\ZSV*.vrb %dir_out%
 COPY %dir_in%\TRB*.xml %dir_out%
 COPY %dir_in%\TRG*.xml %dir_out%
 COPY %dir_in%\KWTFCB*.xml %dir_out%
-COPY %dir_in%\D*.tst %dir_out%
 
 echo 4. Копируем для печати
-COPY %dir_in%\RPO*.xml %dir_print%
-COPY %dir_in%\ROO*.xml %dir_print%
-COPY %dir_in%\PNO*.xml %dir_print%
-COPY %dir_in%\PPD*.xml %dir_print%
-COPY %dir_in%\PKO*.xml %dir_print%
-COPY %dir_in%\APN*.xml %dir_print%
-COPY %dir_in%\APO*.xml %dir_print%
-COPY %dir_in%\APZ*.xml %dir_print%
-COPY %dir_in%\ZSN*.xml %dir_print%
-COPY %dir_in%\ZSO*.xml %dir_print%
-COPY %dir_in%\ZSV*.xml %dir_print%
-COPY %dir_in%\ZSV*.vrb %dir_print%
-COPY %dir_in%\TRB*.xml %dir_print%
-COPY %dir_in%\TRG*.xml %dir_print%
-COPY %dir_in%\D*.tst %dir_print%
-
-TIMEOUT 5
+::DEL  S:\*.xml
+COPY %dir_in%\RPO*.xml S:\
+COPY %dir_in%\ROO*.xml S:\
+COPY %dir_in%\PNO*.xml S:\
+COPY %dir_in%\PPD*.xml S:\
+COPY %dir_in%\PKO*.xml S:\
+COPY %dir_in%\APN*.xml S:\
+COPY %dir_in%\APO*.xml S:\
+COPY %dir_in%\APZ*.xml S:\
+COPY %dir_in%\ZSN*.xml S:\
+COPY %dir_in%\ZSO*.xml S:\
+COPY %dir_in%\ZSV*.xml S:\
+COPY %dir_in%\ZSV*.vrb S:\
+COPY %dir_in%\TRB*.xml S:\
+COPY %dir_in%\TRG*.xml S:\
 
 echo 5. Чистим каталог
 DEL %dir_in%\*.arj
@@ -92,8 +94,6 @@ ping localhost -n 3
 
 C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены (Дельта) "
 ping localhost -n 3
-
-endlocal
 
 pause
 

@@ -1,12 +1,26 @@
 @echo off
-rem Таймауты проставил на всякий случай
+set "name=EventManager"
+set "logFile=\\FINIST\c$\Scripts\log\update_app.txt"
+set "source=\\FINIST\c$\Finist\%name%\UserArm"
+set "destination=\\FINIST-TERMINAL\c$\Finist\%name%\UserArm"
+set "config_file1=EventManager.UserArm.dll.config"
+
+set "config_dir=\\FINIST-TERMINAL\c$\Finist\config_%name%"
 color 2
+:: Выключаем новые подключения
 change logon /disable
-powershell -file C:\Scripts\killproc_EventManager.UserArm.ps1
-copy "C:\Finist\EventManager\UserArm\EventManager.UserArm.dll.config" C:\Finist\config_eventmanager
-rem Удаляем папки со всем содержимым
-RMDIR \\FINIST-TERMINAL\c$\Finist\EventManager\UserArm /S /Q 
-rem Копируем с тестового сервера в тестовые папки
-robocopy \\FINIST\c$\Finist\EventManager\UserArm \\FINIST-TERMINAL\c$\Finist\EventManager\UserArm /E /R:1 /W:0
-copy "C:\Finist\config_eventmanager\EventManager.UserArm.dll.config" C:\Finist\EventManager\UserArm
+:: Гасим службу у всех пользователей
+powershell -file C:\Scripts\killproc_%name%.ps1
+TIMEOUT 5
+:: Копируем конфиг
+copy "%destination%\%config_file1%" %config_dir%
+
+:: Удаляем папки со всем содержимым
+RMDIR %destination% /S /Q 
+:: Копируем с боевого сервера в тестовые папки всё кроме конфигов
+robocopy %source% %destination% /E /R:1 /W:0 
+copy "%config_dir%\%config_file1%" %destination%
+
+echo %date% %time% Update_%name%_success to FINIST-TERMINAL >> "%logFile%"
+:: Включаем новые подключения
 change logon /enable

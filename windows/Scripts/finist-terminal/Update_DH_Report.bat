@@ -1,25 +1,26 @@
 @echo off
-rem Таймауты проставил на всякий случай
+set "name=DH_Report"
+set "logFile=\\FINIST\c$\Scripts\log\update_app.txt"
+set "source=\\FINIST\c$\Finist\%name%"
+set "destination=\\FINIST-TERMINAL\c$\Finist\%name%"
+set "config_file1=connection.ini"
+
+set "config_dir=\\FINIST-TERMINAL\c$\Finist\config_%name%"
 color 2
-rem Выключаем новые подключения
+:: Выключаем новые подключения
 change logon /disable
-rem TIMEOUT 5
-rem Отключаем всех пользователей кроме тех что указаны в скрипте (админы)
-powershell -file C:\Scripts\killproc_DH_Report.ps1
-rem TIMEOUT 5
-rem Копируем конфиг
-rem copy "C:\Finist\WFinInst\finistbank.dsn" C:\Finist\config_wfinist
-rem copy "C:\Finist\WFinInst\Wfinist.ini" C:\Finist\config_wfinist
-rem Удаляем папки со всем содержимым
-RMDIR \\FINIST-TERMINAL\c$\Finist\DH_Report /S /Q 
+:: Гасим службу у всех пользователей
+powershell -file C:\Scripts\killproc_%name%.ps1
+TIMEOUT 5
+:: Копируем конфиг
+copy "%destination%\%config_file1%" %config_dir%
 
-rem TIMEOUT 5
-rem Копируем с боевого сервера в тестовые папки всё кроме конфигов
+:: Удаляем папки со всем содержимым
+RMDIR %destination% /S /Q 
+:: Копируем с боевого сервера в тестовые папки всё кроме конфигов
+robocopy %source% %destination% /E /R:1 /W:0 
+copy "%config_dir%\%config_file1%" %destination%
 
-robocopy \\FINIST\c$\Finist\DH_Report \\FINIST-TERMINAL\c$\Finist\DH_Report /E /R:1 /W:0 
-rem copy "C:\Finist\config_wfinist\finistbank.dsn" C:\Finist\WFinInst\
-rem copy "C:\Finist\config_wfinist\Wfinist.ini" C:\Finist\WFinInst\
-
-
-rem Включаем новые подключения
+echo %date% %time% Update_%name%_success to FINIST-TERMINAL >> "%logFile%"
+:: Включаем новые подключения
 change logon /enable
