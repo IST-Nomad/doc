@@ -21,7 +21,7 @@ cd C:/Distr/iperf3.1.1_64
 del /F /Q /A "Путь к файлу"
 del /s /q C:\Finist\*.*
 
-//Копировать файлыd
+//Копировать файлы
 copy /y L:\Soft\TERM_TST C:\TEMP
 
 //cmd от имени системы

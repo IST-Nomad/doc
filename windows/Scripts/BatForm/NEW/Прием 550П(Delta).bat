@@ -14,32 +14,32 @@ Set m_Year=%f_Date:~8,2%
 set dir_in=F:\input\foiv-wz\request
 set dir_out=h:\fsfm_XML\Obmen550p\CBRF\BANK\
 rem set dir_work=c:\FOIV_temp\FSFM_550p\In
-set dir_arch=L:\arhiv_obmen\äîå\550P\%f_Year%\%f_Month%\%f_Day%%f_Month%%m_Year%
+set dir_arch=L:\arhiv_obmen\–ö–§–ú\550P\%f_Year%\%f_Month%\%f_Day%%f_Month%%m_Year%
 
 md %dir_arch%
 
-echo 1. è•‡•≠Æ·®¨ ØÆ§£Æ‚Æ¢´•≠≠Î• ‰†©´Î ¢ Ø†Ø™„ §´Ô ‡†·Ë®‰‡Æ¢™®
+echo 1. –ü–µ—Ä–µ–Ω–æ—Å–∏–º –ø–æ–¥–≥–æ—Ç–æ–≤–ª–µ–Ω–Ω—ã–µ —Ñ–∞–π–ª—ã –≤ –ø–∞–ø–∫—É –¥–ª—è —Ä–∞—Å—à–∏—Ñ—Ä–æ–≤–∫–∏
 
 DEL %dir_work%\cb_550p*.arj
 COPY %dir_in%\CB_ES550P*.xml %dir_arch%
 MOVE %dir_in%\CB_ES550P*.xml %dir_out%
 
 
-echo 2. é‚Ø‡†¢´Ô•¨ ·ÆÆ°È•≠®Ô ¢ å®‡†≠§„
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_02@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+echo 2. –û—Ç–ø—Ä–∞–≤–ª—è–µ–º —Å–æ–æ–±—â–µ–Ω–∏—è –≤ –ú–∏—Ä–∞–Ω–¥—É
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_02@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 
 ping localhost -n 3
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_01@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_01@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 
 ping localhost -n 3
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_03@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_03@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 
 ping localhost -n 3
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_02@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_02@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 
 ping localhost -n 3
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_06@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_06@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 ping localhost -n 3
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 550-Ø ß†£‡„¶•≠Î (Ñ•´Ï‚†)"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 550-–ø –∑–∞–≥—Ä—É–∂–µ–Ω—ã (–î–µ–ª—å—Ç–∞)"
 
 pause
