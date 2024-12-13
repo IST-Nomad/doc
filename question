@@ -76,3 +76,26 @@ f_ck() # ЦККИ
 f_fz() # 407-П
 f_yz() # ВБК
 f_tz() # ЭКВТ, ЭСВТ
+
+
+66.249.65.103
+	176.209.119.80
+
+    C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oper_01@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 ks_02@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 ref_01@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_03@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_02@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 amur_07@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 amur_23@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3
+	C:\Scripts\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 amur_02@jabber.tcbdomen.trustcombank.ru " Файлы по 440-п загружены в SMEV "
+	Start-Sleep -Seconds 3

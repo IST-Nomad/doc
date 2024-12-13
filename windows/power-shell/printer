@@ -1,0 +1,7 @@
+$UserName = "tcbdomen\fiz_02"
+$PrinterJobs = Get-PrintJob | Where-Object { $_.Owner -eq $UserName }
+
+# Удаление всех заданий печати для указанного пользователя
+foreach ($Job in $PrinterJobs) {
+    Remove-PrintJob -Id $Job.Id
+}
