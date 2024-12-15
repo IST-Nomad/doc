@@ -3,30 +3,30 @@ color 2
 chcp 65001
 :menu
 echo.
-echo Выберите, какой клиент слудует обновить 
+echo Выберите, какой процесс убить
 echo Перед выполнением оповести пользователей что сеанс работы в клиенте завершится автоматически!!!
-echo 1 - Обновить DH_Report
-echo 2 - Обновить DigitalBank.Report
-echo 3 - Обновить EventManager
-echo 4 - Обновить GEstBank
-echo 5 - Обновить ReportIFRS9
-echo 6 - Обновить wfinist
+echo 1 - Убить DH_Report
+echo 2 - Убить DigitalBank.Report
+echo 3 - Убить EventManager
+echo 4 - Убить GEstBank
+echo 5 - Убить ReportIFRS9
+echo 6 - Убить wfinist
 echo Q - Выход
 set /p choice="Введите номер или Q для выхода: "
 
 rem Обработка выбора пользователя
 if /i "%choice%"=="1" (
-    call C:\Scripts\Update_DH_Report.bat
+    powershell -file C:\Scripts\killproc_DH_Report.ps1
 ) else if /i "%choice%"=="2" (
-    call C:\Scripts\Update_DigitalBank.Report.bat
+    powershell -file C:\Scripts\killproc_FinistDigitalBank.Report.UserArm.ps1
 ) else if /i "%choice%"=="3" (
-    call C:\Scripts\Update_EventManager.bat
+    powershell -file C:\Scripts\killproc_EventManager.UserArm.ps1
 ) else if /i "%choice%"=="4" (
-    call C:\Scripts\Update_GEstBank.bat
+    powershell -file C:\Scripts\killproc_GEstBank.UserARM.ps1
 ) else if /i "%choice%"=="5" (
-    call C:\Scripts\Update_ReportIFRS9.bat
+    powershell -file C:\Scripts\killproc_FinistReport.UserArm.ps1
 ) else if /i "%choice%"=="6" (
-    call C:\Scripts\Update_wfinist.bat
+    powershell -file C:\Scripts\killproc_WFinist.ps1
 ) else if /i "%choice%"=="Q" (
     echo Выход...
     exit /b
