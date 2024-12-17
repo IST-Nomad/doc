@@ -109,3 +109,12 @@ Remove-Item -Path C:\temp\DeleteMe -Recurse
 
 //Вы можете проверить, что аккаунт заблокирован в графический консоли ADUC или с помощью комнадлета
 Get-ADUser -Identity admin -Properties LockedOut,DisplayName | Select-Object samaccountName, displayName,Lockedout
+
+
+
+
+
+Get-Printer | ForEach-Object {
+$printerName = $_.Name
+Get-PrintJob -PrinterName $printerName | Where-Object { $_.UserName -eq 'tcbdomen\fiz_02' } | Remove-PrintJob
+}
