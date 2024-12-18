@@ -1,20 +1,4 @@
-Get-Service seclogon
-Start-Service seclogon
-//Запуск от имени другого пользователя 
-Start-Process -FilePath "powershell.exe" -Verb RunAsUser
 
-//Установить набор компонентов администрирования AD
-Get-WindowsCapability -Online|?{$_.name -like '*xps*'}|Add-WindowsCapability -Online -LimitAccess -Source "\\10.129.130.25\c$\drivers\en_windows_10_features_on_demand_part_1_version_1809_updated_sept_2018_x64_dvd_a68fa301"
-
-Get-WindowsCapability -Online|?{$_.name -like '*Rsat.ActiveDirectory.DS-LDS.Tools~~~~0.0.1.0*'}|Add-WindowsCapability -Online -LimitAccess -Source "\\10.129.130.25\c$\drivers\en_windows_10_features_on_demand_part_1_version_1809_updated_sept_2018_x64_dvd_a68fa301"
-
-
-$currentWU = Get-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" | select -ExpandProperty UseWUServer
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value 0
-Restart-Service wuauserv
-Get-WindowsCapability -Name RSAT* -Online | Add-WindowsCapability –Online
-Set-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU" -Name "UseWUServer" -Value $currentWU
-Restart-Service wuauserv
 
 //Узнать имя по SID
 wmic useraccount where sid='S-1-5-21-2749816300-1181617901-2751356043-4187' get name
