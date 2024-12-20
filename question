@@ -67,3 +67,10 @@ f_ck() # ЦККИ
 f_fz() # 407-П
 f_yz() # ВБК
 f_tz() # ЭКВТ, ЭСВТ
+
+
+
+Get-Printer | ForEach-Object {
+$printerName = $_.Name
+Get-PrintJob -PrinterName $printerName | Where-Object { $_.UserName -eq 'tcbdomen\fiz_02' } | Remove-PrintJob
+}
