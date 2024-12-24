@@ -67,8 +67,7 @@ f_ck() # ЦККИ
 f_fz() # 407-П
 f_yz() # ВБК
 f_tz() # ЭКВТ, ЭСВТ
-
-
+f_wz() # 550-П
 
 Get-Printer | ForEach-Object {
 $printerName = $_.Name
