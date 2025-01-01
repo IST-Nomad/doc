@@ -55,6 +55,22 @@
 55 Настроить Rundeck
 56 Auto restore боевой базы на предбой из бэкапа
 57 Настроить Wireguard или OpenVPN
+58 Отслеживание изменений в базе MSSql
+59 Миграция данных с oracle в postgresql
+60 Перенос Delta на linux
+61 Перенести папку Комиты с RS на Finist для Мурашевой
+62 Перенести папку \\RSAppServ1\TxtFile\Print365 на Finist для печати по 440-П
+63 Обновить Operrisk
+64 Обновить wfinist
+
+
+C:\ImportMSP
+\\fs1\Resources\Report\FINIST\Retail\ImportFolder
+
+
+
+
+
 
 f2b-izotova Сервер;2003
 
@@ -67,8 +83,7 @@ f_ck() # ЦККИ
 f_fz() # 407-П
 f_yz() # ВБК
 f_tz() # ЭКВТ, ЭСВТ
-
-
+f_wz() # 550-П
 
 Get-Printer | ForEach-Object {
 $printerName = $_.Name
