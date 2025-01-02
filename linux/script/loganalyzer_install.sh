@@ -3,9 +3,9 @@
 # LAMP + phpmyadmin + rsyslog + Log Analyzer
 # Article with explanations (russian): https://qiwichupa.net/?p=6437 (also in web.archive.org)
 
-PHPMYADMINUSER="pma"
-PHPMYADMINPASS="321"
-SYSLOGDBPASSWORD="Qwerty"
+PHPMYADMINUSER="rsyslog"
+PHPMYADMINPASS="rsyslog"
+SYSLOGDBPASSWORD="rsyslog"
 PMAVER="4.9.2"
 LAVERSION="4.1.7"
 
@@ -43,12 +43,12 @@ function check_sql {
 
 function install_sql {
     apt -y install mariadb-server
-#    mysql -uroot -e "UPDATE mysql.user SET Password=PASSWORD('${MYSQLROOTPASS}') WHERE User='root';\
-#    DELETE FROM mysql.user WHERE User='';\
-#    DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\
-#    DROP DATABASE test;\
-#    DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';\
-#    FLUSH PRIVILEGES;"
+    mysql -uroot -e "UPDATE mysql.user SET Password=PASSWORD('${MYSQLROOTPASS}') WHERE User='root';\
+    DELETE FROM mysql.user WHERE User='';\
+    DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');\
+    DROP DATABASE test;\
+    DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%';\
+    FLUSH PRIVILEGES;"
 }
 
 
@@ -134,7 +134,7 @@ Alias /phpmyadmin /usr/share/phpmyadmin
 EOF
 
 
-if [ ! -f phpMyAdmin-${PMAVER}-all-languages.tar.gz ]; then wget https://files.phpmyadmin.net/phpMyAdmin/${PMAVER}/phpMyAdmin-${PMAVER}-all-languages.tar.gz; fi
+if [ ! -f phpMyAdmin-${PMAVER}-all-languages.tar.gz ]; then wget https://files.phpmyadmin.net/phpMyAdmin/${PMAVER}/phpMyAdmin-${PMAVER}-all-languages.tar.gz --no-check-certificate; fi
 tar -xf phpMyAdmin-${PMAVER}-all-languages.tar.gz
 mkdir /usr/share/phpmyadmin
 cp -r phpMyAdmin-${PMAVER}-all-languages/* /usr/share/phpmyadmin
