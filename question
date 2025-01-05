@@ -68,7 +68,7 @@
 68
 69
 
-
+apt install mysql-server mysql-client rsyslog rsyslog-mysql -y
 
 C:\ImportMSP
 \\fs1\Resources\Report\FINIST\Retail\ImportFolder
