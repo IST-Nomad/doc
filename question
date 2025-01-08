@@ -68,10 +68,14 @@
 68
 69
 
-apt install mysql-server mysql-client rsyslog rsyslog-mysql -y
+sudo apt install mysql-server mysql-client rsyslog rsyslog-mysql -y
 
 C:\ImportMSP
 \\fs1\Resources\Report\FINIST\Retail\ImportFolder
+
+
+create user syslogmaster@localhost identified by 'rsyslog';
+create user mugen@localhost identified by 'mugen';
 
 
 
