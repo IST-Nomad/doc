@@ -47,7 +47,7 @@
 #47 Обновление Operrisk
 48 Настроить свой weeambackup
 #49 Закрыть подсеть 192.168.135.0
-50 Настройка cisco Благовещенска
+#50 Настройка cisco Благовещенска
 51 Туннели Туннели Туннели
 52 IP телефония
 53 электронный документооборот
@@ -62,24 +62,11 @@
 62 Перенести папку \\RSAppServ1\TxtFile\Print365 на Finist для печати по 440-П
 #63 Обновить Operrisk
 #64 Обновить wfinist
-65 Установить syslog_server
+#65 Установить syslog_server
 #66 Обновить Delta
-67 Лицензия Gestbank
-68
+#67 Лицензия Gestbank
+68 Настройка Eltex
 69
-
-sudo apt install mysql-server mysql-client rsyslog rsyslog-mysql -y
-
-C:\ImportMSP
-\\fs1\Resources\Report\FINIST\Retail\ImportFolder
-
-
-create user syslogmaster@localhost identified by 'rsyslog';
-create user mugen@localhost identified by 'mugen';
-
-
-
-
 
 
 f2b-izotova Сервер;2003
