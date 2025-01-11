@@ -20,7 +20,7 @@
 #20 Настройка cisco молоко
 #21 Хосты завести за vGate
 #22 Установить KMS сервер
-23 Backup DB (postgresql, ms sql)
+#23 Backup DB (postgresql, ms sql)
 !!24 Устанвить DC на ESXi
 #25 Backup боевой MSSql 10.129.135.177
 #26 Заменить rasbery на nettop (курсы валют)
@@ -66,7 +66,7 @@
 #66 Обновить Delta
 #67 Лицензия Gestbank
 68 Настройка Eltex
-69
+69 407-П и 4077У
 
 
 f2b-izotova Сервер;2003
@@ -84,5 +84,11 @@ f_wz() # 550-П
 
 Get-Printer | ForEach-Object {
 $printerName = $_.Name
-Get-PrintJob -PrinterName $printerName | Where-Object { $_.UserName -eq 'tcbdomen\fiz_02' } | Remove-PrintJob
+Get-PrintJob -PrinterName $printerName | Where-Object { $_.UserName -eq 'tcbdomen\acc_05' } | Remove-PrintJob
 }w32tm /config /manualpeerlist:time.nist.gov,0x1 /syncfromflags:manual /reliable:yes /update
+
+
+https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_cfg/configuration/xe-16/sec-usr-cfg-xe-16-book/sec-login-enhance.html
+https://www.cisco.com/c/en/us/td/docs/ios/sec_user_services/configuration/guide/12_2sr/sec_securing_user_services_12-2sr_book/sec_login_enhance.html
+https://community.cisco.com/t5/network-access-control/unknown-aaa-authentication-attempts-on-catalyst-switch/td-p/4079277
+https://community.cisco.com/t5/network-management/login-on-failure-log-message-problem/td-p/3335410

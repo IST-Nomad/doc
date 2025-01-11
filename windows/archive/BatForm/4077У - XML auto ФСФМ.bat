@@ -11,76 +11,76 @@ Set f_Day=%f_Day: =%
 Set m_Date=%Date:.=%
 Set m_Year=%f_Date:~8,2%
 
-set katalog=L:\arhiv_obmen\™‰¨\%f_Year%\%f_Month%\%f_Day%%f_Month%%f_Year%
+set katalog=L:\arhiv_obmen\–∫—Ñ–º\%f_Year%\%f_Month%\%f_Day%%f_Month%%f_Year%
 
-::Ñ®‡•™‚Æ‡®Ô arhiv_obmen
-set dir_arch=L:\arhiv_obmen\™‰¨\%f_Year%\%f_Month%\%f_Day%%f_Month%%f_Year%
+::–î–∏—Ä–µ–∫—Ç–æ—Ä–∏—è arhiv_obmen
+set dir_arch=L:\arhiv_obmen\–∫—Ñ–º\%f_Year%\%f_Month%\%f_Day%%f_Month%%f_Year%
 
-::Ñ®‡•™‚Æ‡®Ô ®¨ØÆ‡‚†
+::–î–∏—Ä–µ–∫—Ç–æ—Ä–∏—è –∏–º–ø–æ—Ä—Ç–∞
 set dir_find=H:\fsfm\
 
-::Ñ®‡•™‚Æ‡®Ô FOIV_temp
+::–î–∏—Ä–µ–∫—Ç–æ—Ä–∏—è FOIV_temp
 set dir_temp=c:\FOIV_temp\FSFM_4077u\Out\
 
-::Ñ®‡•™‚Æ‡®Ô Æ‚Ø‡†¢™®
+::–î–∏—Ä–µ–∫—Ç–æ—Ä–∏—è –æ—Ç–ø—Ä–∞–≤–∫–∏
 set dir_send=c:\ObmenPTK\OutFS\
 
-::ëÆß§†•¨ ™†‚†´Æ£ ¢ arhiv_obmen · ‚•™„È•© §†‚Æ©
+::–°–æ–∑–¥–∞–µ–º –∫–∞—Ç–∞–ª–æ–≥ –≤ arhiv_obmen —Å —Ç–µ–∫—É—â–µ–π –¥–∞—Ç–æ–π
 md %dir_arch%
 
 
-::äÆØ®‡„•¨ ¢·• ‰†©´Î ¢ arhiv_obmen ® Ø•‡•≠Æ·®¨ ¢ FS_temp
+::–ö–æ–ø–∏—Ä—É–µ–º –≤—Å–µ —Ñ–∞–π–ª—ã –≤ arhiv_obmen –∏ –ø–µ—Ä–µ–Ω–æ—Å–∏–º –≤ FS_temp
 COPY %dir_find%\SKO4077U_*.xml %dir_arch%
 MOVE %dir_find%\SKO4077U_*.xml %dir_temp%\XML_KA\
 
-::Ä¢‚ÆØÆ·‚†≠Æ¢™† äÄ ® Ë®‰‡Æ¢†≠®• XML. Ü§•¨...
+::–ê–≤—Ç–æ–ø–æ—Å—Ç–∞–Ω–æ–≤–∫–∞ –ö–ê –∏ —à–∏—Ñ—Ä–æ–≤–∞–Ω–∏–µ XML. –ñ–¥–µ–º...
 timeout 20 /nobreak
 
 Set f_Date=%Date%
 Set m_Year=%f_Date:~8,2%
 Set f_Year=%f_Date:~6,4%
 
-::è‡Æ¢•‡™† ≠† ØÆ¢‚Æ‡•≠®• ≠Æ¨•‡† †‡Â®¢†
+::–ü—Ä–æ–≤–µ—Ä–∫–∞ –Ω–∞ –ø–æ–≤—Ç–æ—Ä–µ–Ω–∏–µ –Ω–æ–º–µ—Ä–∞ –∞—Ä—Ö–∏–≤–∞
 set Fname=1
 :start1
 if exist %dir_arch%\FM4077U_042520840_%f_Year%%f_Month%%f_Day%_00%Fname%.arj (
 set /a Fname=Fname + 1
 goto :start1 )
 
-::èÆ§£Æ‚†¢´®¢†•¨ †‡Â®¢
+::–ü–æ–¥–≥–æ—Ç–∞–≤–ª–∏–≤–∞–µ–º –∞—Ä—Ö–∏–≤
 arj32.exe a -e %dir_temp%\ARJ\tmp\FM4077U_042520840_%f_Year%%f_Month%%f_Day%_00%Fname%.arj %dir_temp%\ARJ\tmp\SKO4077U_*.xml
 
-::è•‡•¨•È†•¨ †‡Â®¢ §´Ô ØÆ·‚†≠Æ¢™® äÄ
+::–ü–µ—Ä–µ–º–µ—â–∞–µ–º –∞—Ä—Ö–∏–≤ –¥–ª—è –ø–æ—Å—Ç–∞–Ω–æ–≤–∫–∏ –ö–ê
 MOVE %dir_temp%\ARJ\tmp\FM4077U_042520840_%f_Year%%f_Month%%f_Day%_00%Fname%.arj %dir_temp%\ARJ\
 
-::Ä¢‚ÆØÆ·‚†≠Æ¢™† äÄ ≠† †‡Â®¢. Ü§•¨...
+::–ê–≤—Ç–æ–ø–æ—Å—Ç–∞–Ω–æ–≤–∫–∞ –ö–ê –Ω–∞ –∞—Ä—Ö–∏–≤. –ñ–¥–µ–º...
 timeout 20 /nobreak
 
-::ì§†´Ô•¨ ≠•≠„¶≠Î• ‰†©´Î
+::–£–¥–∞–ª—è–µ–º –Ω–µ–Ω—É–∂–Ω—ã–µ —Ñ–∞–π–ª—ã
 DEL %dir_temp%\ARJ\tmp\SKO4077U_*.xml
 
-::äÆØ®‡„•¨  Ä‡Â®¢
+::–ö–æ–ø–∏—Ä—É–µ–º  –ê—Ä—Ö–∏–≤
 COPY %dir_temp%\ARJ\FM4077U_042520840_%f_Year%%f_Month%%f_Day%_00%Fname%.arj %dir_arch%
 
 pause
 
-::é‚Ø‡†¢´Ô•¨!!!
+::–û—Ç–ø—Ä–∞–≤–ª—è–µ–º!!!
 MOVE %dir_temp%\ARJ\FM4077U_042520840_%f_Year%%f_Month%%f_Day%_00%Fname%.arj %dir_send%
 
-::é‚Ø‡†¢´Ô•¨ ·ÆÆ°È•≠®Ô ¢ å®‡†≠§„
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_02@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+::–û—Ç–ø—Ä–∞–≤–ª—è–µ–º —Å–æ–æ–±—â–µ–Ω–∏—è –≤ –ú–∏—Ä–∞–Ω–¥—É
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_02@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
 
 timeout 2 /nobreak
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_01@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 fsfm_01@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
 
 timeout 2 /nobreak
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_01@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
 
 timeout 2 /nobreak
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_03@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_03@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
 
 timeout 2 /nobreak
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_02@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 oit_02@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
 
 timeout 2 /nobreak
-C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 sib_02@jabber.tcbdomen.trustcombank.ru "î†©´Î ØÆ 4077-„ Æ‚Ø‡†¢´•≠Î"
+C:\FormSender\Send2Jabber.exe  ptkpsd@jabber.tcbdomen.trustcombank.ru ptkpsd 10.129.135.253 5222 sib_02@jabber.tcbdomen.trustcombank.ru "–§–∞–π–ª—ã –ø–æ 4077-—É –æ—Ç–ø—Ä–∞–≤–ª–µ–Ω—ã"
