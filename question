@@ -73,7 +73,7 @@ f2b-izotova Сервер;2003
 
 
 
-
+f_mz() # 440-П
 f_2z() # 311-П
 f_sz() # 364-П
 f_ck() # ЦККИ
@@ -92,3 +92,11 @@ https://www.cisco.com/c/en/us/td/docs/ios-xml/ios/sec_usr_cfg/configuration/xe-1
 https://www.cisco.com/c/en/us/td/docs/ios/sec_user_services/configuration/guide/12_2sr/sec_securing_user_services_12-2sr_book/sec_login_enhance.html
 https://community.cisco.com/t5/network-access-control/unknown-aaa-authentication-attempts-on-catalyst-switch/td-p/4079277
 https://community.cisco.com/t5/network-management/login-on-failure-log-message-problem/td-p/3335410
+
+
+10.129.139.5
+10.129.135.155
+10.129.135.230
+
+
+curl -sO https://packages.wazuh.com/4.10/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
