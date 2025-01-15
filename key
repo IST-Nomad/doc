@@ -1,27 +1,24 @@
 Лицензия для Windows и офиса
 
 Активируем Windows:
-slmgr.vbs -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX //установить ключ лицензии
+# Запускаем cmd от имени администратора
+slmgr.vbs -ipk NF6HC-QH89W-F8WYV-WWXV4-WFG6P //установить ключ лицензии
 slmgr /skms 10.129.135.110 // установить kms сервер
 slmgr /ato //активация лицензии
+
 slmgr /xpr //дата истечения лицензии
 slmgr /dli //отображение сведений о лицензии
 slmgr /dlv //отображение подробных сведений о лицензии
 slmgr /cpky //удалить ключ
-slmgr /
-slmgr /
-slmgr /
-slmgr /
-slmgr /
-slmgr /
 
-
-
-slui.exe 0x2a 0xC004F069
+slui.exe 0x2a 0803F7001
 
 Активируем Office:
+# Перейти в каталог с офисом
 cd C:\Program Files\Microsoft Office\Office16
 cscript ospp.vbs /sethst:10.129.135.110 
+# После активации зайти в любой продукт офиса и перейти по пути Файл>Учетная запись, затем закрыть офис, открыть вновь, перейти по пути Файл>Учетная запись и убедиться что офис активирован
+
 
 WINDOWS KEY
 Windows 11 Home	YTMG3-N6DKC-DKB77-7M9GH-8HVX7
@@ -76,6 +73,8 @@ Windows 10 Pro N	NH7W7-BMC3R-4W9XT-94B6D-TCQG3
 Windows 10 SL	NTRHT-XTHTG-GBWCG-4MTMP-HH64C
 Windows 10 CHN SL	7B6NC-V3438-TRQG7-8TCCX-H6DDY
 
+Windows 10 Enterprise LTSC 2019	M7XTQ-FN8P6-TTKYV-9D4CC-J462D
+Windows 10 Enterprise N LTSC 2019	92NFX-8DJQP-P6BBQ-THF9C-7CG2H
 Windows 10 Core TX9XD-98N7V-6WMQ6-BX7FG-H8Q99
 Windows 10 Enterprise G YYVX9-NTFWV-6MDM3-9PT4T-4M68B
 Windows 10 Enterprise GN 44RPN-FTY23-9VTTB-MP9BX-T84FV

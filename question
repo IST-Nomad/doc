@@ -59,7 +59,7 @@
 59 Миграция данных с oracle в postgresql
 60 Перенос Delta на linux
 #61 Перенести папку Комиты с RS на Finist для Мурашевой
-62 Перенести папку \\RSAppServ1\TxtFile\Print365 на Finist для печати по 440-П
+#62 Перенести папку \\RSAppServ1\TxtFile\Print365 на \\FREEBSD\data\arhiv_obmen\nalog\440P\Print для печати по 440-П
 #63 Обновить Operrisk
 #64 Обновить wfinist
 #65 Установить syslog_server
@@ -81,7 +81,7 @@
 
 
 f2b-izotova Сервер;2003
-
+https://fias.nalog.ru/Frontend
 
 
 f_mz() # 440-П
@@ -104,6 +104,7 @@ https://www.cisco.com/c/en/us/td/docs/ios/sec_user_services/configuration/guide/
 https://community.cisco.com/t5/network-access-control/unknown-aaa-authentication-attempts-on-catalyst-switch/td-p/4079277
 https://community.cisco.com/t5/network-management/login-on-failure-log-message-problem/td-p/3335410
 
+https://www.youtube.com/watch?v=VZAMj0NRomg
 
 10.129.139.5
 10.129.135.155
