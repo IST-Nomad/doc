@@ -1,5 +1,65 @@
-//импортировать ключ с Управляющего хоста на управляемый
-ssh-copy-id ansible@10.129.135.119
+# Установить python:
+sudo apt install python3
+
+# Проверить версию:
+python3 --version
+
+# Установить ansible:
+sudo apt install ansible
+ansible --version
+
+/etc/ansible/hosts – здесь можно указано список хостов, которыми вы будет управлять через ansible;
+/etc/ansible/ansible.cfg — файл с настройками ansible.
+
+# В файле /etc/ansible/hosts можно создать несколько отдельных групп хостов. Например, все хосты с nginx, с базами mariadb и т.д. В этом примере мы создадим одну группу с именем servers_all.
+sudo nano /etc/ansible/hosts
+
+[servers_all]
+srvubunt1 ansible_host=192.168.14.144 ansible_user=sysops
+srvubunt2 ansible_host=192.168.14.142 ansible_user=sysops
+srv-db01 ansible_host=192.168.14.151 ansible_user=sysops
+
+# Одинаковые параметры группы хостов можно вынести в секцию с добавлением :vars, например:
+[servers]
+srvubunt1 ansible_host=192.168.14.144
+srvubunt2 ansible_host=192.168.14.142
+[servers_all:vars]
+ansible_port=22
+ansible_user=sysops
+
+# Чтобы вывести содержимое файла инвентаризации в виде дерева, выполните:
+ansible-inventory --graph
+
+# По умолчанию для подключения к удаленным хостам используется SSH. Чтобы автоматически принимать ssh fingerprint и не вводить yes при первоначальном доступе к хосту, нужно добавить параметр в файл /etc/ansible/ansible.cfg
+"host_key_checking = false"
+
+# Проверим доступность всех хостов в файле инвентаризации:
+ansible all -m ping --ask-pass
+
+# Чтобы ansible мог аутентифицироваться по SSH с помощью пароля, нужно установить пакет sshpass:
+sudo apt install sshpass
+
+# Сгенерируйте RSA ключи на управляющем сервере:
+ssh-keygen -t rsa
+
+# Теперь нужно скопировать ключ на каждую ноду с помощью ssh-copy-id:
+ssh-copy-id sysops@192.168.14.144
+
+# На удаленных серверах должна быть включена SSH аутентификация по ключам:
+nano /etc/ssh/sshd_config
+
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys
+
+service sshd restart
+
+# роверить 
+ansible servers_all -a 'uptime'
+
+
+
+
+
 
 
 

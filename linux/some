@@ -22,3 +22,12 @@ sudo nano /etc/fstab
 //И здесь в самом конце добавьте строку типа:
 
 #//192.168.0.11/share /media/sharefolder cifs credentials=/root/.smbcredentials,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0
+
+# Чтобы увидеть только список пакетов, попробуйте:
+dpkg-query -f '${binary:Package}\n' -W 
+# Чтобы получить список установленных пакетов, введите команду
+dpkg --get-selections | grep -v deinstall
+# Или так 
+apt list --installed
+#С фильтром
+apt list --installed | grep ansible
