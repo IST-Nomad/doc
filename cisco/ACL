@@ -63,3 +63,13 @@ permit object-group INET-PORTS object-group HOSTS-TO-INET any
 
 И в завершении вешаем ACL на интерфейс
 ip access-group TEST out
+
+
+access-list 10 permit 10.129.130.24
+access-list 10 permit 10.129.130.25
+access-list 10 permit 10.129.130.26
+access-list 10 permit 10.129.130.28
+line vty 0 4 
+access-class 10 in
+
+login quiet-mode access-class 1
