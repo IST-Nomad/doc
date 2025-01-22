@@ -6,8 +6,8 @@ Get-ADUser -Identity S-1-5-21-2749816300-1181617901-2751356043-4187
 
 
 //добавим правила в сетевой экран Из под PowerShell (с правами администратора)
-New-NetFirewallRule -DisplayName 'Zabbix agent_inb' -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 10050
-New-NetFirewallRule -DisplayName 'Zabbix agent_out' -Profile 'Any' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 10050
+New-NetFirewallRule -DisplayName 'KMS' -Profile 'Any' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 1466
+New-NetFirewallRule -DisplayName 'KMS' -Profile 'Any' -Direction Outbound -Action Allow -Protocol TCP -LocalPort 1466
 
 //Отключить Defender
 Set-NetFirewallProfile -Profile Domain, Public, Private -Enabled False

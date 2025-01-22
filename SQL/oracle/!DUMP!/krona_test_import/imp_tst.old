@@ -1,0 +1,7 @@
+directory=EXPDP_DIR
+dumpfile=krona_dump_%U.dmp
+logfile=impdp_test.log
+parallel=7
+transform=oid:n
+schemas=KRONA
+REMAP_SCHEMA="KRONA:KRONA_TST"

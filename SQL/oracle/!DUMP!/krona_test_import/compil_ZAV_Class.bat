@@ -1,0 +1,1 @@
+"c:\app\client\admin\product\19.0.0\client_1\jdk\bin\javac.exe" -cp RetailJava.jar "C:\RSBank60\krona_tst\workfile\DocumentBuilder\ru\softlab\rsretail\book\ZAV_Class.java" 1>_compil_ZAV_Class1.log 2>_compil_ZAV_Class2.log

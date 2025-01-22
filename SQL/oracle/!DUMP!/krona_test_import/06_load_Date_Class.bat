@@ -1,0 +1,2 @@
+loadjava -user krona_tst/krona_tst@test19 -f -v -resolve "c:\RsBank60\Krona_tst\workfile\DocumentBuilder\ru\softlab\rsretail\book\Date_Class.jar" 1>_load_Date_Class.log
+rem loadjava -user krona/Hjrjnfnm9213@krona -resolve "c:\RsBank60\Krona_tst\workfile\DocumentBuilder\ru\softlab\rsretail\book\Date_Class.jar" >_load_Date_Class.log

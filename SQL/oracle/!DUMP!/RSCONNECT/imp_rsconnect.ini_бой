@@ -1,0 +1,6 @@
+directory=EXPDP_DIR
+dumpfile=(rsconnect_01.dmp)
+logfile=impdp_rsconnect.log
+parallel=1
+transform=oid:n
+schemas=RSCONNECT

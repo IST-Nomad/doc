@@ -1,28 +1,13 @@
-@Echo Off
-cls
+/s: Этот параметр указывает на удаление указанной папки и всех ее подкаталогов и файлов.
+/q: Этот параметр включает тихий режим, который не будет запрашивать подтверждение на удаление.
 
-Set "BoxIn=C:\TEMP"
-Set "Mask=.jpg"
-Set "MaskEx=_1.jpg"
+rmdir /s /q C:\TERM
 
-Set "Exclude=~EXCLUDE.tmp"
-Set "ExcludeBat=%~dp0%~n0.~EXCLUDE%~x0"
 
-Echo %MaskEx%>"%EXCLUDE%"
->"%ExcludeBat%" Echo @Echo Off
+Первая команда cd C:\TERM перемещает вас в папку TERM.
+Вторая команда del *.* /q удаляет все файлы в текущей папке без запроса подтверждения.
+Третья команда for /d %%p in (*) do rmdir "%%p" /s /q удаляет все подкаталоги в папке TERM, также без запроса подтверждения.
 
->>"%ExcludeBat%" (FOR /F "usebackq delims=" %%f IN (`XCOPY "%BoxIn%\*%Mask%" /L /S /EXCLUDE:%Exclude% 2^>nul`) DO (
-			Set "DCount=%%f"
-			If /I "%%~xf"=="%Mask%" If Exist "%%~dpnf%MaskEx%" echo Del /P "%%f" 
-		)
-)
-Del "%EXCLUDE%"
->>"%ExcludeBat%" echo rem %DCount% 
-sublime_text "%ExcludeBat%"
-
-Echo Создан файл "%ExcludeBat%" 
-
-pause
-rem Call "%ExcludeBat%"
-
-GoTo :Eof
+cd C:\TERM
+del *.* /q
+for /d %%p in (*) do rmdir "%%p" /s /q

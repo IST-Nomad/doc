@@ -60,19 +60,19 @@
 60 Перенос Delta на linux
 #61 Перенести папку Комиты с RS на Finist для Мурашевой
 #62 Перенести папку \\RSAppServ1\TxtFile\Print365 на \\FREEBSD\data\arhiv_obmen\nalog\440P\Print для печати по 440-П
-63 Обновить Operrisk
+#63 Обновить Operrisk
 #64 Обновить wfinist
 #65 Установить syslog_server
 #66 Обновить Delta
 #67 Лицензия Gestbank
 68 Настройка Eltex
 #69 407-П и 4077У
-70 Базу Delta с Oracle перенести в Oracle-TST
+70 
 #71 Обновить ASVcheck
 72 
 73 Создать VM на virtualbox для тестов Finist
 74 Настройка ACL cisco
-75 1626432 заявка по планировщику
+75
 76
 77
 78

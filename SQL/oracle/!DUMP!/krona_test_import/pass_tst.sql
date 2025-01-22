@@ -1,0 +1,3 @@
+ALTER USER KRONA_TST IDENTIFIED BY "krona_tst";
+exit
+/
