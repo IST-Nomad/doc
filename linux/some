@@ -31,3 +31,8 @@ dpkg --get-selections | grep -v deinstall
 apt list --installed
 #С фильтром
 apt list --installed | grep ansible
+
+#Распаковать архив
+tar -xzvf loganalyzer-4.1.13.tar.gz
+
+

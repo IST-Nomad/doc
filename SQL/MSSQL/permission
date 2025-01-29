@@ -1,0 +1,2 @@
+GRANT INSERT, UPDATE ON <dbo>.<paym_export_o> TO <scan>;
+
