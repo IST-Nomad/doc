@@ -1,8 +1,18 @@
-docker run \
- --name=zabbix-agent-xxl \
- -h $(hostname) \
- -p 10050:10050 \
- -v /:/rootfs \
- -v /var/run:/var/run \
- -e "ZA_Server=192.168.1.77" \
- -d monitoringartist/zabbix-agent-xxl-limited:latest
+
+nano docker-compose.yml
+
+version: '3'
+services:
+  zabbix-agent:
+    image: 'zabbix/zabbix-agent:latest'
+    container_name: zabbix-agent
+    restart: always
+    environment:
+      - ZBX_HOSTNAME=wiki
+      - ZBX_SERVER_HOST=10.129.135.110
+    ports:
+      - "10050:10050"
+
+
+
+docker-compose up -d
