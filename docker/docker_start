@@ -1,5 +1,4 @@
 
-
 sudo -i
 apt update -y && apt upgrade -y
 apt install apt-transport-https ca-certificates curl software-properties-common -y
