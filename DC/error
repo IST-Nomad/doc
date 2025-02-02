@@ -20,3 +20,15 @@ Error value:
 1236 Подключение к сети было разорвано локальной системой.
 Internal ID:
 c06041e
+
+
+Internal event: An LDAP client connection was closed because of an error.
+
+Client IP:
+10.129.135.244:60572
+
+Additional Data
+Error value:
+1236 Подключение к сети было разорвано локальной системой.
+Internal ID:
+c06041e
