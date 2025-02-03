@@ -2,7 +2,7 @@
 
 Активируем Windows:
 # Запускаем cmd от имени администратора
-slmgr.vbs -ipk VDYBN-27WPP-V4HQT-9VMD4-VMK7H //установить ключ лицензии
+slmgr.vbs -ipk W269N-WFGWX-YVC9B-4J6C9-T83GX //установить ключ лицензии
 slmgr /skms 10.129.135.110 // установить kms сервер
 slmgr /ato //активация лицензии
 
