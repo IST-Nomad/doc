@@ -178,7 +178,6 @@ exit
 copy run start
 
 
-enable
 configure terminal
 logging 10.129.135.130
 logging trap debug
