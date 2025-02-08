@@ -120,11 +120,13 @@ int fa 0/0
 switchport access vlan 1
 no shutdown
 exit
-int vlan 1
-ip add 172.16.1.133 255.255.255.0
+int vlan 130
+ip add 10.129.130.197 255.255.255.0
 no shutdown
 exit
-
+int vlan 130
+ip add 10.129.130.197 255.255.255.0
+no shutdown
 
 
 //Посмотреть изменения в конфигурации 
@@ -145,33 +147,30 @@ sh crypto session
 //Как настроить SSH на Cisco
 Заходим в привилегированный режим;
 enable
-//Задаем время
-clock set 17:05:00 15 Jul 2024
 //Основные настройки делаются из режима конфигурирования терминала
 conf t
 //Задаем часовой пояс
 clock timezone IRK 8
 clock timezone YAKT 9
 //Задаем часовой пояс
-ntp server 146.0.32.144
-ip domain-name batr.local
+ntp server 10.129.135.110
+ip domain-name krona-bank.ru
 hostname cisco-ssh
-crypto key generate rsa general-keys label IRK-MOLOKO-EDGE-R2 modulus 1024
+crypto key generate rsa general-keys label HOSTNAME modulus 1024
 ip ssh authentication-retries 5
 ip ssh version 2
 ip ssh time-out 60
 no ip http server
 no ip http secure-server
 service password-encryption
-username admin privilege 15 secret Pa$$w0rd
-enable secret Pa$$w0rd
+username user privilege 15 secret Password
+enable secret Password
 aaa new-model
 access-list 23 permit 192.168.0.0 0.0.0.255
 line vty 0 4
 transport input ssh
 logging synchronous
 privilege level 15
-exec-timeout 60 0
 access-class 23 in
 exit
 exit
@@ -180,7 +179,7 @@ copy run start
 
 configure terminal
 logging 10.129.135.130
-logging trap debug
+logging trap warning
 //выбирая уровень включаются все снизу вверх начиная с выбранного
 
 0 - emerg
