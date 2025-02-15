@@ -35,4 +35,8 @@ apt list --installed | grep ansible
 #Распаковать архив
 tar -xzvf loganalyzer-4.1.13.tar.gz
 
+#скопировать сертификат в хранилище
+sudo cp root_ca.crt /usr/local/share/ca-certificates/
+#обновить хранилище
+sudo update-ca-certificates -v
 

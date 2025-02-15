@@ -11,3 +11,7 @@ rmdir /s /q C:\TERM
 cd C:\TERM
 del *.* /q
 for /d %%p in (*) do rmdir "%%p" /s /q
+
+
+:: Удаление папок со всем содержимым старше 3 дней
+forfiles /p "%target_dir%" /d -3 /c "cmd /c rmdir /s /q @path"
