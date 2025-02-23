@@ -63,7 +63,7 @@ reload in 1 //перезагрузка через минуту
 show mac address-table
 
 //узнаем IP-адрес по каждому MAC-адресу
-sh ip arp | i 88f0.77f8.5e84
+sh ip arp | i 0080.f0aa.39e3
 
 //Для поиска MAC используется команда sh arp | inc x.x.x.x, где х.х.х.х – ip адрес интересующего хоста
 sh arp | inc {192.168.10.100}
