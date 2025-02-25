@@ -9,8 +9,8 @@ route add -p <SUBNET_ID> mask <SUBNET_MASK> <GATEWAY> <METRIC> IF <INTERFACE_ID>
 
 route add -p 10.129.128.0 MASK 255.255.255.240 10.129.128.14 metric 100 IF 7
 route add -p 0.0.0.0 MASK 0.0.0.0 10.129.128.14 metric 300 IF 7
-route add -p 0.0.0.0 MASK 0.0.0.0 10.129.135.254 metric 100 IF 15
-route delete 0.0.0.0 MASK 0.0.0.0 10.129.135.254 IF 7
+route add -p 10.129.135.0 MASK 255.255.255.0 10.129.135.254 metric 100 IF 15
+route delete 0.0.0.0 MASK 0.0.0.0 10.129.135.254 IF 15
 route delete 0.0.0.0 MASK 0.0.0.0 10.129.128.14 IF 7
 
 route add 10.10.100.0 MASK 255.255.255.0 metric 100 IF 5
