@@ -1,0 +1,10 @@
+Для входящего трафика (Inbound):
+New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound" -Direction Inbound -LocalPort 5222 -Protocol TCP -Action Allow
+Для исходящего трафика (Outbound):
+New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Outbound" -Direction Outbound -LocalPort 5222 -Protocol TCP -Action Allow
+
+Чтобы убедиться, что правило добавлено, выполните команду:
+Get-NetFirewallRule -DisplayName "Allow_Port_5222*"
+
+Если потребуется удалить правило, выполните команду:
+Remove-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound"

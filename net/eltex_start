@@ -1,0 +1,48 @@
+
+
+#Отображение текущего конфига:
+show running-config​
+
+#Отображение конфигурации кандидата:
+show candidate-config​
+
+#Отображение различий между running-config​ и candidate-config
+show configuration changes
+
+#Удаление изменений, внесенных в candidate-config, но не примененных в running-config
+rollback
+
+#Активация изменений, внесенных в candidate-config (candidate-config копируется в running-config)
+commit
+
+#Вернуться назад можно и до истечения таймера:
+restore
+
+#Подтверждение примененных изменений.
+confirm
+
+#Сброс до заводских настроек
+copy system:factory-config system:candidate-config
+
+#Отображение полной конфигурации, включая значения по умолчанию:
+show running-config full
+
+#Бэкап конфигурации:
+copy system:running-config ftp://ftpuser:pass@195.11.100.134:/temp/eltex-esr-100_17.03.2022
+copy system:running-config flash:data/eltex-esr-100_04.05.2022
+
+#Мониторинг интерфейса можно делать сразу на флешку:
+monitor gigabitethernet 1/0/1  address 10.10.10.1 file usb://name:/dump.pcap packets 100
+
+#Захват arp-пакетов на bridge 2
+monitor bridge 2 protocol arp
+
+#Бесконечный пинг
+ping 185.126.182.1 packets unlimited
+
+#Посмотреть ошибки на интерфейсах
+show interfaces switch-port status
+show running-config interfaces
+show interfaces counters
+show interfaces counters bridge X
+show tunnels counters vti X
