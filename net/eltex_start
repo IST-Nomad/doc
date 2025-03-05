@@ -1,10 +1,10 @@
 
 
 #Отображение текущего конфига:
-show running-config​
+show running-config
 
 #Отображение конфигурации кандидата:
-show candidate-config​
+show candidate-config
 
 #Отображение различий между running-config​ и candidate-config
 show configuration changes
