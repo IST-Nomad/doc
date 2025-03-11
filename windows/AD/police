@@ -1,0 +1,6 @@
+
+Принтеры
+
+Нашёл временное решение, сносим ветку реестра HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Providers\Client Side Rendering Print Provider после чего все принтеры всех пользователей удалются, и по новой по средстом политики добавляются.
+
+
