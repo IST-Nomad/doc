@@ -119,3 +119,5 @@ echo End backup time: %DATE% %TIME% >> E:\copy\log.txt
  robocopy "F:\Fab_Kond" "C:\Arc_appl\Fab_Kond" /E /XF TMP*.* /XF REG*.* /XF *.rar /XF *.zip /XD Temp
  robocopy "F:\Fab_Tdom" "C:\Arc_appl\Fab_Tdom" /E /XF TMP*.* /XF REG*.* /XF *.rar /XF *.zip /XD Temp
  echo %date% %time% Stop >> c:\arc_appl\log\log.txt
+
+ robocopy T:\ P:\ /E /COPYALL /MIR /Z /R:3 /W:1
