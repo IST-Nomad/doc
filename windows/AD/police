@@ -3,4 +3,25 @@
 
 Нашёл временное решение, сносим ветку реестра HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Providers\Client Side Rendering Print Provider после чего все принтеры всех пользователей удалются, и по новой по средстом политики добавляются.
 
+reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Print\Printers" /f
+
+
+# Получаем имя пользователя
+$username = $env:USERNAME
+
+# Путь к сетевой папке
+$networkPath = "\\10.129.135.103\storage_l\$username"
+
+# Проверяем, существует ли папка
+if (-not (Test-Path -Path $networkPath)) {
+    # Создаем папку
+    New-Item -Path $networkPath -ItemType Directory
+
+    # Назначаем права на папку
+    $acl = Get-Acl -Path $networkPath
+    $user = New-Object System.Security.Principal.NTAccount($username)
+    $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($user, "FullControl", "ContainerInherit,ObjectInherit", "None", "Allow")
+    $acl.SetAccessRule($accessRule)
+    Set-Acl -Path $networkPath -AclObject $acl
+}
 
