@@ -1,0 +1,22 @@
+
+# Настройки
+$days = 90
+$time = (Get-Date).AddDays(-$days)
+$exportPath = "C:\Scripts\StaleComputers.csv"
+
+# Поиск устаревших компьютеров
+$computers = Get-ADComputer -Filter {LastLogonDate -lt $time -and Enabled -eq $true} -Properties LastLogonDate |
+    Select-Object Name, LastLogonDate, DistinguishedName
+
+# Экспорт в CSV
+$computers | Export-Csv -Path $exportPath -NoTypeInformation -Encoding UTF8
+
+# Параметры SMTP
+$smtpServer = "smtp.yourdomain.local"
+$from = "report@yourdomain.local"
+$to = "admin@yourdomain.local"
+$subject = "Отчет: Устаревшие учетные записи компьютеров"
+$body = "Во вложении список компьютеров, не входивших в домен более $days дней."
+
+# Отправка письма
+Send-MailMessage -From $from -To $to -Subject $subject -Body $body -SmtpServer $smtpServer -Attachments $exportPath
