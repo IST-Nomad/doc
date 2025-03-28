@@ -17,11 +17,7 @@ if (-not (Test-Path -Path $networkPath)) {
     # Создаем папку
     New-Item -Path $networkPath -ItemType Directory
 
-    # Назначаем права на папку
-    $acl = Get-Acl -Path $networkPath
-    $user = New-Object System.Security.Principal.NTAccount($username)
-    $accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule($user, "FullControl", "ContainerInherit,ObjectInherit", "None", "Allow")
-    $acl.SetAccessRule($accessRule)
-    Set-Acl -Path $networkPath -AclObject $acl
+   Import-Module NTFSSecurity
+   Add-NTFSAccess -Path $networkPath -Account 'WORKSTAT1\confroom','BUILTIN\Администраторы' -AccessRights 'Fullcontrol' -PassThru
 }
 
