@@ -30,7 +30,7 @@ show running-config full
 #Бэкап конфигурации:
 copy system:running-config ftp://ftpuser:pass@195.11.100.134:/temp/eltex-esr-100_17.03.2022
 copy system:running-config flash:data/eltex-esr-100_04.05.2022
-copy system:running-config tftp://10.129.135.110:/Eltex-IRK-HO-R3-26032025_1
+copy system:running-config tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3-01042025
 
 copy tftp://10.129.135.110:/eltex_update/esr15-1.24.5-build5.firmware system:firmware
 copy tftp://10.129.135.110:/eltex_update/esr15-1.24.5-build1.uboot system:boot-2
