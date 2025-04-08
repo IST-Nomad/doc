@@ -52,11 +52,7 @@ net user
 net accounts /maxpwage:unlimited
 
 
-
 sc delete EventManager.Server
-
 
 sc create EventManager.Server start=auto binpath=”Путь до приложения EventManager.Server.Worker.exe”
 
-
-C:\Users\admin\AppData\Local\Programs\Python\Python312\python.exe C:\Scripts\del_bak.py
