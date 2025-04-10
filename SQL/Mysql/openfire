@@ -1,0 +1,6 @@
+mysql -u openfire2 -p
+Ghjab$35
+USE openfire2;
+REPAIR TABLE ofVCard;
+CHECK TABLE ofVCard;
+EXIT;
