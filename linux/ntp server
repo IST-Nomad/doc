@@ -17,6 +17,10 @@ sudo service ntp status
 sudo ufw allow from any to any port 123 proto udp
 
 //client
+sudo apt update
+sudo apt install ntp
+sudo nano /etc/ntpsec/ntp.conf
+
 
 server ntp-host prefer iburst
 //где ntp-host — адрес нашего NTP-сервера

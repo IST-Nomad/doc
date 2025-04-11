@@ -1,0 +1,17 @@
+
+#Проверка репликации на контроллере
+repadmin /showrepl
+repadmin /replsummary
+
+#Проверьте роли контроллера:
+netdom query fsmo
+
+#Проверка DNS
+dcdiag /test:dns
+
+# Просмотр критических ошибок за последние 24 часа
+Get-WinEvent -LogName System -MaxEvents 50 -ErrorAction SilentlyContinue | 
+    Where-Object { $_.Level -in (1..2) } | 
+    Format-Table TimeCreated, Id, ProviderName, Message -AutoSize -Wrap
+
+    

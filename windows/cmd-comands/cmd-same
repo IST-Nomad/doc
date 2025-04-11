@@ -42,7 +42,7 @@ F - полный доступ
 M - доступ на изменение
 RX - доступ на чтение и выполнение
 R - доступ только на чтение
-W - доступ только на запись
+W - доступ только на записьs
 D - доступ на удаление
 
 //посмотреть список пользователей на ПК
@@ -55,4 +55,17 @@ net accounts /maxpwage:unlimited
 sc delete EventManager.Server
 
 sc create EventManager.Server start=auto binpath=”Путь до приложения EventManager.Server.Worker.exe”
+
+
+
+
+//Просмотр текущего часового пояса
+tzutil /g
+//Список доступных часовых поясов
+tzutil /l
+//Смена часового пояса на (UTC+08:00) Иркутск
+tzutil /s "North Asia East Standard Time"
+//Смена часового пояса на (UTC+09:00) Якутск
+tzutil /s "Yakutsk Standard Time"
+
 
