@@ -21,11 +21,26 @@ sudo apt update
 sudo apt install ntp
 sudo nano /etc/ntpsec/ntp.conf
 
+   sudo systemctl start ntp
+   sudo systemctl enable ntp
 
-server ntp-host prefer iburst
+server 10.129.135.110 prefer iburst
 //где ntp-host — адрес нашего NTP-сервера
 sudo service ntp restart
 
 //Проверяем, правильно ли сервер отдает время:
 ntpdate ntp-host
 //где ntp-host — адрес нашего NTP-сервера
+
+
+
+#Альтернативный ntp клиент 
+sudo apt install chrony
+
+
+#Список часовых поясов
+timedatectl list-timezones
+#Изменить часовой пояс
+sudo timedatectl set-timezone Asia/Irkutsk
+#Проверка
+timedatectl
