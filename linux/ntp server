@@ -16,7 +16,7 @@ sudo service ntp restart
 sudo service ntp status
 sudo ufw allow from any to any port 123 proto udp
 
-//client
+#client
 sudo apt update
 sudo apt install ntp
 sudo nano /etc/ntpsec/ntp.conf

@@ -14,4 +14,10 @@ Get-WinEvent -LogName System -MaxEvents 50 -ErrorAction SilentlyContinue |
     Where-Object { $_.Level -in (1..2) } | 
     Format-Table TimeCreated, Id, ProviderName, Message -AutoSize -Wrap
 
+    142.250.150.95
+    74.125.131.95
+    https://stat.sputnik.ru/cnt.js
     
+169.254.169.254
+64.233.164.95
+5.143.224.43
