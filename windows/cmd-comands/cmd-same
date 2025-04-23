@@ -1,7 +1,7 @@
 //включить RDP
 reg add "HKLM\SYSTEM\CurrentControlSet\Control\Terminal Server" /v fDenyTSConnections /t REG_DWORD /d 0 /f 
 //отключить брандмауэр 
-netsh advfirewall set allprofiles state off
+netsh advfirewall set allprofiles state on
 //для получения системной информации
 systeminfo 
 //список процессов
