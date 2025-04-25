@@ -1,0 +1,23 @@
+
+#Узнать имя по SID
+wmic useraccount where sid='S-1-5-21-2749816300-1181617901-2751356043-4187' get name
+Get-ADUser -Identity S-1-5-21-2749816300-1181617901-2751356043-4187
+
+
+#Проверки домена
+dcdiag /s:DC1.TCBDomen.trustcombank.ru
+netdiag /fix
+dcdiag /fix
+dcdiag /test:DNS
+
+#доменное имя (запись dns)
+nslookup 10.129.135.205
+
+#Проверка связи с хостом
+Test-Connection -ComputerName example.com -Count 4
+
+
+#Убедиться запущена ли служба репликации
+Get-Service DFSR
+
+

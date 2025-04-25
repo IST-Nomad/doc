@@ -1,10 +1,20 @@
-Для входящего трафика (Inbound):
+
+
+
+
+
+
+#Для входящего трафика (Inbound):
 New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound" -Direction Inbound -LocalPort 5222 -Protocol TCP -Action Allow
 Для исходящего трафика (Outbound):
 New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Outbound" -Direction Outbound -LocalPort 5222 -Protocol TCP -Action Allow
-
-Чтобы убедиться, что правило добавлено, выполните команду:
+#Чтобы убедиться, что правило добавлено, выполните команду:
 Get-NetFirewallRule -DisplayName "Allow_Port_5222*"
-
-Если потребуется удалить правило, выполните команду:
+#Если потребуется удалить правило, выполните команду:
 Remove-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound"
+
+
+
+#Исключение для MSSQL
+New-NetFirewallRule -DisplayName "Allow SQL Server TCP 1433" -Direction Inbound -Protocol TCP -LocalPort 1433 -Action Allow
+New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Inbound -Protocol UDP -LocalPort 1434 -Action Allow
