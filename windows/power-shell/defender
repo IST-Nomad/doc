@@ -6,7 +6,7 @@
 
 #Для входящего трафика (Inbound):
 New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound" -Direction Inbound -LocalPort 5222 -Protocol TCP -Action Allow
-Для исходящего трафика (Outbound):
+#Для исходящего трафика (Outbound):
 New-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Outbound" -Direction Outbound -LocalPort 5222 -Protocol TCP -Action Allow
 #Чтобы убедиться, что правило добавлено, выполните команду:
 Get-NetFirewallRule -DisplayName "Allow_Port_5222*"
@@ -22,10 +22,17 @@ New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Inbound 
 New-NetFirewallRule -DisplayName "GestBank TCP 30007" -Direction Inbound -Protocol TCP -LocalPort 30007 -Action Allow
 New-NetFirewallRule -DisplayName "GestBank Server UDP 30007" -Direction Inbound -Protocol UDP -LocalPort 30007 -Action Allow
 
-5111
 
 New-NetFirewallRule -DisplayName "EventManager TCP 5703" -Direction Inbound -Protocol TCP -LocalPort 5703 -Action Allow
 New-NetFirewallRule -DisplayName "EventManager UDP 5703" -Direction Inbound -Protocol UDP -LocalPort 5703 -Action Allow
 
 New-NetFirewallRule -DisplayName "WinAuthenticationServer TCP 5111" -Direction Inbound -Protocol TCP -LocalPort 5111 -Action Allow
 New-NetFirewallRule -DisplayName "WinAuthenticationServer UDP 5111" -Direction Inbound -Protocol UDP -LocalPort 5111 -Action Allow
+
+32801
+
+New-NetFirewallRule -DisplayName "FinistDigitalBank TCP 32801" -Direction Inbound -Protocol TCP -LocalPort 32801 -Action Allow
+New-NetFirewallRule -DisplayName "FinistDigitalBank UDP 32801" -Direction Inbound -Protocol UDP -LocalPort 32801 -Action Allow
+
+New-NetFirewallRule -DisplayName "FinistReport TCP 32802" -Direction Inbound -Protocol TCP -LocalPort 32802 -Action Allow
+New-NetFirewallRule -DisplayName "FinistReport UDP 32802" -Direction Inbound -Protocol UDP -LocalPort 32802 -Action Allow
