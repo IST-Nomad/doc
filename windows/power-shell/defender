@@ -36,3 +36,6 @@ New-NetFirewallRule -DisplayName "FinistDigitalBank UDP 32801" -Direction Inboun
 
 New-NetFirewallRule -DisplayName "FinistReport TCP 32802" -Direction Inbound -Protocol TCP -LocalPort 32802 -Action Allow
 New-NetFirewallRule -DisplayName "FinistReport UDP 32802" -Direction Inbound -Protocol UDP -LocalPort 32802 -Action Allow
+
+New-NetFirewallRule -DisplayName "LiteManager TCP 5650" -Direction Inbound -Protocol TCP -LocalPort 5650 -Action Allow
+New-NetFirewallRule -DisplayName "LiteManager UDP 5650" -Direction Inbound -Protocol UDP -LocalPort 5650 -Action Allow
