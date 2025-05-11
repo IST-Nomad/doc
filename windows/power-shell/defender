@@ -39,3 +39,6 @@ New-NetFirewallRule -DisplayName "FinistReport UDP 32802" -Direction Inbound -Pr
 
 New-NetFirewallRule -DisplayName "LiteManager TCP 5650" -Direction Inbound -Protocol TCP -LocalPort 5650 -Action Allow
 New-NetFirewallRule -DisplayName "LiteManager UDP 5650" -Direction Inbound -Protocol UDP -LocalPort 5650 -Action Allow
+
+New-NetFirewallRule -DisplayName "Switchboard TCP 8080" -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow
+New-NetFirewallRule -DisplayName "Switchboard UDP 8080" -Direction Inbound -Protocol UDP -LocalPort 8080 -Action Allow
