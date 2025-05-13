@@ -42,3 +42,10 @@ New-NetFirewallRule -DisplayName "LiteManager UDP 5650" -Direction Inbound -Prot
 
 New-NetFirewallRule -DisplayName "Switchboard TCP 8080" -Direction Inbound -Protocol TCP -LocalPort 8080 -Action Allow
 New-NetFirewallRule -DisplayName "Switchboard UDP 8080" -Direction Inbound -Protocol UDP -LocalPort 8080 -Action Allow
+
+5222
+
+New-NetFirewallRule -DisplayName "SendJabber TCP 5222" -Direction Inbound -Protocol TCP -LocalPort 5222 -Action Allow
+New-NetFirewallRule -DisplayName "SendJabber UDP 5222" -Direction Inbound -Protocol UDP -LocalPort 5222 -Action Allow
+New-NetFirewallRule -DisplayName "SendJabber TCP 5222" -Direction Outbound -Protocol TCP -LocalPort 5222 -Action Allow
+New-NetFirewallRule -DisplayName "SendJabber UDP 5222" -Direction Outound -Protocol UDP -LocalPort 5222 -Action Allow
