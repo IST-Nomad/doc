@@ -48,4 +48,9 @@ New-NetFirewallRule -DisplayName "Switchboard UDP 8080" -Direction Inbound -Prot
 New-NetFirewallRule -DisplayName "SendJabber TCP 5222" -Direction Inbound -Protocol TCP -LocalPort 5222 -Action Allow
 New-NetFirewallRule -DisplayName "SendJabber UDP 5222" -Direction Inbound -Protocol UDP -LocalPort 5222 -Action Allow
 New-NetFirewallRule -DisplayName "SendJabber TCP 5222" -Direction Outbound -Protocol TCP -LocalPort 5222 -Action Allow
-New-NetFirewallRule -DisplayName "SendJabber UDP 5222" -Direction Outound -Protocol UDP -LocalPort 5222 -Action Allow
+New-NetFirewallRule -DisplayName "SendJabber UDP 5222" -Direction Outbound -Protocol UDP -LocalPort 5222 -Action Allow
+
+New-NetFirewallRule -DisplayName "Finist_gateway_in TCP 8734" -Direction Inbound -Protocol TCP -LocalPort 8734 -Action Allow
+New-NetFirewallRule -DisplayName "Finist_gateway_in UDP 8734" -Direction Inbound -Protocol UDP -LocalPort 8734 -Action Allow
+New-NetFirewallRule -DisplayName "Finist_gateway_out TCP 8734" -Direction Outbound -Protocol TCP -LocalPort 8734 -Action Allow
+New-NetFirewallRule -DisplayName "Finist_gateway_out UDP 8734" -Direction Outbound -Protocol UDP -LocalPort 8734 -Action Allow
