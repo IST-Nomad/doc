@@ -1,0 +1,38 @@
+
+# 1. Остановим службы обновлений
+Write-Host "Останавливаю службы Windows Update..." -ForegroundColor Cyan
+Stop-Service -Name wuauserv -Force
+Stop-Service -Name bits -Force
+Stop-Service -Name cryptsvc -Force
+
+# 2. Переименуем папки SoftwareDistribution и Catroot2 (чтобы сбросить кеш)
+$sd = "C:\Windows\SoftwareDistribution"
+$cr2 = "C:\Windows\System32\catroot2"
+$timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
+Write-Host "Переименовываю SoftwareDistribution и Catroot2..." -ForegroundColor Cyan
+Rename-Item -Path $sd -NewName "SoftwareDistribution_$timestamp" -Force
+Rename-Item -Path $cr2 -NewName "catroot2_$timestamp" -Force
+
+# 3. Запустим службы обратно
+Write-Host "Запускаю службы Windows Update..." -ForegroundColor Cyan
+Start-Service -Name wuauserv
+Start-Service -Name bits
+Start-Service -Name cryptsvc
+
+# 4. Удаляем временные файлы пользователя и систему temp
+Write-Host "Удаляю временные файлы..." -ForegroundColor Cyan
+Get-ChildItem "C:\Windows\Temp" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+Get-ChildItem "$env:TEMP" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+
+# 5. Очищаем папку Prefetch (если нужно)
+Write-Host "Очищаю Prefetch (опционально)..." -ForegroundColor Cyan
+Get-ChildItem "C:\Windows\Prefetch" -Recurse -Force | Remove-Item -Force -Recurse -ErrorAction SilentlyContinue
+
+# 6. Запускаем анализ и дефрагментацию (для HDD/SDD команда отличается)
+Write-Host "Запускаю оптимизацию диска (для HDD)..." -ForegroundColor Cyan
+Optimize-Volume -DriveLetter C -ReTrim -Verbose
+
+Write-Host "Готово! Освобождено место и сброшен кеш Windows Update." -ForegroundColor Green
+
+
+

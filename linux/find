@@ -190,3 +190,29 @@ $ find /usr/share \! -type f wc -l [Enter]|
 
    $ which perl [RET]
    /usr/bin/perl
+
+
+   Поиск файлов и папок по имени
+find . -name SEARCH_NAME
+
+Поиск только файлов или только папок
+find . -type f -name SEARCH_NAME
+
+Поиск без учёта регистра
+find . -type f -iname SEARCH_NAME
+
+Поиск файлов по расширению
+find . -type f -name "*.cpp"
+
+Поиск файлов в заданной папке
+abhishek@LHB:~/Examples$ find ./new -name mystuff
+./new/mystuff
+
+Поиск файлов в нескольких папках
+find ./location1 /second/location -type f -name "pattern"
+
+Поиск пустых файлов и папок
+find . -empty
+
+Поиск крупных и мелких файлов (поиск по размеру файла)
+find . -size +1G

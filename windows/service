@@ -1,0 +1,42 @@
+Команды для Панели управления Windows
+
+appwiz.cpl Мастер приложений (программа и функции)
+control Панель управления
+control admintools Административные инструменты
+control color Персонализация – цвет и внешний вид
+control desktop Свойства дисплея (персонализация)
+control folders Свойства папок
+control keyboard Свойства клавиатуры
+control mouse Свойства мыши
+control netconnections Свойства сети
+control printers Принтеры
+control schedtasks Расписание задач
+control update Обновление Windows
+control userpasswords Настройка учетной записи администратора
+control userpasswords2 Настройка учетных записей пользователей
+desk.cpl Дисплей – Разрешение экрана
+devmgmt.msc Диспетчер устройств
+firewall.cpl Брандмауэр Windows
+inetcpl.cpl Свойства Интернета (панель управления Интернетом)
+intl.cpl Региональные настройки (международные)
+mmsys.cpl Свойства звука (Настройки мультимедийной системы)
+ncpa.cpl Свойства сети
+netplwiz Создание учетной записи пользователя
+powercfg.cpl Конфигурация питания
+sysdm.cpl Свойства системы
+timedate.cpl Свойства даты и времени
+utilman Удобный менеджер сервисных программ
+wscui.cpl Центр безопасности (Windows Security Center UI)
+Инструменты администрирования Windows
+compmgmt.msc Управление компьютером, включая системные инструменты, хранилища, услуги и приложения
+defrag Команда дефрагментации
+dcomcnfg Сервисы компонентов (подробная конфигурация компонентов)
+devmgmt.msc Управление устройствами
+diskmgmt.msc Диспетчер разделов диска
+diskpart Diskpart Command
+eventvwr.msc Просмотрщик событий
+fsmgmt.msc Общие папки (Управление общим доступом к файлам)
+gpedit.msc Редактор групповой политики
+lusrmgr.msc Локальные пользователи и группы
+perfmon.msc Performance Monitor
+rekeywiz Шифрование файлов
