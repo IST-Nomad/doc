@@ -36,6 +36,11 @@ ntpdate ntp-host
 
 #Альтернативный ntp клиент 
 sudo apt install chrony
+sudo nano /etc/chrony/chrony.conf
+sudo systemctl restart chrony
+sudo systemctl enable chrony
+chronyc tracking
+chronyc sources
 
 
 #Список часовых поясов

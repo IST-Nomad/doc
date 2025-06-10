@@ -42,6 +42,19 @@ copy usb://_:/esr15-1.24.5-build5.firmware system:firmware
 copy usb://_:/esr15-1.24.5-build1.uboot system:boot-2
 copy usb://1A01-2572:/esr15-1.24.5-build1.uboot system:boot-2
 
+#Автоархивироваание после коммита, файл будет сохраняться с именем 
+config
+archive 
+type remote 
+path tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3.cfg
+by-commit
+exit
+
+
+
+
+
+
 ESR
 
 show bootvar
@@ -80,4 +93,31 @@ show security ipsec vpn status ipsec1
 show security ipsec vpn configuration ipsec1
 
 
-2150000029402140
+#SLA
+config
+ip sla test 10
+icmp-echo 195.206.62.4 source-ip 91.142.149.82
+enable
+exit
+ip sla schedule 10 life forever start-time now
+ip sla logging status
+ip sla logging error
+ip sla
+exit
+show ip sla test status
+show ip sla test history
+show ip sla test statistics
+
+
+track 1
+track sla test 10 mode state success 
+enable
+
+
+
+interface gigabitethernet 1/0/2
+vrrp priority 115
+vrrp priority track 1 increment 15
+
+
+NP23007150
