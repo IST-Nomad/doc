@@ -33,10 +33,17 @@ copy system:running-config flash:data/eltex-esr-100_04.05.2022
 copy system:running-config tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3-20042025_2
 copy system:running-config tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3-278052025
 
+#Обновление ПО с tftp
 
-copy tftp://10.129.135.110:/eltex_update/esr15-1.24.5-build5.firmware system:firmware
-copy tftp://10.129.135.110:/eltex_update/esr15-1.24.5-build1.uboot system:boot-2
+copy tftp://10.129.135.110:/eltex_update/esr15-1.28.1-build7.firmware system:firmware
+copy tftp://10.129.135.110:/eltex_update/esr15-1.28.1-build7.uboot system:boot-1
 
+show bootvar
+boot system image-2
+show bootvar
+reload system
+
+#Обновление ПО с usb
 show storage-devices usb
 copy usb://_:/esr15-1.24.5-build5.firmware system:firmware
 copy usb://_:/esr15-1.24.5-build1.uboot system:boot-2
@@ -46,27 +53,13 @@ copy usb://1A01-2572:/esr15-1.24.5-build1.uboot system:boot-2
 config
 archive 
 type remote 
-path tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3.cfg
-by-commit
+path tftp://10.129.135.110:/IRK-HO-R3/Eltex-IRK-HO-R3
 exit
 
-
-
-
-
-
-ESR
-
-show bootvar
-boot system image-2
-show bootvar
-reload system
-
-
-IRK-HO-R3
-NP23005083
-AMUR-EDGE-R3
-NP23005466
+#SNMP server
+snmp-server
+snmp-server community public v2c ro
+snmp-server enable traps snmp
 
 #Мониторинг интерфейса можно делать сразу на флешку:
 monitor gigabitethernet 1/0/1  address 10.10.10.1 file usb://name:/dump.pcap packets 100
@@ -84,14 +77,11 @@ show interfaces counters
 show interfaces counters bridge X
 show tunnels counters vti X
 
-
-
 #Состояние туннеля можно посмотреть командой:
 show security ipsec vpn status ipsec1
 
 #Конфигурацию туннеля можно посмотреть командой:
 show security ipsec vpn configuration ipsec1
-
 
 #SLA
 config
@@ -108,16 +98,20 @@ show ip sla test status
 show ip sla test history
 show ip sla test statistics
 
-
+# Track 
 track 1
 track sla test 10 mode state success 
 enable
 
-
-
+# Vrrp track
 interface gigabitethernet 1/0/2
 vrrp priority 115
 vrrp priority track 1 increment 15
 
 
+IRK-HO-R3
+NP23005083
+AMUR-EDGE-R3
+NP23005466
+IRK-MJK-R3
 NP23007150
