@@ -1,0 +1,43 @@
+#Замена владельца папки и всех подпапок
+
+$folderPath = "C:\path\to\your\folder"
+$username = "DOMAIN\user"  # Замените DOMAIN на имя вашего домена или используйте просто имя пользователя
+
+# Изменяем владельца для указанной папки
+$acl = Get-Acl $folderPath
+$owner = New-Object System.Security.Principal.NTAccount($username)
+$acl.SetOwner($owner)
+Set-Acl $folderPath $acl
+
+# Изменяем владельца для всех подпапок и файлов
+Get-ChildItem -Path $folderPath -Recurse | ForEach-Object {
+    $subFolderAcl = Get-Acl $_.FullName
+    $subFolderAcl.SetOwner($owner)
+    Set-Acl $_.FullName $subFolderAcl
+}
+
+
+# Замена разрешения для папки и всех подпапок
+
+$folderPath = "C:\path\to\your\folder"
+
+# Получаем объект доступа к указанной папке
+$acl = Get-Acl $folderPath
+
+# Создаем новый правила доступа
+$accessRule = New-Object System.Security.AccessControl.FileSystemAccessRule("Everyone", "FullControl", "Allow")
+
+# Добавляем правило в объект ACL
+$acl.SetAccessRule($accessRule)
+
+# Применяем изменения к указанной папке
+Set-Acl $folderPath $acl
+
+# Обрабатываем подпапки
+Get-ChildItem -Path $folderPath -Recurse | ForEach-Object {
+    $subFolderAcl = Get-Acl $_.FullName
+    $subFolderAcl.SetAccessRule($accessRule)
+    Set-Acl $_.FullName $subFolderAcl
+}
+
+
