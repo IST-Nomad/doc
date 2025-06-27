@@ -33,11 +33,11 @@ ansible-inventory --graph
 # По умолчанию для подключения к удаленным хостам используется SSH. Чтобы автоматически принимать ssh fingerprint и не вводить yes при первоначальном доступе к хосту, нужно добавить параметр в файл /etc/ansible/ansible.cfg
 "host_key_checking = false"
 
-# Проверим доступность всех хостов в файле инвентаризации:
-ansible all -m ping --ask-pass
-
 # Чтобы ansible мог аутентифицироваться по SSH с помощью пароля, нужно установить пакет sshpass:
 sudo apt install sshpass
+
+# Проверим доступность всех хостов в файле инвентаризации:
+ansible all -m ping --ask-pass
 
 # Сгенерируйте RSA ключи на управляющем сервере:
 ssh-keygen -t rsa
@@ -53,7 +53,7 @@ AuthorizedKeysFile .ssh/authorized_keys
 
 service sshd restart
 
-# роверить 
+# Проверить 
 ansible servers_all -a 'uptime'
 
 
