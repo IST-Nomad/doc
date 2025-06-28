@@ -53,6 +53,7 @@ copy usb://1A01-2572:/esr15-1.24.5-build1.uboot system:boot-2
 config
 archive 
 type remote 
+by-commit
 path tftp://10.129.135.110:/IRK-MGK-R3/Eltex-IRK-MGK-R3
 exit
 
