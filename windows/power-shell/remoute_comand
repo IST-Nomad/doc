@@ -1,35 +1,60 @@
-//На удаленных компьютерах, к которым вы планируете подключаться должен быть запущена служба WinRM. Проверить это можно так:
+#На удаленных компьютерах, к которым вы планируете подключаться должен быть запущена служба WinRM. Проверить это можно так:
 Get-Service -Name "*WinRM*" | fl
 
-//Если служба не запущена, запустите ее:
+#Если служба не запущена, запустите ее:
 Enable-PSRemoting
 
-//Чтобы проверить подключение к удаленному компьютер через PowerShell Remoting используется команда:
+#Чтобы проверить подключение к удаленному компьютер через PowerShell Remoting используется команда:
 Test-WsMan compname1
 
-//Запрашивает данные аутентификации и записывет их в переменную $admin для дальнейшего использования
+#Запрашивает данные аутентификации и записывет их в переменную $admin для дальнейшего использования
 $admin = Get-Credential
 
-//Выполняет скрипт от имени администратора
+#Выполняет скрипт от имени администратора
 Invoke-Command -ComputerName GESTBANK -Credential $admin -ScriptBlock {Get-NetAdapter}
 
-//Удаленное исполнение скрипта который находится локально
+#Удаленное исполнение скрипта который находится локально
 Invoke-Command -ComputerName Gestbank -FilePath C:\Scripts\no_rdp.ps1
 
-//Выполнение команды на нескольких ПК 
+#Выполнение команды на нескольких ПК 
 Invoke-Command server1, server2, server3 -ScriptBlock {get-date}
 
-//Список компьютеров можно поместить в переменную (массив):
+#Список компьютеров можно поместить в переменную (массив):
 $servers = @(″server1″,″server2″,″server3″)
 Invoke-Command -ScriptBlock { get-date} -ComputerName $servers
 
-//Или получить из текстового файла:
+#Или получить из текстового файла:
 Invoke-Command -ScriptBlock {Restart-Service spooler} -ComputerName(Get-Content c:\ps\servers.txt)
 
-//Чтобы выполнить команду на всех Windows Server в домене, исопльзуйте такой код:
+#Чтобы выполнить команду на всех Windows Server в домене, исопльзуйте такой код:
 $computers = (Get-ADComputer -Filter 'operatingsystem -like "*Windows server*" -and enabled -eq "true"').Name
 Invoke-Command -ComputerName $computers -ScriptBlock {get-date} -ErrorAction SilentlyContinue
 
-//Чтобы понять с какого компьютера получены результаты, нужно использовать специальную переменную окружения PSComputerName.
+#Чтобы понять с какого компьютера получены результаты, нужно использовать специальную переменную окружения PSComputerName.
 $results = Invoke-Command server1, server2, server3 -ScriptBlock {get-date}
 $results | Select-Object PSComputerName, DateTime
+
+#Перезагрузить ПК
+Restart-Computer -ComputerName 10.129.137.16 -Credential (Get-Credential) -Force
+
+#Включить RDP на удаленном ПК
+Invoke-Command -ComputerName 10.129.137.16 -Credential (Get-Credential) -ScriptBlock {
+    Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name 'fDenyTSConnections' -Value 0
+    Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+}
+
+#Проверить включено ли RDP
+Invoke-Command -ComputerName 10.129.137.16 -Credential (Get-Credential) -ScriptBlock {
+    Get-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' | Select-Object fDenyTSConnections
+}
+
+
+
+$ComputerName = "10.129.137.16"  # Например: "PC01" или "192.168.1.10"
+$Credential = Get-Credential  # Введите логин/пароль администратора удалённого ПК
+
+Invoke-Command -ComputerName $ComputerName -Credential $Credential -ScriptBlock {
+    Set-ItemProperty -Path "HKLM:\System\CurrentControlSet\Control\Terminal Server" -Name "fDenyTSConnections" -Value 0
+    Enable-NetFirewallRule -DisplayGroup "Удалённый рабочий стол"
+}
+
