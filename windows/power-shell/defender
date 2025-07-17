@@ -19,9 +19,11 @@ Remove-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound"
 New-NetFirewallRule -DisplayName "Allow SQL Server TCP 1433" -Direction Inbound -Protocol TCP -LocalPort 1433 -Action Allow
 New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Inbound -Protocol UDP -LocalPort 1434 -Action Allow
 
+New-NetFirewallRule -DisplayName "GestBank_day TCP 30010" -Direction Inbound -Protocol TCP -LocalPort 30010 -Action Allow
+New-NetFirewallRule -DisplayName "GestBank_day Server UDP 30010" -Direction Inbound -Protocol UDP -LocalPort 30010 -Action Allow
+
 New-NetFirewallRule -DisplayName "GestBank TCP 30007" -Direction Inbound -Protocol TCP -LocalPort 30007 -Action Allow
 New-NetFirewallRule -DisplayName "GestBank Server UDP 30007" -Direction Inbound -Protocol UDP -LocalPort 30007 -Action Allow
-
 
 New-NetFirewallRule -DisplayName "EventManager TCP 5703" -Direction Inbound -Protocol TCP -LocalPort 5703 -Action Allow
 New-NetFirewallRule -DisplayName "EventManager UDP 5703" -Direction Inbound -Protocol UDP -LocalPort 5703 -Action Allow
