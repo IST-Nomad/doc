@@ -66,3 +66,11 @@ LVM (Logical Volume Manager)  — это система управления л�
 4. Снимок (Snapshot):
    - Создание снимка:
      lvcreate -L 1G -s -n snapshot_name /dev/vg_name/lv_name
+
+
+
+#Увеличить размер тома 
+
+sudo lvextend -l +100%FREE /dev/ubuntu-vg/<имя_логического_тома>
+
+sudo resize2fs /dev/ubuntu-vg/<имя_логического_тома>
