@@ -19,8 +19,8 @@ Remove-NetFirewallRule -DisplayName "Allow_Port_5222_TCP_Inbound"
 New-NetFirewallRule -DisplayName "Allow SQL Server TCP 1433" -Direction Inbound -Protocol TCP -LocalPort 1433 -Action Allow
 New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Inbound -Protocol UDP -LocalPort 1434 -Action Allow
 
-New-NetFirewallRule -DisplayName "Allow SQL Server TCP 1433" -Direction Outbound -Protocol TCP -LocalPort 1433 -Action Allow
-New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Outbound -Protocol UDP -LocalPort 1434 -Action Allow
+New-NetFirewallRule -DisplayName "Allow SQL Server TCP 1541" -Direction Inbound -Protocol TCP -LocalPort 1541 -Action Allow
+New-NetFirewallRule -DisplayName "Allow SQL Server UDP 1434" -Direction Inbound -Protocol UDP -LocalPort 1434 -Action Allow
 
 New-NetFirewallRule -DisplayName "GestBank_day TCP 30010" -Direction Inbound -Protocol TCP -LocalPort 30010 -Action Allow
 New-NetFirewallRule -DisplayName "GestBank_day Server UDP 30010" -Direction Inbound -Protocol UDP -LocalPort 30010 -Action Allow
@@ -33,8 +33,6 @@ New-NetFirewallRule -DisplayName "EventManager UDP 5703" -Direction Inbound -Pro
 
 New-NetFirewallRule -DisplayName "WinAuthenticationServer TCP 5111" -Direction Inbound -Protocol TCP -LocalPort 5111 -Action Allow
 New-NetFirewallRule -DisplayName "WinAuthenticationServer UDP 5111" -Direction Inbound -Protocol UDP -LocalPort 5111 -Action Allow
-
-32801
 
 New-NetFirewallRule -DisplayName "FinistDigitalBank TCP 32801" -Direction Inbound -Protocol TCP -LocalPort 32801 -Action Allow
 New-NetFirewallRule -DisplayName "FinistDigitalBank UDP 32801" -Direction Inbound -Protocol UDP -LocalPort 32801 -Action Allow
