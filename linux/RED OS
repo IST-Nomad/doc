@@ -1,0 +1,7 @@
+
+
+#Обновление 
+dnf update
+
+#Установка Docker 
+dnf install docker-ce docker-ce-cli docker-compose
