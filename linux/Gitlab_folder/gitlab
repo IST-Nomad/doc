@@ -6,14 +6,21 @@ services:
     restart: unless-stopped
     environment:
       GITLAB_OMNIBUS_CONFIG: |
+        external_url 'https://10.129.135.117'
         gitlab_rails['gitlab_shell_ssh_port'] = 8822
+        nginx['listen_port'] = 443
+        nginx['listen_https'] = true
+        nginx['ssl_certificate'] = "/etc/gitlab/ssl/cert.pem"
+        nginx['ssl_certificate_key'] = "/etc/gitlab/ssl/privkey.pem"
     ports:
       - "80:80"
+      - "443:443"
       - "8822:22"
     volumes:
       - ~/gitlab/etc:/etc/gitlab
       - ~/gitlab/var/opt:/var/opt/gitlab
       - ~/gitlab/var/log:/var/log/gitlab
+      - ~/gitlab/certs:/etc/gitlab/ssl
     networks:
       - gitlab_net
 

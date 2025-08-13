@@ -30,3 +30,10 @@
 10.10.100.134 admin admin123456 rtsp://admin:admin123456@10.10.100.134:8554/profile0
 10.10.100.135 admin admin123456 rtsp://admin:admin123456@10.10.100.135:8554/profile0
 10.10.100.136 admin admin123456 rtsp://admin:admin123456@10.10.100.136:8554/profile0
+
+
+http://admin:123654@192.168.55.50:80/user=admin&password=&channel=1&stream=0.sdp
+rtsp://admin:123654@192.168.55.51:554/user=admin_password=tlJwpbo6_channel=1_stream=0.sdp?real_stream
+rtsp://admin:Admin1234@192.168.55.54:554
+rtsp://admin:Admin1234@192.168.55.53:554
+http://192.168.55.154/onvif/device_service (admin admin TCP)
