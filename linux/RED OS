@@ -5,3 +5,16 @@ dnf update
 
 #Установка Docker 
 dnf install docker-ce docker-ce-cli docker-compose
+
+#Установите zabbix-agent:
+dnf install zabbix-agent
+
+#Настройте файл конфигурации:
+nano /etc/zabbix/zabbix_agentd.conf
+Server=<ip-адрес_сервера>
+
+#Запустите сервис и добавьте его в автозапуск:
+systemctl enable zabbix-agent
+systemctl start zabbix-agent
+systemctl status zabbix-agent
+
