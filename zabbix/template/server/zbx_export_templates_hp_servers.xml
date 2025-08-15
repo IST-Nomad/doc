@@ -1,0 +1,1678 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>2.0</version>
+    <date>2015-09-24T07:06:13Z</date>
+    <groups>
+        <group>
+            <name>HP Servers</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Template SNMP HP Server Summary exp</template>
+            <name>Template SNMP HP Server Summary exp</name>
+            <description/>
+            <groups>
+                <group>
+                    <name>HP Servers</name>
+                </group>
+            </groups>
+            <applications>
+                <application>
+                    <name>HP Array Controller</name>
+                </application>
+                <application>
+                    <name>HP Fan Summary</name>
+                </application>
+                <application>
+                    <name>HP Logical Drive</name>
+                </application>
+                <application>
+                    <name>HP Physical Drive</name>
+                </application>
+                <application>
+                    <name>HP System Summary</name>
+                </application>
+                <application>
+                    <name>HP Temperature Sensor</name>
+                </application>
+                <application>
+                    <name>HP Termal Summary</name>
+                </application>
+            </applications>
+            <items>
+                <item>
+                    <name>Cpu Fun(s) Status</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.5.0</snmp_oid>
+                    <key>cpqHeThermalCpuFanStatus.0</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>The status of the processor fan(s) in the system.&#13;
+This value will be one of the following:&#13;
+other(1)&#13;
+Fan status detection is not supported by this system or driver.&#13;
+ok(2)&#13;
+All fans are operating properly.&#13;
+failed(4)&#13;
+A fan is not operating properly.&#13;
+The system will be shutdown if the failed(4) condition occurs.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP Termal Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Resilient Memory Condition</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>1.3.6.1.4.1.232.6.2.14.4.0</snmp_oid>
+                    <key>cpqHeResilientMemCondition.0</key>
+                    <delay>600</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>This value specifies the current condition of the Advanced Memory Protection subsystem.&#13;
+&#13;
+The following states are supported:&#13;
+&#13;
+other(1)&#13;
+ The system does not support fault tolerant memory or the&#13;
+ state cannot be determined by the Management Agent.&#13;
+&#13;
+ok(2)&#13;
+ This system is operating normally.&#13;
+&#13;
+degraded(3)&#13;
+ The system is running in a degraded state because the&#13;
+ Advanced Memory Protection subsystem has been engaged.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP System Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Server Condition</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.1.3.0</snmp_oid>
+                    <key>cpqHeMibCondition.0</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>The overall condition.&#13;
+This object represents the overall status of the server health system represented by this MIB.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP System Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>System Fun(s) Status</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.4.0</snmp_oid>
+                    <key>cpqHeThermalSystemFanStatus.0</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>The status of the fan(s) in the system.&#13;
+This value will be one of the following:&#13;
+other(1)&#13;
+Fan status detection is not supported by this system or driver.&#13;
+ok(2)&#13;
+All fans are operating properly.&#13;
+degraded(3)&#13;
+A non-required fan is not operating properly.&#13;
+failed(4)&#13;
+A required fan is not operating properly.&#13;
+If the cpqHeThermalDegradedAction is set to shutdown(3) the&#13;
+system will be shutdown if the failed(4) condition occurs.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP Termal Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>System Temperature Status</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.3.0</snmp_oid>
+                    <key>cpqHeThermalTempStatus.0</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>The status of the system's temperature sensors:&#13;
+This value will be one of the following:&#13;
+other(1)&#13;
+Temp sensing is not supported by this system or driver.&#13;
+ok(2)&#13;
+All temp sensors are within normal operating range.&#13;
+degraded(3)&#13;
+A temp sensor is outside of normal operating range.&#13;
+failed(4)&#13;
+A temp sensor detects a condition that could permanently&#13;
+damage the system.&#13;
+The system will automatically shutdown if the failed(4) condition&#13;
+results, so it is unlikely that this value will ever be returned&#13;
+by the agent.  If the cpqHeThermalDegradedAction is set to&#13;
+shutdown(3) the system will be shutdown if the degraded(3)&#13;
+condition occurs.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP Termal Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+                <item>
+                    <name>Termal Condition</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <multiplier>0</multiplier>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.1.0</snmp_oid>
+                    <key>cpqHeThermalCondition.0</key>
+                    <delay>60</delay>
+                    <history>90</history>
+                    <trends>365</trends>
+                    <status>0</status>
+                    <value_type>3</value_type>
+                    <allowed_hosts/>
+                    <units/>
+                    <delta>0</delta>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <formula>1</formula>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <data_type>0</data_type>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <description>This value specifies the overall condition of the system's&#13;
+thermal environment.</description>
+                    <inventory_link>0</inventory_link>
+                    <applications>
+                        <application>
+                            <name>HP Termal Summary</name>
+                        </application>
+                    </applications>
+                    <valuemap>
+                        <name>HP SNMP Agent Condition</name>
+                    </valuemap>
+                    <logtimefmt/>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <name>Array Controller Index</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.3.2.2.1.1.1</snmp_oid>
+                    <key>snmp.discovery.v1</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description>Array Controller Index.&#13;
+This value is a logical number whose meaning is OS dependent.&#13;
+Each physical controller has one unique controller number&#13;
+associated with it.</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Drive Array Controller {#SNMPINDEX} Condition</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.3.2.2.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaCntlrCondition.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Array Controller</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Condition</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Controller {#SNMPINDEX} Firmware Revision</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.2.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaCntlrFWRev.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>9600</delay>
+                            <history>7</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>4</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Array Controller Firmware Revision.&#13;
+&#13;
+The firmware revision of the drive array controller. This value can be used to help identify a particular revision of the controller.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Array Controller</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Controller {#SNMPINDEX} Model</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.2.1.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaCntlrModel.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>9600</delay>
+                            <history>30</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Array Controller Model.&#13;
+&#13;
+The type of controller card.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Array Controller</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template SNMP HP Server Summary exp:cpqDaCntlrCondition.[&quot;{#SNMPINDEX}&quot;].last(0)}&lt;&gt;2</expression>
+                            <name>{HOST.NAME}: Drive Array Controller {#SNMPINDEX} Condition is Not OK</name>
+                            <url/>
+                            <status>0</status>
+                            <priority>4</priority>
+                            <description/>
+                            <type>0</type>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Drive Array Logical Drive Performance</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.3.2.8.1.1.1</snmp_oid>
+                    <key>snmp.discovery.v5</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Drive Array Logical Drive {#SNMPINDEX} Avg Queue Depth</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.8.1.1.5.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaLogDrvPerfAvgQueueDepth.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>60</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Array Logical Drive Performance Monitor Average Queue Depth.&#13;
+&#13;
+This value indicates the average command queue depth of the logical volume.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Logical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes/>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Drive Array Logical Drive Summary</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.3.2.3.1.1.2</snmp_oid>
+                    <key>snmp.discovery.v4</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Drive Array Logical Drive {#SNMPINDEX} Avg Latency</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>1</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.7.1.1.7.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaCntlrPerfAvgLatency.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>60</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>0</value_type>
+                            <allowed_hosts/>
+                            <units>ms</units>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>0.01</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Array Controller Performance Monitor Average Command Latency.&#13;
+&#13;
+This value shows the average command latency for this sample in 1/10,000 second units.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Logical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Logical Drive {#SNMPINDEX} Condition</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.3.2.3.1.1.11.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaLogDrvCondition.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>The Logical Drive condition.&#13;
+&#13;
+This value represents the overall condition of this logical drive and any associated physical drives.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Logical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Condition</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Logical Drive {#SNMPINDEX} Fault Tolerance</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.3.1.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaLogDrvFaultTol.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>7200</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Logical Drive Fault Tolerance.&#13;
+&#13;
+This shows the fault tolerance mode of the logical drive. The following values are valid for the Logical Drive Fault Tolerance:&#13;
+&#13;
+None (2)&#13;
+ Fault tolerance is not enabled.  If a physical drive reports&#13;
+ an error, the data cannot be recovered by the drive array&#13;
+ controller.&#13;
+&#13;
+Mirroring (3)&#13;
+ For each physical drive, there is a second physical drive&#13;
+ containing identical data. If a drive fails, the data can be&#13;
+ retrieved from the mirror drive.&#13;
+&#13;
+Data Guard (4)&#13;
+ One of the physical drives is used as a data guard drive and&#13;
+ contains the exclusive OR of the data on the remaining drives.&#13;
+ If a failure is detected, the drive array controller rebuilds&#13;
+ the data using the data guard information plus information&#13;
+ from the other drives.&#13;
+&#13;
+Distributed Data Guard (5)&#13;
+ Distributed Data Guarding, sometimes referred to as RAID 5,&#13;
+ is similar to Data Guarding, but instead of storing the parity&#13;
+ information on one drive, the information is distributed across&#13;
+ all of the drives.  If a failure is detected, the drive array&#13;
+ controller rebuilds the data using the data guard information&#13;
+ from all the drives.&#13;
+&#13;
+Advanced Data Guarding (7)&#13;
+ Advanced Data Guarding (RAID ADG) is the fault tolerance method&#13;
+ that provides the highest level of data protection.  It&#13;
+ 'stripes' data and parity across all the physical drives in the&#13;
+ configuration to ensure the uninterrupted availability of&#13;
+ uncorrupted data.  This fault-tolerance method is similar to&#13;
+ distributed data guard (RAID 5) in that parity data is&#13;
+ distributed across all drives in the array, except in RAID ADG&#13;
+ the capacity of multiple drives is used to store parity data.&#13;
+ Assuming the capacity of 2 drives is used for parity data,&#13;
+ this allows continued operation despite simultaneous failure of&#13;
+ any 2 drives in the array, whereas RAID 4 and RAID 5 can only&#13;
+ sustain failure of a single drive.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Logical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Logical Drive Fault Tolerance</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Logical Drive {#SNMPINDEX} Status</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.3.1.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaLogDrvStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Logical Drive Status.&#13;
+&#13;
+The logical drive can be in one of the following states:&#13;
+&#13;
+Ok (2)&#13;
+ Indicates that the logical drive is in normal operation mode.&#13;
+&#13;
+Failed (3)&#13;
+ Indicates that more physical drives have failed than the&#13;
+ fault tolerance mode of the logical drive can handle without&#13;
+ data loss.&#13;
+&#13;
+Unconfigured (4)&#13;
+ Indicates that the logical drive is not configured.&#13;
+&#13;
+Recovering (5)&#13;
+ Indicates that the logical drive is using Interim Recovery Mode.&#13;
+ In Interim Recovery Mode, at least one physical drive has&#13;
+ failed, but the logical drive's fault tolerance mode lets the&#13;
+ drive continue to operate with no data loss.&#13;
+&#13;
+Ready Rebuild (6)&#13;
+ Indicates that the logical drive is ready for Automatic Data&#13;
+ Recovery.  The physical drive that failed has been replaced,&#13;
+ but the logical drive is still operating in Interim Recovery&#13;
+ Mode.&#13;
+&#13;
+Rebuilding (7)&#13;
+ Indicates that the logical drive is currently doing Automatic&#13;
+ Data Recovery.  During Automatic Data Recovery, fault tolerance&#13;
+ algorithms restore data to the replacement drive.&#13;
+&#13;
+Wrong Drive (8)&#13;
+ Indicates that the wrong physical drive was replaced after a&#13;
+ physical drive failure.&#13;
+&#13;
+Bad Connect (9)&#13;
+ Indicates that a physical drive is not responding.&#13;
+&#13;
+Overheating (10)&#13;
+ Indicates that the drive array enclosure that contains the&#13;
+ logical drive is overheating.  The drive array is still&#13;
+ functioning, but should be shutdown.&#13;
+&#13;
+Shutdown (11)&#13;
+ Indicates that the drive array enclosure that contains the&#13;
+ logical drive has overheated.  The logical drive is no longer&#13;
+ functioning.&#13;
+&#13;
+Expanding (12)&#13;
+ Indicates that the logical drive is currently doing Automatic&#13;
+ Data Expansion.  During Automatic Data Expansion, fault&#13;
+ tolerance algorithms redistribute logical drive data to the&#13;
+ newly added physical drive.&#13;
+&#13;
+Not Available (13)&#13;
+ Indicates that the logical drive is currently unavailable.&#13;
+ If a logical drive is expanding and the new configuration&#13;
+ frees additional disk space, this free space can be&#13;
+ configured into another logical volume.  If this is done,&#13;
+ the new volume will be set to not available.&#13;
+&#13;
+Queued For Expansion (14)&#13;
+ Indicates that the logical drive is ready for Automatic Data&#13;
+ Expansion.  The logical drive is in the queue for expansion.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Logical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent LogDrv Status</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template SNMP HP Server Summary exp:cpqDaLogDrvStatus.[&quot;{#SNMPINDEX}&quot;].last(0)}&gt;2</expression>
+                            <name>{HOST.NAME}: Drive Array Logical Drive {#SNMPINDEX} Status Changed</name>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Drive Array Physical Drive Summary</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.3.2.5.1.1.2</snmp_oid>
+                    <key>snmp.discovery</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Drive Array Physical Drive {#SNMPINDEX} Condition</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.5.1.1.37.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaPhyDrvCondition.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Physical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent PhyDrv Status</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Physical Drive {#SNMPINDEX} Reads/Sec</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.5.1.1.11.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaPhyDrvReads.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>60</delay>
+                            <history>30</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>reads/s</units>
+                            <delta>1</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Physical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Physical Drive {#SNMPINDEX} Status</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.5.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaPhyDrvStatus.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>Physical Drive Status.&#13;
+This shows the status of the physical drive.&#13;
+The following values are valid for the physical drive status:&#13;
+Other (1)&#13;
+Indicates that the instrument agent does not recognize&#13;
+the drive.  You may need to upgrade your instrument agent&#13;
+and/or driver software.&#13;
+Ok (2)&#13;
+Indicates the drive is functioning properly.&#13;
+Failed (3)&#13;
+Indicates that the drive is no longer operating and&#13;
+should be replaced.&#13;
+Predictive Failure(4)&#13;
+Indicates that the drive has a predictive failure error and&#13;
+should be replaced.&#13;
+Erasing(5)&#13;
+Indicates that the drive is being erased.&#13;
+Erase Done(6)&#13;
+Indicates that the drive has been erased and is now in an&#13;
+offline state.&#13;
+Erase Queued(7)&#13;
+Indicates that an erase operation is currently queued for&#13;
+the drive.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Physical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Drive Array Physical Drive {#SNMPINDEX} Writes/Sec</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.3.2.5.1.1.13.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqDaPhyDrvWrites.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>60</delay>
+                            <history>30</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units>writes/s</units>
+                            <delta>1</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Physical Drive</name>
+                                </application>
+                            </applications>
+                            <valuemap/>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template SNMP HP Server Summary exp:cpqDaPhyDrvCondition.[&quot;{#SNMPINDEX}&quot;].last(0)}&lt;&gt;2</expression>
+                            <name>{HOST.NAME}: Drive Array Physical Drive {#SNMPINDEX} Condition is Not OK</name>
+                            <url/>
+                            <status>0</status>
+                            <priority>4</priority>
+                            <description/>
+                            <type>0</type>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <name>Drive Array Physical Drive {#SNMPINDEX} Writes and Reads/Sec</name>
+                            <width>900</width>
+                            <height>200</height>
+                            <yaxismin>0.0000</yaxismin>
+                            <yaxismax>100.0000</yaxismax>
+                            <show_work_period>1</show_work_period>
+                            <show_triggers>1</show_triggers>
+                            <type>0</type>
+                            <show_legend>1</show_legend>
+                            <show_3d>0</show_3d>
+                            <percent_left>0.0000</percent_left>
+                            <percent_right>0.0000</percent_right>
+                            <ymin_type_1>0</ymin_type_1>
+                            <ymax_type_1>0</ymax_type_1>
+                            <ymin_item_1>0</ymin_item_1>
+                            <ymax_item_1>0</ymax_item_1>
+                            <graph_items>
+                                <graph_item>
+                                    <sortorder>0</sortorder>
+                                    <drawtype>5</drawtype>
+                                    <color>3333FF</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template SNMP HP Server Summary exp</host>
+                                        <key>cpqDaPhyDrvReads.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>5</drawtype>
+                                    <color>00C800</color>
+                                    <yaxisside>0</yaxisside>
+                                    <calc_fnc>2</calc_fnc>
+                                    <type>0</type>
+                                    <item>
+                                        <host>Template SNMP HP Server Summary exp</host>
+                                        <key>cpqDaPhyDrvWrites.[&quot;{#SNMPINDEX}&quot;]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Fault Tolerant Fan Condition</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.7.1.2</snmp_oid>
+                    <key>snmp.discovery.v2</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Fault Tolerant Fan {#SNMPINDEX} Condition</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>1.3.6.1.4.1.232.6.2.6.7.1.9.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqHeFltTolFanCondition.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>7</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>The condition of the fan.&#13;
+&#13;
+This value will be one of the following: other(1)&#13;
+ Fan status detection is not supported by this system or driver.&#13;
+&#13;
+ok(2)&#13;
+ The fan is operating properly.&#13;
+&#13;
+degraded(2)&#13;
+ A redundant fan is not operating properly.&#13;
+&#13;
+failed(4)&#13;
+ A non-redundant fan is not operating properly.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Fan Summary</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Condition</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Fault Tolerant Fan {#SNMPINDEX} Locale</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.6.2.6.7.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqHeFltTolFanLocale.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>86400</delay>
+                            <history>7</history>
+                            <trends>30</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>This specifies the location of the fan in the system.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Fan Summary</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Locale</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes/>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Power Supply Condition</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.9.3.1.2</snmp_oid>
+                    <key>snmp.discovery.v6</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Power Supply {#SNMPINDEX} Condition</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.6.2.9.3.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqHeFltTolPowerSupplyCondition.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>90</history>
+                            <trends>365</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description>The condition of the power supply.&#13;
+This value will be one of the following:&#13;
+other(1)&#13;
+The status could not be determined or not present.&#13;
+ok(2)&#13;
+The power supply is operating normally.&#13;
+degraded(3)&#13;
+A temperature sensor, fan or other power supply component is&#13;
+outside of normal operating range.&#13;
+failed(4)&#13;
+A power supply component detects a condition that could&#13;
+permanently damage the system.</description>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP System Summary</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Condition</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes>
+                        <trigger_prototype>
+                            <expression>{Template SNMP HP Server Summary exp:cpqHeFltTolPowerSupplyCondition.[&quot;{#SNMPINDEX}&quot;].last()}&lt;&gt;2 and {Template SNMP HP Server Summary exp:cpqHeFltTolPowerSupplyCondition.[&quot;{#SNMPINDEX}&quot;].last()}&lt;&gt;1</expression>
+                            <name>{HOST.NAME}: Power Supply {#SNMPINDEX} Condition is Not OK</name>
+                            <url/>
+                            <status>0</status>
+                            <priority>3</priority>
+                            <description/>
+                            <type>0</type>
+                        </trigger_prototype>
+                    </trigger_prototypes>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+                <discovery_rule>
+                    <name>Temperature Sensor</name>
+                    <type>4</type>
+                    <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                    <snmp_oid>.1.3.6.1.4.1.232.6.2.6.8.1.2</snmp_oid>
+                    <key>snmp.discovery.v3</key>
+                    <delay>3600</delay>
+                    <status>0</status>
+                    <allowed_hosts/>
+                    <snmpv3_contextname/>
+                    <snmpv3_securityname/>
+                    <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                    <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                    <snmpv3_authpassphrase/>
+                    <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                    <snmpv3_privpassphrase/>
+                    <delay_flex/>
+                    <params/>
+                    <ipmi_sensor/>
+                    <authtype>0</authtype>
+                    <username/>
+                    <password/>
+                    <publickey/>
+                    <privatekey/>
+                    <port>161</port>
+                    <filter>
+                        <evaltype>0</evaltype>
+                        <formula/>
+                        <conditions/>
+                    </filter>
+                    <lifetime>7</lifetime>
+                    <description/>
+                    <item_prototypes>
+                        <item_prototype>
+                            <name>Temperature Sensor {#SNMPINDEX} Celsius</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.6.2.6.8.1.4.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqHeTemperatureCelsius.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>600</delay>
+                            <history>7</history>
+                            <trends>30</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Temperature Sensor</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Locale</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                        <item_prototype>
+                            <name>Temperature Sensor {#SNMPINDEX} Locate</name>
+                            <type>4</type>
+                            <snmp_community>{$SNMP_COMMUNITY}</snmp_community>
+                            <multiplier>0</multiplier>
+                            <snmp_oid>.1.3.6.1.4.1.232.6.2.6.8.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>cpqHeTemperatureLocale.[&quot;{#SNMPINDEX}&quot;]</key>
+                            <delay>86400</delay>
+                            <history>7</history>
+                            <trends>30</trends>
+                            <status>0</status>
+                            <value_type>3</value_type>
+                            <allowed_hosts/>
+                            <units/>
+                            <delta>0</delta>
+                            <snmpv3_contextname/>
+                            <snmpv3_securityname/>
+                            <snmpv3_securitylevel>0</snmpv3_securitylevel>
+                            <snmpv3_authprotocol>0</snmpv3_authprotocol>
+                            <snmpv3_authpassphrase/>
+                            <snmpv3_privprotocol>0</snmpv3_privprotocol>
+                            <snmpv3_privpassphrase/>
+                            <formula>1</formula>
+                            <delay_flex/>
+                            <params/>
+                            <ipmi_sensor/>
+                            <data_type>0</data_type>
+                            <authtype>0</authtype>
+                            <username/>
+                            <password/>
+                            <publickey/>
+                            <privatekey/>
+                            <port>161</port>
+                            <description/>
+                            <inventory_link>0</inventory_link>
+                            <applications>
+                                <application>
+                                    <name>HP Temperature Sensor</name>
+                                </application>
+                            </applications>
+                            <valuemap>
+                                <name>HP SNMP Agent Locale</name>
+                            </valuemap>
+                            <logtimefmt/>
+                        </item_prototype>
+                    </item_prototypes>
+                    <trigger_prototypes/>
+                    <graph_prototypes/>
+                    <host_prototypes/>
+                </discovery_rule>
+            </discovery_rules>
+            <macros/>
+            <templates/>
+            <screens/>
+        </template>
+    </templates>
+    <triggers>
+        <trigger>
+            <expression>{Template SNMP HP Server Summary exp:cpqHeResilientMemCondition.0.last(0)}&gt;2</expression>
+            <name>{HOST.NAME}: Resilient Memory Condition is Not OK</name>
+            <url/>
+            <status>0</status>
+            <priority>1</priority>
+            <description/>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{Template SNMP HP Server Summary exp:cpqHeMibCondition.0.last(0)}&lt;&gt;2</expression>
+            <name>{HOST.NAME}: Server Condition is Not OK</name>
+            <url/>
+            <status>1</status>
+            <priority>3</priority>
+            <description>The overall condition. This object represents the overall status of the server health system represented by this MIB.</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{Template SNMP HP Server Summary exp:cpqHeThermalCondition.0.last(0)}&lt;&gt;2</expression>
+            <name>{HOST.NAME}: Termal Condition is Not OK</name>
+            <url/>
+            <status>0</status>
+            <priority>3</priority>
+            <description/>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+        <trigger>
+            <expression>{Template SNMP HP Server Summary exp:cpqHeMibCondition.0.nodata(3600)}=1</expression>
+            <name>{HOST.NAME} no SNMP data</name>
+            <url/>
+            <status>0</status>
+            <priority>2</priority>
+            <description>От узла не было новых SNMP-данных за определенный промежуток времени</description>
+            <type>0</type>
+            <dependencies/>
+        </trigger>
+    </triggers>
+</zabbix_export>
