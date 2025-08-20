@@ -129,3 +129,22 @@ docker volume ls
 5.2 Подключение тома к контейнеру
 
 docker run -d -v my_volume:/data --name my_container nginx
+
+
+#Проверьте список запущенных контейнеров
+docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Status}}"
+
+#Выполните полный перезапуск стека:
+docker compose down -v 
+docker system prune -a
+docker compose up -d
+
+
+
+docker exec -it wazuh-stack-wazuh.indexer-1 bash -c "
+echo 'plugins.security.disabled: true' >> /usr/share/wazuh-indexer/config/opensearch.yml
+echo 'opensearch_security.disabled: true' >> /usr/share/wazuh-indexer/config/opensearch.yml
+"
+
+#Первым делом посмотрим логи
+docker logs 82c6dc859d6b --tail 100 -f
