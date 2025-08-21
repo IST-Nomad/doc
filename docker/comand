@@ -148,3 +148,8 @@ echo 'opensearch_security.disabled: true' >> /usr/share/wazuh-indexer/config/ope
 
 #Первым делом посмотрим логи
 docker logs 82c6dc859d6b --tail 100 -f
+
+docker compose logs -f wazuh.indexer --tail 100
+
+
+
