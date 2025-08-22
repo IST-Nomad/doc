@@ -1,0 +1,21 @@
+
+
+Netsh
+
+#включить/выключить брандмауэр
+netsh advfirewall set [privateprofile|publicprofile|domainprofile|currentprofile] state [on|off]
+
+#установить действие брандмауэра по умолчанию
+netsh advfirewall set [privateprofile|publicprofile|domainprofile|currentprofile] firewallpolicy [allowinbound|blockinbound|blockinboundalways|notconfigured],[allowoutbound|blockoutbound|notconfigured]
+
+#добавить правило
+netsh advfirewall firewall add rule name="My Application" dir=in action=allow program="C:\MyApp\MyApp.exe" enable=yes remoteip=157.60.0.1,172.16.0.0/16,LocalSubnet profile=domain
+
+#показать все правила
+netsh advfirewall firewall show rule status=enabled name=all
+
+#удалить правило
+netsh advfirewall firewall delete rule name=rule name protocol=udp localport=500
+
+
+

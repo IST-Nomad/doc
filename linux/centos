@@ -1,4 +1,13 @@
 #Обновите локальную базу пакетов
 sudo yum check-update
 
-#
+#Удаление директории рекурсивно
+rm -rf /путь/к/директории
+rm -rfv /var/log/old_logs #Удаление с выводом информации
+rm -rf /dir1 /dir2 /dir3 #Удаление нескольких директорий
+find /path -name "pattern*" -type d -exec rm -rf {} + #Удаление через find (если нужно по маске)
+
+#Поиск пакета в репозитории
+sudo dnf search <ключевое_слово>
+dnf list installed | grep openjdk #Проверить, установлен ли пакет
+rpm -qa | grep openjdk #Проверить, установлен ли пакет
