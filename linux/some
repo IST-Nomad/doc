@@ -1,27 +1,27 @@
-//узнать время, часовой пояс, дату
-#date
-//Сменить часовой пояс
-#sudo timedatectl set-timezone 'Asia/Irkutsk'
+#узнать время, часовой пояс, дату
+date
+#Сменить часовой пояс
+sudo timedatectl set-timezone 'Asia/Irkutsk'
 
-//Anydesk
+#Anydesk
 wget https://download.anydesk.com/rpi/anydesk_6.3.0-1_armhf.deb
 sudo dpkg -i anydesk_6.3.0-1_armhf.deb
 
 sudo apt-get install cifs-utils
-//Вот такой командой можно примонтировать папку, требующую авторизации по логину и паролю:
+#Вот такой командой можно примонтировать папку, требующую авторизации по логину и паролю:
 sudo mount -t cifs //192.168.0.11/share /media/sharefolder -o username=windowsuser,password=windowspass,iocharset=utf8,file_mode=0777,dir_mode=0777
-//Для того чтобы осуществить автомонтирование
+#Для того чтобы осуществить автомонтирование
 sudo nano /root/.smbcredentials
-//В этот новый файл добавьте две строки:
+#В этот новый файл добавьте две строки:
 username=windowsuser
 password=windowspass
-//где, соответственно, windowsuser – имя пользователя с необходимыми правами доступа к ресурсу Windows, windowspass – пароль этого пользователя. Измените права созданного файла так, что редактировать и смотреть его смог только root, то есть сама система:
+#где, соответственно, windowsuser – имя пользователя с необходимыми правами доступа к ресурсу Windows, windowspass – пароль этого пользователя. Измените права созданного файла так, что редактировать и смотреть его смог только root, то есть сама система:
 sudo chmod 700 /root/.smbcredentials
-//Сохраните изменения и переходите к редактированию файла /etc/fstab:
+#Сохраните изменения и переходите к редактированию файла /etc/fstab:
 sudo nano /etc/fstab
-//И здесь в самом конце добавьте строку типа:
+#И здесь в самом конце добавьте строку типа:
 
-#//192.168.0.11/share /media/sharefolder cifs credentials=/root/.smbcredentials,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0
+//192.168.0.11/share /media/sharefolder cifs credentials=/root/.smbcredentials,iocharset=utf8,file_mode=0777,dir_mode=0777 0 0
 
 # Чтобы увидеть только список пакетов, попробуйте:
 dpkg-query -f '${binary:Package}\n' -W 
