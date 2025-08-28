@@ -1,0 +1,245 @@
+configure
+username mugen
+password Gthtjcvscktybt$32
+privilege 15
+exit
+username techsupport
+password Dtctksqgfhjkm#21
+exit
+tech-support login enable 
+username remote
+password Dtctksqgfhjkm#21
+exit
+system config-confirm timeout 1200
+syslog max-files 3
+syslog file-size 512
+syslog host syslog
+remote-address 10.129.135.130
+port 514
+transport udp
+severity info
+exit
+syslog host siem
+remote-address 10.129.135.165
+port 9516
+transport udp
+severity info
+exit
+hostname AMUR-EDGE-R3
+no ip telnet server
+ip ssh server
+ip ssh authentication algorithm md5 disable
+ip ssh authentication algorithm md5-96 disable
+ip ssh authentication algorithm ripemd160 disable
+ip ssh authentication algorithm sha1 disable
+ip ssh authentication algorithm sha1-96 disable
+ip ssh authentication algorithm sha2-256 disable
+ip ssh encryption algorithm 3des disable
+ip ssh encryption algorithm aes128 disable
+ip ssh encryption algorithm aes128ctr disable
+ip ssh encryption algorithm aes192 disable
+ip ssh encryption algorithm aes192ctr disable
+ip ssh encryption algorithm aes256 disable
+ip ssh encryption algorithm arcfour disable
+ip ssh encryption algorithm arcfour128 disable
+ip ssh encryption algorithm arcfour256 disable
+ip ssh encryption algorithm blowfish disable
+ip ssh encryption algorithm cast128 disable
+ip ssh key-exchange algorithm dh-group-exchange-sha1 disable
+ip ssh key-exchange algorithm dh-group1-sha1 disable
+ip ssh key-exchange algorithm dh-group14-sha1 disable
+ip ssh key-exchange algorithm ecdh-sha2-nistp256 disable
+ip ssh key-exchange algorithm ecdh-sha2-nistp384 disable
+ip ssh key-exchange algorithm ecdh-sha2-nistp521 disable
+ip ssh host-key algorithm dsa disable
+ip ssh host-key algorithm ecdsa256 disable
+ip ssh host-key algorithm ecdsa384 disable
+ip ssh host-key algorithm ecdsa521 disable
+ip ssh host-key algorithm ed25519 disable
+no ip dhcp-server
+no ip dhcp-server pool lan-pool
+no bridge 1
+no bridge 2
+
+no nat source
+no security zone-pair untrusted self
+no security zone-pair trusted untrusted
+no security zone-pair trusted trusted
+no security zone-pair trusted self
+no security zone trusted
+no security zone untrusted
+no boot host auto-config
+no boot host auto-update
+no object-group service dhcp_client
+no object-group service dhcp_server
+
+
+object-group service ISAKMP
+port-range 500
+port-range 4500
+exit
+object-group service TRACEROUTE
+port-range 33434-33529
+exit
+object-group service snmp
+port-range 161
+exit
+
+object-group network ADMINPC
+description "LAN"
+ip address-range 10.129.10.1
+ip address-range 10.129.10.2
+ip address-range 10.129.10.3
+ip address-range 10.129.138.10
+ip address-range 10.129.138.251
+ip address-range 10.129.138.252
+exit
+security zone LAN
+description "LAN"
+exit
+security zone INET
+description "Internet"
+exit
+security zone-pair INET self
+rule 1
+description "VPN"
+action permit
+match protocol udp
+match destination-port object-group ISAKMP
+enable
+exit
+exit
+security zone-pair LAN self
+rule 1
+description "SSH"
+action permit
+match protocol tcp
+match source-address object-group ADMINPC
+match destination-port object-group ssh
+enable
+exit
+rule 2
+description "ospf"
+action permit
+match protocol ospf
+enable
+exit
+rule 100
+description "ICMP"
+action permit
+match protocol icmp
+enable
+exit
+rule 110
+description "NTP"
+action permit
+match protocol udp
+match destination-port object-group ntp
+enable
+exit
+exit
+security zone-pair LAN INET
+rule 100
+description "ICMP"
+action permit
+match protocol icmp
+enable
+exit
+rule 101
+description "TRACEROUTE"
+action permit
+match protocol udp
+match destination-port object-group dns
+enable
+exit
+exit
+router ospf 1
+redistribute static 
+router-id 10.0.138.3
+area 0.0.0.1
+enable
+exit
+enable
+exit
+tunnel vti 1
+ip address 172.16.138.18/30
+local address 91.142.149.82
+remote address 195.206.62.4
+enable
+ip ospf instance 1
+ip ospf area 0.0.0.1
+ip ospf
+exit
+security ike proposal ike_prop1
+authentication algorithm md5
+encryption algorithm aes128
+dh-group 2
+exit
+security ike policy ike_pol1
+pre-shared-key ascii-text yn_enYWbfqo%G9=U4_fJfK;l
+proposal ike_prop1
+exit
+security ike gateway ike_gw1
+version v2-only
+ike-policy ike_pol1
+mode route-based
+bind-interface vti 1
+exit
+security ipsec proposal ipsec_prop1
+authentication algorithm md5
+encryption algorithm aes128
+exit
+security ipsec policy ipsec_pol1
+proposal ipsec_prop1
+exit
+security ipsec vpn ipsec1
+ike establish-tunnel route
+ike gateway ike_gw1
+ike ipsec-policy ipsec_pol1
+exit
+interface gi 1/0/1
+description Outside-WAN
+security-zone INET
+no switchport access vlan
+mode routerport
+ip address 91.142.149.82/30
+security-zone INET
+exit
+interface gi 1/0/2
+description Inside-LAN
+security-zone LAN
+mode routerport
+ip address 10.129.138.253/24
+vrrp group 1
+vrrp ip 10.129.138.254
+vrrp priority 100
+vrrp preempt delay 5
+vrrp track-ip 172.16.138.17
+security-zone LAN
+ip ospf instance 1
+ip ospf priority 1
+ip ospf area 0.0.0.1
+ip ospf
+exit
+interface gigabitethernet 1/0/3
+  shutdown
+exit
+interface gigabitethernet 1/0/4
+  shutdown
+exit
+interface gigabitethernet 1/0/5
+  shutdown
+exit
+interface gigabitethernet 1/0/6
+  shutdown
+exit
+clock timezone gmt +8
+ntp enable
+ntp server 10.129.135.110
+exit
+exit
+update ssh-host-key rsa
+update ssh-host-key rsa 2048
+
+commit
+confirm

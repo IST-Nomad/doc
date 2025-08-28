@@ -1,0 +1,67 @@
+#Настройка со стороны Eltex:
+configure
+tunnel vti 8
+description "CHITA-EDGE-R1"
+mtu 1400
+ip firewall disable
+ip netflow export ingress
+local address 185.242.116.75
+remote address 176.108.177.142
+ip address 172.16.137.21/30
+ip ospf instance 1
+ip ospf area 0.0.0.1
+ip ospf network point-to-point
+ip ospf
+enable
+exit
+security ike gateway CHITA_EDGE_R1
+ike-policy cisco_ike_pol
+mode route-based
+bind-interface vti 8
+mobike disable
+exit
+security ipsec vpn CHITA_EDGE_R1_IPSEC
+mode ike
+ike establish-tunnel route
+ike gateway CHITA_EDGE_R1
+ike ipsec-policy cisco_ipsec_pol
+enable
+exit
+
+
+#Настройка со стороны Cisco:
+
+crypto isakmp policy 20
+encryption aes 128
+authentication pre-share
+group 14
+hash sha
+exit
+crypto ipsec transform-set Eltex-IRK-HO-R3 esp-aes 128 esp-sha-hmac
+mode tunnel
+exit
+crypto ipsec df-bit clear
+crypto keyring Eltex-IRK-HO-R3-KEYRING
+pre-shared-key address 185.242.116.75 key 7#cNd*GS5VRg*Tj_3sV=QGYC
+exit
+crypto isakmp profile Eltex-IRK-HO-R3-PROF
+keyring Eltex-IRK-HO-R3-KEYRING
+match identity address 185.242.116.75 255.255.255.255
+exit
+crypto ipsec profile Eltex-IRK-HO-R3-IPSEC
+set transform-set Eltex-IRK-HO-R3
+set isakmp-profile Eltex-IRK-HO-R3-PROF
+exit
+interface Tunnel3
+description IRK-HO-R3
+bandwidth 100000
+ip address 172.16.137.22 255.255.255.252
+ip mtu 1400
+ip tcp adjust-mss 1300
+tunnel source FastEthernet0/1
+tunnel mode ipsec ipv4
+tunnel destination 185.242.116.75
+tunnel protection ipsec profile Eltex-IRK-HO-R3-IPSEC
+exit
+router ospf 1
+network 172.16.137.20 0.0.0.3 area 0.0.0.1
