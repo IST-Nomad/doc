@@ -14,6 +14,7 @@ restore_prefix = "_day"
 server = 'FINIST'
 server2 = 'FINIST-PRE'
 server3 = 'FINIST-TEST2'
+selected_server = None
 username = 'finistuser'
 password = 'curr'
 backup_path_server_local = r"C:\Backup\Simple_backup"
@@ -143,10 +144,8 @@ def get_original_db_name_regex(backup_name):
 
     return original_db_name
 
-def move_files_backup_files_to_FINIST_PRE():
-    global backup_name
-    global backup_path_server
-    global backup_path_server2
+def move_files_backup_files():
+    global backup_name, backup_path_server, backup_path_server2, backup_path_server3, server2, server3, selected_server
 
     print(f"Переносим бэкап на другой сервер для восстановления! {backup_name}")
 
@@ -154,30 +153,13 @@ def move_files_backup_files_to_FINIST_PRE():
 
     for backup_name in files:
         local_file_path = os.path.join(backup_path_server, backup_name)
-        local_file_path2 = os.path.join(backup_path_server2, backup_name)
+        local_file_path2 = os.path.join(backup_path_server2, backup_name) if restore_prefix == "_day" else os.path.join(backup_path_server2, backup_name) if restore_prefix == "_pre" else os.path.join(backup_path_server3, backup_name)
+        selected_server = server2 if restore_prefix == "_day" else server2 if restore_prefix == "_pre" else server3
     try:
         shutil.move(local_file_path, local_file_path2)
-        print(f"Успешно перемещен: {backup_name} на FINIST-PRE")
+        print(f"Успешно перемещен: {backup_name} на {selected_server}")
     except Exception as e:
-        print(f"Ошибка при перемещении {backup_name} на FINIST-PRE: {e}")
-
-def move_files_backup_files_to_FINIST_TEST2():
-    global backup_name
-    global backup_path_server
-    global backup_path_server3
-
-    print(f"Переносим бэкап на другой сервер для восстановления! {backup_name}")
-
-    files = [f for f in os.listdir(backup_path_server) if os.path.isfile(os.path.join(backup_path_server, f))]
-
-    for backup_name in files:
-        local_file_path = os.path.join(backup_path_server, backup_name)
-        local_file_path2 = os.path.join(backup_path_server3, backup_name)
-    try:
-        shutil.move(local_file_path, local_file_path2)
-        print(f"Успешно перемещен: {backup_name} на FINIST-TEST2")
-    except Exception as e:
-        print(f"Ошибка при перемещении {backup_name} на FINIST-TEST2: {e}")
+        print(f"Ошибка при перемещении {backup_name} на {selected_server}: {e}")
 
 def choose_restore_prefix():
     """Функция выбора префикса для восстановления"""
@@ -214,7 +196,7 @@ def execute_post_restore_script():
     """Выполняет SQL скрипт после восстановления базы"""
     try:
         # Путь к папке со скриптами
-        global scripts_path, server2, username, password, target_db_name
+        global scripts_path, username, password, target_db_name, selected_server
 
         # Формируем имя файла скрипта
         script_filename = f"{target_db_name}.sql"
@@ -232,7 +214,7 @@ def execute_post_restore_script():
 
         # Подключаемся к восстановленной базе
         conn = pymssql.connect(
-            server=server2,
+            server=selected_server,
             user=username,
             password=password,
             database=target_db_name,
@@ -274,14 +256,12 @@ def execute_post_restore_script():
         return False
 
 def restore_database():
-    global server2, server3, username, password, backup_path_server2, backup_path_server3, database_name, target_db_name, restore_prefix, backup_name
+    global selected_server, username, password, backup_path_server2, backup_path_server3, database_name, target_db_name, restore_prefix, backup_name
 
     target_db_name = f"{database_name}{restore_prefix}"
     full_backup_path = os.path.join(backup_path_server2, backup_name) if restore_prefix == "_day" else os.path.join(backup_path_server2, backup_name) if restore_prefix == "_pre" else os.path.join(backup_path_server3, backup_name)
-    #full_backup_path = os.path.join(backup_path_server2, backup_name)
-    server = "server2" if restore_prefix == "_day" else "server2" if restore_prefix == "_day" else "server3"
 
-    print(f"Восстанавливаем 1 {database_name} в {target_db_name}", flush=True)
+    print(f"Восстанавливаем {database_name} в {target_db_name}", flush=True)
 
     conn = None
     cursor = None
@@ -290,7 +270,7 @@ def restore_database():
         # Создание строки подключения
         conn_str = (
             f"DRIVER={{ODBC Driver 17 for SQL Server}};"
-            f"SERVER={server};"
+            f"SERVER={selected_server};"
             f"DATABASE=master;"
         )
 
@@ -302,7 +282,7 @@ def restore_database():
         cursor = conn.cursor()
         conn.autocommit = True
 
-        print(f"Подключено к серверу {server}")
+        print(f"Подключено к серверу {selected_server}")
 
         # Получение подробной информации о файлах из бэкапа
         cursor.execute("RESTORE FILELISTONLY FROM DISK = ?", (full_backup_path,))
@@ -320,14 +300,19 @@ def restore_database():
         for i, file_info in enumerate(files_info):
             logical_name = file_info[0]  # LogicalName
             file_type = file_info[2]  # Type (D - data, L - log)
-
+            if restore_prefix == '_pre':
+                target_path = f"C:\\MSSQL16.MSSQLSERVER_PRE\\MSSQL"
+            elif restore_prefix == '_day':
+                target_path = f"C:\\MSSQL16.MSSQLSERVER_PRE\\MSSQL"
+            else:
+                target_path = f"C:\\MSSQL\\MSSQL16.MSSQLSERVER\\MSSQL"
             # Создаем абсолютно уникальные пути для каждого файла
             if file_type == 'D':  # Data file
-                new_physical_name = f"C:\\MSSQL16.MSSQLSERVER_PRE\\MSSQL\\DATA\\{target_db_name}_{logical_name}_{i}.ndf"
+                new_physical_name = f"{target_path}\\DATA\\{target_db_name}_{logical_name}_{i}.ndf"
             elif file_type == 'L':  # Log file
-                new_physical_name = f"C:\\MSSQL16.MSSQLSERVER_PRE\\MSSQL\\DATA\\{target_db_name}_{logical_name}_{i}.ldf"
+                new_physical_name = f"{target_path}\\DATA\\{target_db_name}_{logical_name}_{i}.ldf"
             else:
-                new_physical_name = f"C:\\MSSQL16.MSSQLSERVER_PRE\\MSSQL\\DATA\\{target_db_name}_{logical_name}_{i}.dat"
+                new_physical_name = f"{target_path}\\DATA\\{target_db_name}_{logical_name}_{i}.dat"
 
             move_commands.append(f"MOVE N'{logical_name}' TO N'{new_physical_name}'")
             print(f"    -> будет перемещен в: {new_physical_name}")
@@ -420,11 +405,11 @@ def delete_all_files():
     """
     Удаляет все файлы в указанной директории, но сохраняет саму папку
     """
-    global backup_path_server2
+    global backup_path_server2, backup_path_server3
 
     try:
         # Преобразуем путь в Path объект
-        dir_path = Path(backup_path_server2)
+        dir_path = Path(backup_path_server2) if restore_prefix == "_day" else Path(backup_path_server2) if restore_prefix == "_pre" else Path(backup_path_server3)
 
         # Проверяем существование директории
         if not dir_path.exists():
@@ -451,12 +436,17 @@ def delete_all_files():
         print(f"Общая ошибка: {e}")
         return False
 
+def send2jabber(text):
+        subprocess.run(
+            ["\\\\API-FINCERT\\app\\Send2Jabber.exe", "backup@jabber.tcbdomen.trustcombank.ru", "backup", "10.129.135.253",
+             "5222", "600-oit@jabber.tcbdomen.trustcombank.ru", text])
+
 if __name__ == "__main__":
     print("=" * 50)
     print("СКРИПТ СОЗДАНИЯ БЭКАПА БАЗ ДАННЫХ")
     print("=" * 50)
     create_database_backup()
-    move_files_backup_files_to_FINIST_PRE()
+    move_files_backup_files()
     if backup_name:
         print("\n" + "=" * 50)
         print("НАЧАЛО ВОССТАНОВЛЕНИЯ БАЗЫ")
@@ -465,10 +455,13 @@ if __name__ == "__main__":
         restore_success = restore_database()
 
         if restore_success:
+
             print("✓ Процесс завершен успешно!")
+            send2jabber(f'{target_db_name} восстановлена на {selected_server}')
             execute_post_restore_script()
         else:
             print("✗ Процесс завершен с ошибками!")
+            send2jabber(f'Ошибка восстановления {target_db_name} на {selected_server}')
     else:
         print("Не удалось найти бэкап для восстановления")
     delete_all_files()
