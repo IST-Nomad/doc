@@ -1,0 +1,41 @@
+server:
+  port: 8181
+#  ssl:
+#    enabled: true
+#    key-alias: tomcat
+#    key-store-password: 1qaz@WSX
+#    key-store: file:keystore.p12
+#    key-store-type: PKCS12
+logging:
+  level:
+    root: ERROR
+    org.springframework.web: ERROR
+    org.springframework.web.HttpLogging: ERROR
+    org.springframework.security: ERROR
+    org.springframework.security.oauth2: ERROR
+    org.springframework.cloud.gateway: ERROR
+# output to a file
+  file: ${user.dir}/log/gateway.log
+
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway:
+            provider: uaa
+            client-id: gateway
+            client-secret: secret
+            authorization-grant-type: authorization_code
+            redirect-uri-template: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          uaa:
+            authorization-uri: ${uaa.url}/uaa/oauth/authorize
+            token-uri: ${uaa.url}/uaa/oauth/token
+            user-info-uri: ${uaa.url}/uaa/userinfo
+            user-name-attribute: sub
+            jwk-set-uri: ${uaa.url}/uaa/token_keys

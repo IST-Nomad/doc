@@ -1,0 +1,23 @@
+spring:
+  autoconfigure:
+    exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
+  thymeleaf:
+    cache: false
+  security:
+    oauth2:
+      client:
+        registration:
+          gateway:
+            provider: keycloak
+            client-id: delta
+            client-secret: Le9nT4TGGcUuDBBBRmfDPlAndv9ncf0y
+            authorization-grant-type: authorization_code
+            scope: openid,profile,email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          keycloak:
+            authorization-uri: http://localhost:8080/realms/master/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/realms/master/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
