@@ -1,0 +1,28 @@
+pwgen -c -n -y 12
+
+ # -c or --capitalize
+	Включает одну заглавную букву
+ # -A or --no-capitalize
+	Don't include capital letters in the password
+ # -n or --numerals
+	Включает одну цифру
+ # -0 or --no-numerals
+	не включает цифры
+ # -y or --symbols
+	Включает один символ
+ # -r <chars> or --remove-chars=<chars>
+	Remove characters from the set of characters to generate passwords
+ # -s or --secure
+	Generate completely random passwords
+ # -B or --ambiguous
+	Don't include ambiguous characters in the password
+ # -h or --help
+	Print a help message
+ # -H or --sha1=path/to/file[#seed]
+	Use sha1 hash of given file as a (not so) random generator
+ # -C
+	Print the generated passwords in columns
+ # -1
+	Don't print the generated passwords in columns
+ # -v or --no-vowels
+	Do not use any vowels so as to avoid accidental nasty words
