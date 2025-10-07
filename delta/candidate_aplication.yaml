@@ -1,3 +1,22 @@
+server:
+  port: 8181
+#  ssl:
+#    enabled: true
+#    key-alias: tomcat
+#    key-store-password: 1qaz@WSX
+#    key-store: file:keystore.p12
+#    key-store-type: PKCS12
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.web.HttpLogging: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.security.oauth2: DEBUG
+    org.springframework.cloud.gateway: DEBUG
+# output to a file
+  file: ${user.dir}/log/gateway.log
+
 spring:
   autoconfigure:
     exclude: org.springframework.boot.actuate.autoconfigure.security.reactive.ReactiveManagementWebSecurityAutoConfiguration
@@ -9,15 +28,15 @@ spring:
         registration:
           gateway:
             provider: keycloak
-            client-id: delta
-            client-secret: Le9nT4TGGcUuDBBBRmfDPlAndv9ncf0y
+            client-id: deltaclient
+            client-secret: WNJ5jXWMSLfIrNpxECpVU1PMObBG1rzO
             authorization-grant-type: authorization_code
-            scope: openid,profile,email
+            #scope: user_id,user_name,email
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
         provider:
           keycloak:
-            authorization-uri: http://localhost:8080/realms/master/protocol/openid-connect/auth
-            token-uri: http://localhost:8080/realms/master/protocol/openid-connect/token
-            user-info-uri: http://localhost:8080/realms/master/protocol/openid-connect/userinfo
-            jwk-set-uri: http://localhost:8080/realms/master/protocol/openid-connect/certs
-            user-name-attribute: preferred_username
+            authorization-uri: http://10.129.135.79:8080/realm/delta/protocol/openid-connect/auth
+            token-uri: http://10.129.135.79:8080/realm/delta/protocol/openid-connect/token
+            user-info-uri: http://10.129.135.79:8080/realm/delta/protocol/openid-connect/userinfo
+            jwk-set-uri: http://10.129.135.79:8080/realm/delta/protocol/openid-connect/certs
+            user-name-attribute: sub
