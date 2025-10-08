@@ -1,5 +1,4 @@
 
-
 #Обновление 
 dnf update
 
@@ -18,3 +17,14 @@ systemctl enable zabbix-agent
 systemctl start zabbix-agent
 systemctl status zabbix-agent
 
+#Ограничение логирования systemd-journald
+
+sudo nano /etc/systemd/journald.conf
+
+[Journal]
+SystemMaxUse=1G
+SystemMaxFileSize=100M
+SystemMaxFiles=10
+MaxRetentionSec=1week
+
+sudo systemctl restart systemd-journald
