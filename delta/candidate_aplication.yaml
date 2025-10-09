@@ -1,11 +1,11 @@
 server:
-  port: 8181
-#  ssl:
-#    enabled: true
-#    key-alias: tomcat
-#    key-store-password: 1qaz@WSX
-#    key-store: file:keystore.p12
-#    key-store-type: PKCS12
+  port: 443
+  ssl:
+    enabled: true
+    key-alias: tomcat
+    key-store-password: 1qaz@WSX
+    key-store: file:keystore.p12
+    key-store-type: PKCS12
 logging:
   level:
     root: INFO
