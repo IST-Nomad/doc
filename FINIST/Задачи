@@ -1,0 +1,6 @@
+Чтобы убрать пароли из строки подключения необходимо
+1) создать техническую учетную запись , под которой будет запускаться сервер приложений 
+2) дать необходимые доступы в MSSQL сервер для данного пользователя 
+3) в настройках службы прописать технического пользователя 
+4) поменять connection string , пример:
+  <ConnectionString value="server=sql2019; database=GestBank; integrated security=SSPI;  persist security info=True; packet size=4096; connection lifetime=500; min pool size=1; max pool size=50" />
