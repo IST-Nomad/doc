@@ -90,3 +90,50 @@ find /var/log/ -type f -name "*log" -exec cp /dev/null {} \;
 yum clean all
 rm -rf /var/cache/yum
 rm -rf /var/tmp/yum-*
+
+
+
+
+24.10.25
+
+1. Проверим текущий размер диска в системе:
+fdisk -l /dev/sda
+
+2. Скорее всего нужно пересканировать диск, чтобы система увидела новый размер:
+echo 1 > /sys/class/block/sda/device/rescan
+
+3. После пересканирования, расширьте раздел sda3:
+cfdisk /dev/sda
+Или используйте parted:
+parted /dev/sda
+В parted:
+print
+resizepart 3 100%
+quit
+
+4. Расширьте физический том LVM:
+pvresize /dev/sda3
+
+5. Проверьте, что появилось свободное место:
+pvs
+vgs
+
+6. Расширьте логический том:
+lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv
+
+7. Расширьте файловую систему:
+resize2fs /dev/ubuntu-vg/ubuntu-lv
+
+8. Проверьте результат:
+df -h
+vgs
+lvs
+
+
+
+Если нет LVM
+
+Для ext4:
+
+parted /dev/sda resizepart 4 100%
+resize2fs /dev/sda4
