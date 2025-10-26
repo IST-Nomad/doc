@@ -1,0 +1,23 @@
+:: Пользователь БД
+set user=KRONA
+
+:: Пароль пользователь БД
+set pass=Hjrjnfnm9213
+
+:: ODBC DSN
+set dsn=krona
+
+set connstring="dsn="%dsn%";user id="%user%";password="%pass%
+
+fmtxml /d /i -cs:%connstring% .\XML
+
+
+
+Рокотать
+
+
+
+
+
+KRONA Hjrjnfnm9213
+SYS SYSTEM Продовольствие15980
