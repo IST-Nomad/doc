@@ -153,3 +153,11 @@ docker compose logs -f wazuh.indexer --tail 100
 
 
 
+Остановить все запущенные контейнеры:
+docker stop $(docker ps -aq)
+
+Удалить все контейнеры (остановленные и запущенные):
+docker rm -f $(docker ps -aq)
+
+Остановить и удалить все контейнеры одной командой:
+docker rm -f $(docker ps -aq)

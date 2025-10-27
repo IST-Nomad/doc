@@ -1,0 +1,100 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/conf:/etc/postgresql.conf:ro
+    command: >
+      postgres
+      -c config_file=/etc/postgresql.conf
+      -c shared_buffers=256MB
+      -c effective_cache_size=1GB
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 1G
+        reservations:
+          memory: 512M
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U keycloak -d keycloak"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - keycloak_network
+
+  keycloak:
+    image: quay.io/keycloak/keycloak:19.0.3
+    environment:
+      KEYCLOAK_ADMIN: ${KEYCLOAK_ADMIN_USER}
+      KEYCLOAK_ADMIN_PASSWORD: ${KEYCLOAK_ADMIN_PASSWORD}
+      KC_HOSTNAME: ${KEYCLOAK_HOSTNAME}
+      KC_HTTPS_CERTIFICATE_FILE: /opt/keycloak/certs/tls.crt
+      KC_HTTPS_CERTIFICATE_KEY_FILE: /opt/keycloak/certs/tls.key
+      KC_LOG_LEVEL: INFO
+      KC_METRICS_ENABLED: "true"
+      KC_HEALTH_ENABLED: "true"
+      JAVA_OPTS: >
+        -Xms1024m
+        -Xmx2048m
+        -XX:MetaspaceSize=96M
+        -XX:MaxMetaspaceSize=256m
+        -Djava.awt.headless=true
+        -Djava.security.egd=file:/dev/./urandom
+        -Djboss.modules.system.pkgs=org.jboss.byteman
+        -Djava.util.logging.manager=org.jboss.logmanager.LogManager
+    command: >
+      bash -c "
+        mkdir -p /opt/keycloak/certs &&
+        openssl req -x509 -newkey rsa:2048 -keyout /opt/keycloak/certs/keycloak.key -out /opt/keycloak/certs/keycloak.crt -days 365 -nodes -subj '/CN=keycloak.tcbdomen.trustcombank.ru' &&
+        /opt/keycloak/bin/kc.sh start --db=postgres --db-url=jdbc:postgresql://postgres:5432/keycloak --db-username=keycloak --db-password=$${POSTGRES_PASSWORD} --http-enabled=false --https-port=8443 --hostname-strict=true --hostname-strict-https=true --proxy-headers=xforwarded --cache=ispn --cache-stack=kubernetes
+      "
+    ports:
+      - "8443:8443"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 3G
+        reservations:
+          memory: 1G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health/ready"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    volumes:
+      - keycloak_data:/opt/keycloak/data
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    networks:
+      - keycloak_network
+
+volumes:
+  postgres_data:
+  keycloak_data:
+
+networks:
+  keycloak_network:
+    driver: bridge

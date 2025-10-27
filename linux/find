@@ -216,3 +216,7 @@ find . -empty
 
 Поиск крупных и мелких файлов (поиск по размеру файла)
 find . -size +1G
+
+
+find /home/delta/delta-linux-x64-5.0 -name "*.log" -type f
+

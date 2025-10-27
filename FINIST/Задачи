@@ -65,3 +65,19 @@ File name: 'C:\Windows\system32\appsettings.json'
     "db_pass": "enc:pn0EVZ4="
   }
 
+
+
+
+1 шаг 
+appsettings.json 
+  "GEstSecrets": {
+    "db_pass": "server=FINIST-PRE; database=GEstBank_Krona_day; integrated security=false; user=finistuser; password=curr; persist security info=True; packet size=4096; connection lifetime=500; min pool size=1; max pool size=50"
+  }
+2 шаг 
+перейти в директорию 
+cd C:\Finist_day\GEstBank\Server
+запустить шифрование
+GEstBank.Server.Service60.exe gest-secrets-enc
+3 шаг
+GEstBank.Server.Service60.dll.config
+<ConnectionString value="@gest-secret:db_pass" /> 
