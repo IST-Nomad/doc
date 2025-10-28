@@ -62,12 +62,6 @@ services:
         -XX:MaxMetaspaceSize=256m
         -Djava.awt.headless=true
         -Djava.security.egd=file:/dev/./urandom
-    command: >
-      bash -c "
-        mkdir -p /opt/keycloak/certs &&
-        openssl req -x509 -newkey rsa:2048 -keyout /opt/keycloak/certs/tls.key -out /opt/keycloak/certs/tls.crt -days 365 -nodes -subj '/CN=$${KC_HOSTNAME}' &&
-        /opt/keycloak/bin/kc.sh start
-      "
     ports:
       - "8443:8443"
     depends_on:
