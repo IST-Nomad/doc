@@ -11,3 +11,11 @@ find /path -name "pattern*" -type d -exec rm -rf {} + #Удаление чере
 sudo dnf search <ключевое_слово>
 dnf list installed | grep openjdk #Проверить, установлен ли пакет
 rpm -qa | grep openjdk #Проверить, установлен ли пакет
+
+
+
+#Почистить логи
+find /var/log/ -type f -name "*log" -exec cp /dev/null {} \;
+yum clean all
+rm -rf /var/cache/yum
+rm -rf /var/tmp/yum-*
