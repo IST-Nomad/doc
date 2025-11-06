@@ -126,8 +126,6 @@ https://habr.com/ru/articles/716232/
 
 
 
-curl -sO https://packages.wazuh.com/4.10/wazuh-install.sh && sudo bash ./wazuh-install.sh -a
-
 
 
 Le9nT4TGGcUuDBBBRmfDPlAndv9ncf0y
